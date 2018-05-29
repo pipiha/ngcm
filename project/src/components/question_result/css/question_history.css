@@ -1,0 +1,102 @@
+html,body{
+    background-color: #F3F6F5;
+}
+.question_wrap{
+    width: 100%;
+}
+.qs_bj{
+    width: 100%;
+    height: 3.2rem;
+}
+.qs_bj img{
+    width: 100%;
+    height: 100%;
+}
+.qs_history_ul{
+    width: 92%;
+    margin: 0 auto;
+}
+.qs_history_ul li{
+    width: 100%;
+    /* height: 7.25rem; */
+    border-radius: 0.3rem;
+    margin: 0.1rem auto;
+}
+.qs_history_up{
+    width: 100%;
+    height: 0.8rem;
+    background-color: #F3F6F5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.qs_history_up p{
+    font-size: 0.35rem;
+    color: #666666;
+}
+.history_on{
+    color: #5286EC!important;
+}
+.qs_history_center{
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    border-radius: 0.3rem;
+}
+.qs_history_center ul li{
+    width: 100%;
+    height: 1.2rem;
+    border-bottom: 0.02rem solid #EBEBEB;
+    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.qs_history_center ul li span{
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    color:  #666666;
+    font-size: 0.38rem;
+    line-height: 1.2rem;
+    text-align: left;
+    margin-left: 0.4rem;
+    width: 50%;
+}
+.qs_history_center ul li span:nth-of-type(2){
+    float: right;
+    text-align: right;
+    margin-right: 0.4rem;
+}
+.qs_history_center ul li:nth-of-type(4),.qs_history_center ul li:nth-of-type(5){
+    border: none;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 0.02rem solid #EBEBEB;
+}
+.qs_history_center ul li p{
+    /* style="width:100%;height: 1.2rem;" */
+    display: block;
+    width:100%;
+    height:1.2rem;
+    color:  #666666;
+    font-size: 0.38rem;
+    line-height: 1.2rem;
+    text-align: left;
+    margin-left: 0.4rem;
+    padding-left: 0.4rem;
+}
+.qs_history_center ul li div{
+    width: 92%;
+    margin:0 auto;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    color: #999999;
+    font-size: 0.38rem;
+}
+.zhan_huifu{
+    text-align: right;
+    margin-right: 1.5rem;
+    color: #5286EC!important;
+}

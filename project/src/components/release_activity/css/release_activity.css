@@ -1,0 +1,218 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: 'Microsoft YaHei';
+}
+.release_up{
+    border-top: 0.3rem solid #F3F6F5;
+    border-bottom: 0.1rem solid #F3F6F5;
+    background-color: #fff;
+}
+.uploadImg {
+	width: 92%;
+    height: 3.7rem;
+    background-color: #F3F6F5;
+    border-radius: 0.2rem;
+    margin:0.5rem auto;
+    padding:0.1px;
+}
+.uploadImg .upload_file {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	opacity: 0;
+}
+.upload_ctn_img{
+    position: absolute;
+	width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.up_text_wrap{
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #fff;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 0.8rem;
+    overflow: hidden;
+}
+.up_text_wrap img{
+    width: 66%;
+    height: 66%;
+    margin-top: 0.25rem;
+    margin-left: 0.25rem;
+}
+.uploadImg p{
+    text-align: center;
+    color:  #CBCBCB;
+    font-size: 0.3rem;
+    margin-top: 0.3rem;
+}
+.act_describe_wrap{
+    width: 92%;
+    margin:0 auto;
+    cursor: pointer;
+}
+.act_describe_wrap p{
+    width: 100%;
+    height: 1rem;
+    font-size: 0.4rem;
+    color:  #666666;
+    border-bottom: 0.02rem solid #F3F6F5;
+    text-align: left;
+}
+.act_describe_wrap textarea{
+    width: 100%;
+    height: 3rem;
+    border: none;
+    text-align: left;
+    font-size: 0.38rem;
+    color: #CBCBCC;
+    padding-top: 0.3rem;
+}
+.act_describe_wrap textarea::-webkit-input-placeholder{
+    color: #CBCBCC;
+  }
+  .act_describe_wrap textarea::-moz-input-placeholder{
+    color: #CBCBCC;
+  }
+  .act_describe_wrap textarea::-ms-input-placeholder{
+    color: #CBCBCC;
+  }
+  .act_describe_wrap textarea::-o-input-placeholder{
+    color: #CBCBCC;
+  }
+.more_img{
+    float: right;
+    transform:rotate(-90deg);
+    /* width: 0.5rem; */
+    height: 0.4rem;
+    margin-top: -0.8rem;
+    margin-right: 0.1rem;
+}
+.release_down{
+    background-color: #fff;
+}
+.release_down ul{
+    width: 92%;
+    margin: 0 auto;
+}
+.release_down ul li{
+    width: 100%;
+    height: 1.5rem;
+    border-bottom: 0.02rem solid #F3F6F5;
+}
+.release_down ul li p{
+    width: 20%;
+    height: 100%;
+    line-height: 1.5rem;
+    font-size: 0.4rem;
+    color: #666666;
+    float: left;
+}
+.finish_btn{
+    width: 92%;
+    height: 1.07rem;
+    margin:0 auto;
+    background: -webkit-linear-gradient(-90deg, #4189D0 0%, #5286EC 68%);
+    background: -moz-linear-gradient(-90deg, #4189D0 0%, #5286EC 68%);
+    background: -o-linear-gradient(-90deg, #4189D0 0%, #5286EC 68%);
+    background: linear-gradient(-90deg, #4189D0 0%, #5286EC 68%);
+    border-radius: 0.7rem;
+    text-align: center;
+    line-height: 1.07rem;
+    color: #fff;
+    font-size: 0.38rem;
+    margin-top: 0.7rem;
+    cursor: pointer;
+}
+.li_right{
+    width: 76%;
+    height: 100%;
+    float: right;
+}
+.li_right img{
+  width: 0.35rem;
+  height: 0.534rem;
+  float: right;
+  margin-top: 0.35rem;
+  margin-right: 0.5rem;
+}
+.li_right div{
+    width: 1.4rem;
+    height: 0.7rem;
+    border: 0.02rem solid #999999;
+    border-radius: 0.2rem;
+    float: left;
+    margin-top: 0.45rem;
+    margin-right: 0.25rem;
+    text-align: center;
+    line-height: 0.7rem;
+    color: #999999;
+    font-size: 0.3rem;
+    cursor: pointer;
+}
+.on{
+    border: 0.02rem solid #5286EC!important;
+    color: #fff!important;
+}
+.li_right input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 0.4rem;
+}
+.li_right input::-webkit-input-placeholder{
+    color: #CBCBCC;
+}
+.li_right input::-moz-input-placeholder{
+    color: #CBCBCC;
+}
+.li_right input::-o-input-placeholder{
+    color: #CBCBCC;
+}
+.li_right input::input-placeholder{
+    color: #CBCBCC;
+}
+
+/* 弹窗 */
+.alert_collect_wrap {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.3);
+}
+.alert_box {
+    width: 76%;
+    height: 4.67rem;
+    background-color: #fff;
+    border-radius: 0.3rem;
+    margin-left: 12%;
+    margin-top: 57%;
+    text-align: center;
+}
+.alert_box div{
+    width: 100%;
+    height: 1rem;
+}
+.alert_box div img{
+    width: 0.7rem;
+    height: 0.7rem;
+    float: right;
+    margin-top: 0.3rem;
+    margin-right: 0.3rem;
+    cursor: pointer;
+}
+.alert_box img{
+    width: 75%;
+    height: 47%;
+    margin-top: 5%;
+}
+

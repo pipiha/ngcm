@@ -1,0 +1,131 @@
+*{
+  margin:0;
+  padding:0;
+  font-family: 'Microsoft YaHei';
+}
+html,body{
+  background-color:#F3F6F5;
+}
+.up-img{
+  width: 100%;
+  height: 4rem;
+  text-align: center;
+  line-height: 5rem;
+}
+.up-img img{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.login-input-box{
+  width: 100%;
+  /* height: 6rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0 1rem 0;
+}
+.login_msg{
+  width: 100%;
+  height: 1.46rem;
+  border-bottom: 0.03rem solid #dcdcdc;
+  line-height: 1.4rem;
+  background-color: #FFFFFF;
+}
+.login_msg img{
+  width: 0.35rem;
+  margin-top: 0.35rem;
+  margin-left: 0.45rem;
+}
+.login_msg img:nth-of-type(1){
+  float: left;
+  margin-top: 0.5rem;
+  margin-right: 0.2rem;
+}
+.login_msg img:nth-of-type(2){
+  float: right;
+}
+.login_msg input{
+  width: 5rem;
+  height: 1rem;
+  border: none;
+  font-size: 0.35rem;
+  color: #CBCBCC;
+  padding-left: 0.1rem;
+}
+.login_msg input::-webkit-input-placeholder{
+  color: #CBCBCC;
+}
+.login_msg input::-moz-input-placeholder{
+  color: #CBCBCC;
+}
+.login_msg input::-ms-input-placeholder{
+  color: #CBCBCC;
+}
+.login_msg input::-o-input-placeholder{
+  color: #CBCBCC;
+}
+.login_msg input:focus{
+  height: 1rem;
+  outline: none;
+}
+.msg_btn{
+  display: inline-block;
+  width: 2rem;
+  height: 0.8rem;
+  float: right;
+  font-size: 0.4rem;
+  font-weight: bold;
+  line-height: 0.8rem;
+  margin: 0.38rem 0.4rem 0 0;
+  color: #5286EC;
+}
+.login_msg .yanzheng{
+  width: 1.8rem;
+  height: 0.8rem;
+  float: right;
+  margin-top: 0.5rem;
+  margin-right: 0.4rem;
+}
+.login_msg .yanzheng img{
+  width: 1.8rem;
+  height: 0.8rem;
+  margin-top: 0;
+}
+.login_msg .yanzheng:hover{
+  cursor: pointer;
+}
+
+#sure_btn{
+  width: 92%;
+  height: 1.08rem;
+  background: -webkit-linear-gradient(-90deg, #4189D0 0%, #5286EC 68%);
+  margin: 0 auto;
+  color: #fff;
+  text-align: center;
+  line-height: 1.08rem;
+  font-size: 0.4rem;
+  border-radius: 1.2rem;
+}
+
+
+/* 弹框 */
+.alert_wrap{
+  position: absolute;
+  top: 43%;
+  left: 27%;
+  width: 4.5rem;
+  height: 1rem;
+  background-color: rgba(0,0,0,.4);
+  border-radius: 1rem;
+  text-align: center;
+  line-height: 1rem;
+  font-size: 0.4rem;
+  color: #fff;
+  display: none;
+}
+
+
+
+
+/*  */

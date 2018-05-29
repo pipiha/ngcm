@@ -1,0 +1,111 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: 'Microsoft YaHei';
+}
+.make_adv_title{
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+.make_adv_title p:nth-of-type(1){
+    color: #333333;
+    font-size: 0.5rem;
+    font-weight: bold;
+    line-height: 1.3rem;
+}
+.make_adv_title p:nth-of-type(2){
+    font-size: 0.38rem;
+    color: #333333;
+}
+.make_adv_center{
+    width: 92%;
+    height: 5.2rem;
+    margin: 1rem auto;
+    box-shadow: 0 0.02rem 0.4rem 0.2rem #EAEAEA;
+    border-radius: 0.2rem;
+}
+.sure_btn{
+    width: 92%;
+    height: 1.08rem;
+    background: -webkit-linear-gradient(-90deg, #4189D0 0%, #5286EC 68%);
+    margin: 0 auto;
+    color: #fff;
+    text-align: center;
+    line-height: 1.08rem;
+    font-size: 0.4rem;
+    border-radius: 1.2rem;
+}
+.make_adv_left{
+    width: 50%;
+    height: 100%;
+    float: left;
+    /* background-color: pink; */
+}
+.make_adv_right{
+    height: 100%;
+    /* background-color: antiquewhite; */
+}
+.make_adv_left div{
+    width: 2.55rem;
+    height: 2.55rem;
+    border: 0.02rem solid  #EAEBEB;
+    border-radius: 0.15rem;
+    text-align: center;
+    margin: 0.2rem 0 0.2rem 0.25rem;
+    background-color: #fff;
+}
+.make_adv_left div img{
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-top: 34%;
+}
+.make_adv_left input{
+    width: 3.2rem;
+    height: 0.8rem;
+    margin: 0 0 0.2rem 0.3rem;
+    border: 0.02rem solid  #EAEBEB;
+    border-radius: 0.15rem;
+    padding-left: 0.3rem;
+    font-size: 0.38rem;
+}
+.make_adv_left input::-webkit-input-placeholder{
+    color: #C9C9C9;
+}
+.make_adv_left input::-moz-input-placeholder{
+    color: #C9C9C9;
+}
+.make_adv_left input::-o-input-placeholder{
+    color: #C9C9C9;
+}
+.make_adv_left input::input-placeholder{
+    color: #C9C9C9;
+}
+
+.make_adv_right{
+    text-align: center;
+    padding: 0.1px;
+}
+.make_adv_right div{
+    width: 2.15rem;
+    height: 2.15rem;
+    margin: 11% 0 0 11%;
+    background-color: #FEFEFE;
+    /* box-shadow: 0 5px 10px 0 rgba(224,224,229,0.60); */
+    box-shadow: 0 0.02rem 0.4rem 0 rgba(224,224,229,0.60);
+    border-radius: 50%;
+    float: left;
+}
+.make_adv_right div img{
+    width: 60%;
+    height: 60%;
+    margin-top: 19%;
+}
+.make_adv_right p{
+    width: 100%;
+    display: block;
+    margin-top: 3.5rem;
+    color: #666666;
+    font-size: 0.34rem;
+}
+  

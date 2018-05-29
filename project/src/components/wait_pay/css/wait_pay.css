@@ -1,0 +1,60 @@
+html,body{
+    background-color: #F3F6F5;
+}
+.wait_pay_up{
+    width: 100%;
+    height: 1.87rem;
+    background-color: #5286EC;
+}
+.wait_pay_up p{
+    width: 46%;
+    height: 100%;
+    text-align: left;
+    float: left;
+    padding-left: 1rem;
+    line-height: 1.87rem;
+    color: #fff;
+    font-size: 0.48rem;
+}
+.wait_pay_up img{
+    width: 1.8rem;
+    height: 1.5rem;
+    margin-top: 0.2rem;
+    margin-left: 1.5rem;
+}
+.pay_center_box{
+    width: 92%;
+    /* height: 3rem; */
+    background-color: #fff;
+    margin:0.3rem auto;
+    border-radius: 0.2rem;
+}
+.pay_center_box li{
+    width: 100%;
+    height: 1.36rem;
+    border-bottom: 0.01rem solid #EBEBEB;
+}
+.pay_center_box li span:nth-of-type(1){
+    display: inline-block;
+    width: 42%;
+    height: 100%;
+    padding-left: 1rem;
+    line-height: 1.36rem;
+    font-size: 0.4rem;
+    float: left;
+    text-align: left;
+    padding-left: 0.7rem;
+    color: #666666;
+}
+.pay_center_box li span:nth-of-type(2){
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    padding-left: 1rem;
+    line-height: 1.36rem;
+    font-size: 0.4rem;
+    float: right;
+    text-align: right;
+    padding-right: 0.5rem;
+    color: #666666;
+}
