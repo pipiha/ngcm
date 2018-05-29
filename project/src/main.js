@@ -9,14 +9,13 @@ import VueWechatTitle from 'vue-wechat-title';
 import Mint from 'mint-ui';
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-// import Vant from 'vant';
-// import 'vant/lib/vant-css/index.css';
+import axios from 'axios' 
 
-// Vue.use(iView);  
 Vue.use(Mint);
-// Vue.use(Vant);
 Vue.use(VueWechatTitle);
 
+Vue.prototype.$axios = axios;
+// Vue.prototype.HOST = 'http://argri.laimaidi.com/index.php';
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
