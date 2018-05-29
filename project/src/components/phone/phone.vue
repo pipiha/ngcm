@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     getuserInfo: function () {
-      this.$axios.get(this.utils.BaseURL + '/wxpub/user/getuserinfo.html')
+      this.$axios.get(this.utils.BaseURL + '/wxpub/user/getuserinfo')
         .then((res) => {
           console.log(res, '这是axios请求回来的')
           //   res为axios包装后的数据体 自己请求的数据 在res。data 里面
