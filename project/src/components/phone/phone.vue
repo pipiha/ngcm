@@ -24,12 +24,43 @@
 
 <script>
 export default {
-    
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    getuserInfo: function () {
+      this.$axios.get(this.utils.BaseURL + '/wxpub/user/getuserinfo.html')
+        .then(function (res) {
+          console.log(res)
+          if (res.code == 200) {
+            console.log(res.data)
+          }
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    },
+    getImg: function () {
+
+    }
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    this.getuserInfo()
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+
+  }
 }
 </script>
 
 <style scope>
 @import './css/phone.css';
 </style>
-
-

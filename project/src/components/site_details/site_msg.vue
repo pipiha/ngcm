@@ -4,7 +4,7 @@
         <div class="wrap">
         <!-- 展示图片 -->
         <div class="ad_img_wrap">
-            <a class="img_big" href=""><div class="ad_img_up"> 
+            <a class="img_big" href=""><div class="ad_img_up">
                 <img class="ad_img" src="./img/iii.png" alt="">
             </div>
             </a>
@@ -17,7 +17,7 @@
             <li>
                 <span>点位地址</span>
                 <!-- <p class="line">离线</p>  .on 在线 -->
-                <div class="line on">在线</div> 
+                <div class="line on">在线</div>
                 <p class="site_address" style="position: relative;">晋州-小焦镇</p>
                 <!-- <p>离线</p> -->
             </li>
@@ -53,7 +53,7 @@
         </div>
 
         <!-- <div class="my-gallery">
-            
+
             <figure>
                 <a href="http://img.agrimedia.cn/icon_ec:3d:fd:fb:c1:7820180416172353" data-size="800x400">
                     <div class="screen_img_one">
@@ -62,7 +62,6 @@
                 </a>
             </figure>
         </div> -->
-
 
     </div>
 
@@ -88,7 +87,7 @@
                     </div>
                  </div>
                  <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                     <div class="pswp__share-tooltip"></div> 
+                     <div class="pswp__share-tooltip"></div>
                     </div>
                  <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
                  <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
@@ -98,7 +97,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- loading加载 -->
     <Row style="top:0;left:0;" v-show="isLoding">
@@ -110,22 +108,20 @@
         </Col>
     </Row>
 
-
-
 </div>
 </template>
 
 <script>
 // import { Indicator  } from 'minu-ui';
 export default {
-    components:{
-        // Indicator
-    },
-    data(){
-        return {
-            isLoding: false
-        }
+  components: {
+    // Indicator
+  },
+  data () {
+    return {
+      isLoding: false
     }
+  }
 }
 </script>
 
@@ -149,5 +145,3 @@ export default {
         left: 34%;
     }
 </style>
-
-
