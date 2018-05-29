@@ -39,12 +39,10 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 
 <style>
 @import './css/pay_detail.css'
 </style>
-
-

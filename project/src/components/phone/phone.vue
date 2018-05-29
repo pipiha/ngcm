@@ -24,12 +24,10 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 
 <style scope>
 @import './css/phone.css';
 </style>
-
-
