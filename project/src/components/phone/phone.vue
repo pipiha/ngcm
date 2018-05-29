@@ -9,7 +9,7 @@
             <div class="login_msg">
                 <img style="margin-top:0.6rem;width: 0.4rem;" src="./img/picture.png" alt="">
                 <input class="imgInput passWord" type="text" name="" value="" placeholder="图片验证码">
-                <div class="yanzheng"><img src="{:captcha_src()}" alt="captcha"/></div>
+                <div @click="getImg()" class="yanzheng"><img src="{:captcha_src()}" alt="captcha"/></div>
             </div>
             <div class="login_msg">
                 <img style="margin-top:0.59rem;width: 0.4rem;" src="./img/msg.png" alt="">
