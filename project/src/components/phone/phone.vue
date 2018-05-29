@@ -32,7 +32,7 @@ export default {
   methods: {
     getuserInfo: function () {
       this.$axios.get(this.utils.BaseURL + '/wxpub/user/getuserinfo.html')
-        .then(function (res) {
+        .then((res) => {
           console.log(res, '这是axios请求回来的')
           //   res为axios包装后的数据体 自己请求的数据 在res。data 里面
           if (res.data.success) {
@@ -40,7 +40,7 @@ export default {
             console.log(res.data, '这是请求回来的信息')
           }
         })
-        .catch(function (err) {
+        .catch((err) => {
           console.error(err, '请求用户信息报错')
         })
     },
