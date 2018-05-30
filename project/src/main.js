@@ -10,11 +10,13 @@ import VueWechatTitle from 'vue-wechat-title'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import axios from 'axios'
+import qs from 'qs'
 
 Vue.use(Mint)
 Vue.use(VueWechatTitle)
 
 Vue.prototype.$axios = axios
+Vue.prototype.$qs = qs
 Vue.prototype.utils = utils // 公共信息（例如:主域名等）
 // Vue.prototype.HOST = '/api';
 Vue.config.productionTip = false

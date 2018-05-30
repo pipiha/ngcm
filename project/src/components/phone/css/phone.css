@@ -80,6 +80,9 @@ html,body{
   margin: 0.38rem 0.4rem 0 0;
   color: #5286EC;
 }
+.time_text{
+  color: gray;
+}
 .login_msg .yanzheng{
   width: 1.8rem;
   height: 0.8rem;
@@ -106,6 +109,9 @@ html,body{
   line-height: 1.08rem;
   font-size: 0.4rem;
   border-radius: 1.2rem;
+}
+.disable{
+  pointer-events: none;
 }
 
 
