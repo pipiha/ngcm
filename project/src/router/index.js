@@ -30,6 +30,8 @@ import MyWallet from '@/components/my_wallet/my_wallet' // 我的零钱
 import MyParse from '@/components/my_purse/my_purse' // 我的钱包
 import QuestionResult from '@/components/question_result/question_result' // 问题反馈
 import QuestionHistory from '@/components/question_result/question_history' // 申请历史
+import JoinApply from '@/components/join_apply/join_apply' // 加盟申请
+import ReadJoin from '@/components/join_apply/read_join' // 加盟须知
 
 Vue.use(Router)
 Vue.use(require('vue-wechat-title'))
@@ -277,6 +279,23 @@ export default new Router({
       component: QuestionHistory,
       meta: {
         title: '申请历史'
+      }
+    },
+    { // 加盟申请
+      path: '/joinApply',
+      name: 'joinApply',
+      component: JoinApply,
+      meta: {
+        title: '加盟申请',
+        keepAlive: true
+      }
+    },
+    {
+      path: '/readJoin',
+      name: 'readJoin',
+      component: ReadJoin,
+      meta: {
+        title: '加盟须知'
       }
     }
   ]

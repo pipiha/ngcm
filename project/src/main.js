@@ -18,7 +18,7 @@ Vue.use(VueWechatTitle)
 Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
 Vue.prototype.utils = utils // 公共信息（例如:主域名等）
-// Vue.prototype.HOST = '/api';
+Vue.prototype.HOST = '/api'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

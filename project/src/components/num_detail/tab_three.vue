@@ -20,7 +20,7 @@
                     <div class="site_bili_left">
                         <p>田村</p>
                         <p>小焦镇</p>
-                    </div>  
+                    </div>
                     <div class="site_bili_center">
                         <p></p>
                         <p></p>
@@ -34,7 +34,7 @@
                     <div class="site_bili_left">
                         <p>田村</p>
                         <p>小焦镇</p>
-                    </div>  
+                    </div>
                     <div class="site_bili_center">
                         <p></p>
                         <p style="width: 90%;"></p>
@@ -48,7 +48,7 @@
                     <div class="site_bili_left">
                         <p>田村</p>
                         <p>小焦镇</p>
-                    </div>  
+                    </div>
                     <div class="site_bili_center">
                         <p></p>
                         <p style="width: 70%;"></p>
@@ -60,13 +60,12 @@
                 </li>
             </ul>
 
-
         </div>
 </template>
 
 <script>
 export default {
-    
+
 }
 </script>
 
@@ -74,5 +73,3 @@ export default {
 @import './css/num_detail.css';
 @import '../play_time/css/play_time.css';
 </style>
-
-
