@@ -18,12 +18,13 @@
     <router-link to="">查看更多/查看人数</router-link>
     <router-link to="/phone">注册手机号</router-link>
     <router-link to="/red">领取红包</router-link> -->
-    <keep-alive>
+    <!-- <keep-alive>
       <router-view v-if="$route.meta.keepAlive">
-          <!-- 这里是会被缓存的视图组件，比如 page1,page2 -->
       </router-view>
+    </keep-alive> -->
+     <keep-alive>
+      <router-view/>
     </keep-alive>
-    <!-- <router-view/> -->
   </div>
 </template>
 

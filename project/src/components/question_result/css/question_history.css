@@ -84,8 +84,9 @@ html,body{
     font-size: 0.38rem;
     line-height: 1.2rem;
     text-align: left;
-    margin-left: 0.4rem;
-    padding-left: 0.4rem;
+    /* margin-left: 0.5rem; */
+    /* padding-left: 0.4rem; */
+    padding-left: 0.7rem;
 }
 .qs_history_center ul li div{
     width: 92%;
@@ -95,8 +96,15 @@ html,body{
     color: #999999;
     font-size: 0.38rem;
 }
-.zhan_huifu{
+.shou_huifu{
     text-align: right;
-    margin-right: 1.5rem;
+    text-align: right!important;
+    margin-left: 3.7rem!important;
+    margin-top: -1.2rem;
+    color: #999999;
+}
+.zhan_huifu{
+    text-align: right!important;
+    margin-right: -3.5rem!important;
     color: #5286EC!important;
 }
