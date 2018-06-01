@@ -19,6 +19,7 @@ import TabThree from '@/components/num_detail/tab_three' // 区域统计
 import TabFour from '@/components/num_detail/tab_four' // 金额明细
 import PlayTime from '@/components/play_time/play_time' // 播放总次数
 import SiterPrivilege from '@/components/siter_privilege/siter_ privilege' // 点位主特权
+import MyCustomer from '@/components/siter_privilege/my_customer' // 我的顾客
 import ZhanDetail from '@/components/zhan_detail/zhan_detail' // 展示广告详情
 import SiteDetails from '@/components/site_details/site_details' // 点位详情  有地图 及联系我们
 import SiteMsg from '@/components/site_details/site_msg' // 我的广告 截图
@@ -215,6 +216,14 @@ export default new Router({
       component: SiterPrivilege,
       meta: {
         title: '点位主特权'
+      }
+    },
+    {
+      path: '/myCustomer',
+      name: 'myCustomer',
+      component: MyCustomer,
+      meta: {
+        title: '我的顾客'
       }
     },
     { // 我的订单

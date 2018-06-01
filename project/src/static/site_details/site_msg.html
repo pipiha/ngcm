@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="/static/wxpub/assets/css/ad/loading.css">
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js" charset="utf-8"></script>
+    <!-- <link rel="stylesheet" href="./css/animate.css"/>
+    <link rel="stylesheet" href="./css/photoswipe.css"/> 
+    <link rel="stylesheet" href=".css/default-skin.css"/> -->
+    <title>我的广告</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .wrap{
+            width: 85%;
+            height: 100%;
+            margin:0 auto;
+        }
+        .ad_img_wrap{
+            width: 100%;
+            height: 6rem;
+            border-radius: 0.1rem;
+            box-shadow:  0 0 0.2rem 0.2rem #eff2f7;
+            margin:0.4rem auto;
+        }
+        .ad_img_up{
+            width: 100%;
+            height: 75%;
+            border-bottom: 0.03rem solid #f3f3f3;
+            background-image: '';
+            background-size: 100% 100%;
+        }
+        .ad_img_up img{
+            width: 100%;
+            height: 100%;
+        }
+        .ad_name{
+            float: left;
+            font-size: 0.4rem; 
+            line-height: 1.8rem;
+            margin-left: 0.2rem;
+            width:70%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .ad_time{
+            float: right;
+            font-size: 0.35rem; 
+            line-height: 1.8rem;
+            color: #999999;
+            margin-right: 0.2rem;
+        }
+        ul li{
+            width: 100%;
+            height: 1.1rem;
+            margin:0.2rem auto;
+            border-bottom: 0.06rem solid #f5f5f5;
+            line-height: 1.3rem;
+        }
+        ul li span{
+            float: left;
+            font-size: 0.4rem;
+            color: #999999;
+        }
+        ul li p{
+            font-size: 0.4rem;
+            text-align: center;
+            line-height: 1.2rem;
+            color: #333333;
+            width: 50%;
+            margin-left: 23%;
+        }
+        .line{
+            display: block;
+            width: 0.8rem;
+            height: 0.5rem;
+            margin-top: 0.38rem;
+            text-align: center;
+            line-height: 0.5rem;
+            font-size: 0.3rem;
+            border-radius: 0.1rem;
+            background-color: red;
+            color: #fff;
+            float: right;
+            /* margin-right: 1.6rem; */
+            position: absolute;
+            right: 3rem;
+        }
+        .on{
+            background-color: green;
+        }
+
+        .ad_name_show{
+            width: 3rem;
+            margin-left: 0.5rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            /* opacity: 0; 
+            animation: fade-in 5s ease 0s 1;
+            animation-fill-mode: forwards; */
+        }
+        .animate{
+            opacity: 0; 
+            animation: fade-in 5s ease 0s 1;
+            animation-fill-mode: forwards;
+        }
+        @keyframes fade-in{  
+            0%{ opacity: 0;}
+            100%{opacity:1;}
+        }
+
+        .screen_wrap{
+            display: inline-block;
+            float: left;
+            width: 2.05rem;
+            height: 0.6rem;
+            border: 0.05rem solid rgb(42, 147, 241);
+            border-radius: 0.35rem;
+            line-height: 0.6rem;
+            margin-top: -1.05rem;
+            margin-left: 6.3rem;
+            cursor: pointer;
+        }
+        .screen_wrap img{
+            width: 0.4rem;
+            height: 0.4rem;
+            margin-top: 0.09rem;
+            float: left;
+        }
+        .screen_wrap p{
+            font-size: 0.3rem;
+            padding-right: 0.2rem;
+            color: rgb(42, 147, 241);
+            width: 1.3rem;
+            height: 100%;
+            line-height: 0.6rem;
+            text-align: left;
+        }
+        /*  */
+        .screen_img_one{
+            width: 46%;
+            height: 2.5rem;
+            float: left;
+            margin-right: 0.24rem;
+            margin-top: 0.2rem;
+            border: 0.05rem dashed #f5f5f5;
+            background: url('__STATIC__/wxpub/assets/images/ad/personal/bj-jpzs.png');
+            background-size: 100% 100%;
+            text-align: center;
+            line-height:  2.5rem;
+            color: lightgray;
+            border-radius: 0.25rem;
+            font-size: 0.38rem;
+        }
+        /* 弹框 */
+        .alert_wrap{
+          width: 4rem;
+          height: 1rem;
+          background-color: rgba(0,0,0,.3);
+          border-radius: 0.5rem;
+          color: #fff;
+          font-size: 0.38rem;
+          text-align: center;
+          line-height: 1rem;
+          position: absolute;
+          left: 31%;
+          top: 37%;
+          display: none;
+        }
+
+        .disable{
+            pointer-events:none; 
+        }
+        .my-gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            float: left;
+            border-radius: .2rem;
+            height:2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <!-- 展示图片 -->
+        <div class="ad_img_wrap">
+            <a class="img_big" href=""><div class="ad_img_up"> 
+                <img class="ad_img" src="./img/iii.png" alt="">
+            </div>
+            </a>
+            <p class="ad_name">新版一元夺宝</p>
+            <p class="ad_time">2018-04-28</p>
+        </div>
+
+        <!-- 展示列表 -->
+        <ul>
+            <li>
+                <span>点位地址</span>
+                <!-- <p class="line">离线</p>  .on 在线 -->
+                <div class="line on">在线</div> 
+                <p class="site_address" style="position: relative;">晋州-小焦镇</p>
+                <!-- <p>离线</p> -->
+            </li>
+            <li>
+                <span>当前播放</span>
+                <p style="color: #4A87DE;">老庙黄金</p>
+                <div class="screen_wrap">
+                    <img src="./img/icon-jp.png" alt="">
+                    <p class="ad_cut">广告截屏</p>
+                </div>
+                <div class="ad_name_wrap">
+                    <!-- <p class="ad_name_show animated slideInUp">写死的</p> -->
+                </div>
+            </li>
+            <li>
+                <span>播放状态</span>
+                <p class="ad_status">播放中</p>
+            </li>
+            <li>
+                <span>播放次数</span>
+                <p class="play_time">88次</p>
+            </li>
+        </ul>
+
+        <!-- 屏幕截图 -->
+       <!--  <div class="screen_img_show">
+            <div class="screen_img_one">
+                <p>广告截屏展示</p>
+            </div>
+            <div class="screen_img_one">
+                <p>广告截屏展示</p>
+            </div>
+        </div> -->
+
+        <div class="my-gallery">
+            
+            <figure>
+                <a href="http://img.agrimedia.cn/icon_ec:3d:fd:fb:c1:7820180416172353" data-size="800x400">
+                    <div class="screen_img_one">
+                        <img src="images/s1.jpg" />
+                    </div>
+                </a>
+            </figure>
+        </div>
+
+
+    </div>
+
+    <!-- 提示弹窗 -->
+    <div class="alert_wrap"></div>
+
+    <!--loading-->
+    <div class="loading-3" id="loading" style="display: none;">
+
+            <i></i>
+    
+            <i></i>
+    
+            <i></i>
+    
+            <i></i>
+    
+            <i></i>
+    
+            <i></i>
+    
+            <i></i>
+    
+            <i></i>
+    
+      </div>
+
+
+<!--以下内容不要管-->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                   <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                 <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                     <div class="pswp__share-tooltip"></div> 
+                    </div>
+                 <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                 <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                 <div class="pswp__caption">
+                     <div class="pswp__caption__center"></div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+
+</body>
+<!-- <script src="__STATIC__/wxpub/assets/js/jquery-3.2.1.min.js" charset="utf-8"></script>
+<script src="__STATIC__/wxpub/assets/js/common.js" charset="utf-8"></script>
+<script src="__STATIC__/wxpub/assets/js/photoswipe.min.js"></script> 
+<script src="__STATIC__/wxpub/assets/js/photoswipe-ui-default.min.js"></script>
+<script src="__STATIC__/wxpub/assets/js/photo.js"></script>  -->
+<script>
+
+    $(function(){
+
+        var adv_id = getQueryString('adv_id');
+        var play_id = getQueryString('adv_id');
+        var mac_address = getQueryString('site_mac');
+        var site_id = getQueryString('site_id');
+        
+        
+        ajaxGetCutList(2,site_id);
+
+        getAdMsg(site_id,adv_id);
+
+        socket(play_id,mac_address);
+
+        getAdTime(play_id,0,mac_address);
+
+        $('.screen_wrap').on('click',function(){
+            $('#loading').show();
+            $(this).addClass('disable');
+            getImg(mac_address);
+        });
+
+
+    });
+
+    function getImg(mac_address){
+
+        $.ajax({
+            type:'post',
+            url:'http://www.agrimedia.cn/wxpub/siter_controller/screenshot.html',
+            data:{
+                mac_address:mac_address
+            },
+            dataType:'json',
+            async:false,
+            success: function(data){
+                console.log(data);
+                if(data.code == 200){
+                    var site_id = getQueryString('site_id');
+
+                    var timer_jietu='';
+                    clearInterval(timer_jietu);
+                    timer_jietu=setInterval(function(){
+                        var new_sum=getNum_ajaxGetCutList(2,site_id);
+                        console.log(new_sum);
+                        new_sum=parseInt(new_sum);
+                        var old_sum=parseInt($(".screen_wrap").attr("imgsum"));
+
+                        console.log(new_sum+" "+old_sum);
+                        if(old_sum!=new_sum){
+                            $('#loading').hide();
+                            $('.alert_wrap').show().html('截图成功');
+                            $('.screen_wrap').removeClass('disable');
+                            setTimeout(function(){
+                                $('.alert_wrap').hide();
+                            },2000);
+                            ajaxGetCutList(2,site_id);
+                            clearInterval(timer_jietu);
+                            return false;
+                        }
+                    },3000);
+                }else{
+                    $('#loading').hide();
+                    $('.alert_wrap').show().html(data.msg);
+                    setTimeout(function(){
+                        $('.screen_wrap').removeClass('disable');
+                        $('.alert_wrap').hide();
+                    },2000);
+                }
+            }
+
+        })
+
+    }
+
+    
+    function ajaxGetCutList(num,site_id){
+        $.ajax({
+            type: 'get',
+            url: 'http://www.agrimedia.cn/wxpub/siter_controller/getcutlog.html',
+            data: {
+                num: num,
+                site_id: site_id,
+            },
+            dataType:'json',
+            async:false,
+            success: function(data){
+                var str='';
+                if(data.code == 200){
+                    // console.log(data);
+                    // newTotal = data.data.total;
+                    newTotal = data.data.total;
+                    $(".screen_wrap").attr("imgsum",newTotal);
+                    $('.screen_img_show').empty();
+                    for(var i=0;i<2;i++){
+                        var url = '__STATIC__/wxpub/assets/css/default_cut_img.png';
+                        if(newTotal == 1){
+                            if(i == 0){
+                                url = data.data.data[i].cut_url;
+                            }
+                        }else if(newTotal > 1){
+                            url = data.data.data[i].cut_url;
+                        }
+                        msg = '<img src="'+ url+'" />'; 
+                        str += '<figure>\
+                                    <a href="'+url+'" data-size="800x400">\
+                                        <div class="screen_img_one">\
+                                            '+msg+'\
+                                        </div>\
+                                    </a>\
+                                </figure>';
+                    }
+                    $('.my-gallery').empty();
+                    $('.my-gallery').append(str);
+                }
+            },
+            error: function(err){
+                console.log(err);
+            }
+        })
+
+    }
+
+    //获取截屏的图片总数
+    function getNum_ajaxGetCutList(num,site_id){
+        var newTotal=0;
+        $.ajax({
+            url: 'http://www.agrimedia.cn/wxpub/siter_controller/getcutlog.html',
+            type:'get',
+            dataType:'json',
+            async:false,
+            data:{
+                num:num,
+                site_id: site_id,
+            },
+            success:function(data){
+
+                if(data.code == 200){
+                    newTotal = data.data.total;
+                }else{
+                    $('.alert_wrap').show().html(data.msg);
+                    setTimeout(function(){
+                        $('.alert_wrap').hide();
+                    },2000);
+                }
+
+            },
+            error:function(data){
+                $('.alert_wrap').show().html('通迅異常');
+                    setTimeout(function(){
+                        $('.alert_wrap').hide();
+                    },2000)
+            }
+        });
+        return newTotal;
+    }
+
+    //  长链接 获取当前播放的广告名称
+    function socket(play_id,mac_address){
+        ws = new WebSocket('ws://'+document.domain+':8282');
+        ws.onmessage = function(e){
+            // json数据转换成js对象
+            var data = eval("("+e.data+")");
+            var type = data.type || '';
+            switch(type){
+                // Events.php中返回的init类型的消息，将client_id发给后台进行uid绑定
+                case 'init':
+                    ws.send('{"type":"bind","device_type":"adv","play_id":"'+ play_id  +'","mac_address":"'+ mac_address +'"}');
+                    // {"type":"bind","device_type":"adv","play_id":"355","mac_address":"ec:3d:fd:fb:b3:4b"}
+                    break;
+                //  响应服务器端的心跳
+                case 'ping':
+                    ws.send('{"type":"pong","device_type":"adv","command_id":0}');
+                    break;
+                case 'now_play':
+                    var adv_type = data.data.type;
+                    switch(data.data.type){
+                        case 0: 
+                            getAdTitle(data.data.play_id,adv_type);
+                            if(play_id == data.data.play_id){
+                                getAdTime(play_id,1,mac_address);
+                            }
+                            break;
+                        case 1:
+                            getAdTitle(play_id,adv_type)
+                            break;
+                        case 2:
+                            var title = data.data.title;
+                            $('.ad_name_show').html(title); //广告名称
+                            break;
+                    }
+                    break;
+                default:
+                    return ;
+            }
+        } 
+    }
+
+    // 根据广告id获取广告名称
+    function getAdTitle(play_id,adv_type){
+        $.ajax({
+            type:'get',
+            url: 'http://www.agrimedia.cn/wxpub/adv_controller/index.html',
+            data: {
+                adv_id: play_id,
+                type: adv_type
+            },
+            dataType:'json',
+            success: function(data){
+                if(data.code == 200){
+                    $('.ad_name_show').remove();
+                    var ele = '<p class="ad_name_show animated slideInUp">'+ data.data.title +'</p>';
+                    $('.ad_name_wrap').html(ele);
+                    // $('.ad_name_show').removeClass('slideInUp').html(data.data.title).addClass('slideInUp'); //广告名称
+
+                }
+            },
+            error: function(err){
+                console.log(err);
+            }
+
+
+        })
+
+    }
+
+    // 根据广告id获取播放次数
+    function getAdTime(play_id,status,mac_address){
+        $.ajax({
+            type:'get',
+            url: 'http://www.agrimedia.cn/wxpub/adv_controller/getPlayTimes.html',
+            data: {
+                'adv_id': play_id,
+                'mac_address':mac_address
+            },
+            dataType:'json',
+            success: function(data){
+                console.log(data);
+                if(data.code == 200){
+                    if(status == 0){
+                        $('.play_time').html( data.data.num + '次');
+                    }else{
+                        var times = $('.play_time').html();
+                        var a = times.substr(0,times.length-1);
+                        // console.log(++a);
+                        $('.play_time').html( ++a  + '次');
+                    }
+            
+                }
+            },
+            error:function(err){
+                console.log(err);
+            }
+        })
+    }
+
+    function getQueryString(name) {                                       //name为传入参数
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");     
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;				
+    }
+
+    function getAdMsg(site_id,adv_id){
+        $.ajax({
+            type:'get',
+            url: 'http://www.agrimedia.cn/wxpub/adver_controller/siteinfo',
+            data: {
+                site_id: site_id,
+                adv_id: adv_id
+            },
+            dataType:'json',
+            success: function(data){
+                console.log(data);
+                if(data.code == 200){
+                    $('.ad_img_up').css('background-image','url(' + data.data.adv_thumbpath + ')'); //广告图片
+                    $('.img_big').attr('href',data.data.adv_thumbpath);
+                    $('.ad_name').html(data.data.adv_title); //广告名称
+                    $('.ad_time').html(data.data.create_time.split(' ')[0]); //广告时间
+                    $('.site_address').html(data.data.adv_address);  //点位地址
+                    $('.ad_start_end').html(data.data.play_start_time + '至' + data.data.play_end_time); //播放区间
+                    // $('.line').html(); //是否在线
+                    if(data.data.isonline == 1){
+                        $('.line').addClass('on');
+                        $('.line').html('在线'); //是否在线
+                        // $('.ad_status').html('播放中');  //播放状态
+                    }else{
+                        // $('.ad_status').html('暂停');  //播放状态
+                    }
+
+                }
+
+
+            },
+            error: function(err){
+                console.log(err);
+
+            }
+        })
+    }
+
+</script>
+</html>

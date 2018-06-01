@@ -88,10 +88,29 @@ html,body{
     color: #333333;
     font-size: 0.48rem;
     font-weight: bold;
+    /* float: right;
+    margin-top: 0.3rem;
+    color: #333333;
+    font-size: 0.48rem;
+    font-weight: bold;
+    width: 30%;
+    background-color: pink;
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; */
 }
 .adv_title p{
     color: #999999;
     font-size: 0.4rem;
     margin-top: -0.2rem;
+    /* width: 50%;
+    color: #999999;
+    font-size: 0.4rem;
+    float: left;
+    margin-top: -0.5rem;
+    text-align: left;
+    margin-left: -4.6rem;
+    margin-top: 0.7rem; */
 }
 

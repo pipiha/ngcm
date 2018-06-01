@@ -27,10 +27,10 @@
     <div class="num_tab4_center">
       <div class="center_left">
         <div class="shalou">
-          <img src="./img/Oval.png" alt="">
+          <img src="./img/Oval.gif" alt="">
         </div>
         <div class="shalou">
-          <img src="./img/Combined Shape.png" alt="">
+          <img src="./img/Oval.gif" alt="">
         </div>
       </div>
       <div class="center_center">

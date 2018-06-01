@@ -99,14 +99,14 @@
     </div>
 
     <!-- loading加载 -->
-    <Row style="top:0;left:0;" v-show="isLoding">
+    <!-- <Row style="top:0;left:0;" v-show="isLoding">
         <Col class="demo-spin-col" span="8">
             <Spin fix>
                 <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
                 <div>Loading</div>
             </Spin>
         </Col>
-    </Row>
+    </Row> -->
 
 </div>
 </template>
@@ -125,7 +125,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 @import './css/site_msg.css';
 @import './css/photoswipe.css';
     .demo-spin-icon-load{

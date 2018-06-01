@@ -4,10 +4,11 @@
     font-family: 'Microsoft YaHei';
 }
 html,body{
-    width:100%;
-    height:100%;
-    background: url(../img/bj.png);
-    background-size: cover;
+    /* width:100%;
+    height:100%; */
+    /* background-color: red; */
+    /* background: url(../img/bj.png)!important; */
+    /* background-size: cover; */
 }
 .red_bj{
     width: 100%;
@@ -15,6 +16,7 @@ html,body{
     position: absolute;
     left: 0;
     bottom: 0;
+    background: url(../img/bj.png) 100% 100%;
 }
 .red_bj img{
     width: 100%;

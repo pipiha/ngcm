@@ -27,11 +27,11 @@
         <ul class="detail_list">
             <li>
                 <span>开始时间</span>
-                <span>2017-12-15</span>
+                <span style="margin-left: -1.5rem;">2017-12-15</span>
             </li>
             <li>
                 <span>到期时间</span>
-                <span>2017-12-15</span>
+                <span  style="margin-left: -1.5rem;">2017-12-15</span>
             </li>
             <li>
                 <span>剩余时间</span>
@@ -98,6 +98,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/zhan_detail.css';
 </style>

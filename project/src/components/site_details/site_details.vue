@@ -87,6 +87,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/site_details.css';
 </style>

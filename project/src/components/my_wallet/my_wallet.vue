@@ -3,7 +3,7 @@
     <div v-wechat-title="$route.meta.title"></div>
     <div  class="month_bill_up">
         <div class="bill_up_left">
-            <div class="check_time">
+            <div class="check_time" @click="openPicker()">
                 <p>2018年5月</p>
                 <img src="./img/down.png" alt="">
             </div>
@@ -58,17 +58,46 @@
             </div>
         </li>
     </ul>
+
+    <mt-datetime-picker
+  v-model="pickerVisible"
+  type="date"
+  ref="picker"
+  year-format="{value}"
+  month-format="{value}">
+</mt-datetime-picker>
+
+<!-- <mt-datetime-picker
+    ref="picker"
+    type="time"
+    v-model="pickerValue">
+  </mt-datetime-picker> -->
+
 </div>
 </template>
 
 <script>
+import { MessageBox, DatetimePicker } from 'mint-ui'
 export default {
-    
+  components: {
+    DatetimePicker,
+    MessageBox
+  },
+  data () {
+    return {
+      pickerVisible: ''
+    }
+  },
+  methods: {
+    openPicker () {
+    //   console.log(this.$refs)
+      this.$refs.picker.open()
+    }
+
+  }
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/my_wallet.css';
 </style>
-
-

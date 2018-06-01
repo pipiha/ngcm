@@ -1,0 +1,114 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: 'Microsoft YaHei';
+}
+.my_act_tab{
+    width: 100%;
+    height: 1.26rem;
+    color: #666666;
+    background-color: #fff;
+}
+.my_act_tab li{
+    width: 50%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    line-height: 1.26rem;
+    font-size: 0.4rem;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.act_on{
+    color:  #5286EC;
+    border-bottom: 0.05rem solid #5286EC;
+}
+.my_act_msg{
+    width: 100%;
+}
+.my_act_msg li{
+    width: 100%;
+    height: 5.6rem;
+    background-color: #fff;
+    margin-bottom: 0.3rem;
+    position: relative;
+}
+.my_act_msg li img{
+    width: 100%;
+    height: 4rem;
+}
+.my_act_msg li p{
+    width: 92%;
+    font-size: 0.4rem;
+    font-weight: bold;
+    color: #6E6E6E;
+    padding-left: 0.4rem;
+    margin-top: 0.15rem;
+    margin-bottom: 0.1rem;
+}
+.my_act_msg li span{
+    font-size: 0.35rem;
+    color: #979797;
+    padding-left: 0.4rem;
+}
+.my_act_msg li span:nth-of-type(2){
+    float: right;
+    margin-right: 0.4rem;
+}
+
+/* timeout */
+.time_out_show{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255,255,255,0.50);
+}
+.time_out_show img{
+    width: 2rem!important;
+    height: 2rem!important;
+    float: right;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+}
+
+/* 遮罩 */
+.add_adv_wrap{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color:rgba(51,51,51,0.50);
+}
+.add_adv_wrap img{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    position: absolute;
+}
+.add_adv_wrap img:nth-of-type(1){
+    bottom: 2.5rem;
+    right: 1.7rem;
+}
+.add_adv_wrap img:nth-of-type(2){
+    bottom: 0.8rem;
+    right: 2.8rem;
+}
+.add_adv_wrap img:nth-of-type(3){
+    bottom: 0.8rem;
+    right: 0.6rem;
+    transform:rotate(45deg);
+}
+.add_adv_btn{
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    bottom: 0.6rem;
+    right: -3.5rem;
+}
+.add_rotate{
+    transform:rotate(45deg);
+}

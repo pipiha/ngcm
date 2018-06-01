@@ -36,7 +36,7 @@ html,body{
 }
 .pay_center_box li span:nth-of-type(1){
     display: inline-block;
-    width: 42%;
+    width: 36%;
     height: 100%;
     padding-left: 1rem;
     line-height: 1.36rem;
@@ -48,7 +48,7 @@ html,body{
 }
 .pay_center_box li span:nth-of-type(2){
     display: inline-block;
-    width: 50%;
+    width: 30%;
     height: 100%;
     padding-left: 1rem;
     line-height: 1.36rem;

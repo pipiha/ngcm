@@ -56,12 +56,10 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 
-<style>
-@import './css/red_packets.css'
+<style scoped>
+@import './css/red_packets.css';
 </style>
-
-

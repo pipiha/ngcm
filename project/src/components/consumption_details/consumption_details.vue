@@ -76,16 +76,14 @@
 
 <script>
 export default {
-    data(){
-        return {
-            show_ul:false
-        }
+  data () {
+    return {
+      show_ul: false
     }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/consumption_details.css';
 </style>
-
-

@@ -132,6 +132,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/question_result.css';
 </style>
