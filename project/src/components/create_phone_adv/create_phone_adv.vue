@@ -22,7 +22,7 @@
                 <div class="adv_add_text">
                     <textarea name="" id="" cols="30" rows="10" placeholder="点击添加文字（必填）"></textarea>
                 </div>
-           </li> 
+           </li>
            <li>
                 <div class="adv_up">
                     <img src="./img/close.png" alt="">
@@ -42,7 +42,7 @@
                  <div class="adv_add_text">
                      <textarea name="" id="" cols="30" rows="10" placeholder="点击添加文字（必填）"></textarea>
                  </div>
-            </li> 
+            </li>
         </ul>
         <!-- 创建新的内容 -->
         <div class="create_new_content">
@@ -61,12 +61,10 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 
 <style>
 @import './css/create_phone_adv.css'
 </style>
-
-

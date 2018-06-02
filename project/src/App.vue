@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <!-- <router-link to="/actDetail">广告详情</router-link>
     <router-link to="/createPhoneadv">创建手机页面</router-link>
     <router-link to="/landingPage">落地页</router-link>
@@ -51,4 +52,13 @@ export default {
 html,body{
   background-color: #fff;
 }
+.kong_adv{
+  width: 100%;
+  height: 5rem;
+  margin-top: 40%;
+  text-align: center;
+  font-size: 0.4rem;
+  color: #999999;
+}
+
 </style>

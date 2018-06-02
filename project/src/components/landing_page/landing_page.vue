@@ -41,17 +41,18 @@
 
 <script>
 export default {
-    data(){
-        return {
-            show_share: true,
-            show_like: false
-        }
+  data () {
+    return {
+      show_share: true,
+      show_like: false
     }
+  },
+  methods: {
+
+  }
 }
 </script>
 
 <style>
 @import './css/landing_page.css';
 </style>
-
-

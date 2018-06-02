@@ -20,7 +20,7 @@
                     <span>合计金额:</span>
                     <span>￥9000.00</span>
                 </div>
-               
+
             </div>
             <div class="order_down">
                 <p class="order_check_detail">查看详情</p>
@@ -44,13 +44,12 @@
                     <span>合计金额:</span>
                     <span>￥9000.00</span>
                 </div>
-                   
+
             </div>
             <div class="order_down">
                 <p class="order_check_detail">查看详情</p>
             </div>
         </li>
-
 
     </ul>
 </div>
@@ -58,14 +57,30 @@
 
 <script>
 export default {
-    
+  data () {
+    return {
+    //   advType: ''
+    }
+  },
+  methods: {
+
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    console.log('-----------------组件创建了-----------------')
+  },
+  beforeMount: function () {
+    // console.log(this.$route.query.type)
+  },
+  mounted: function () {
+    // this.timeDown()
+    // console.log(this.$route.query.type)/
+  }
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 @import './css/my_order.css';
-html,body{
-    background-color:#F3F6F5;
-}
 </style>
-

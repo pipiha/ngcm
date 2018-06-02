@@ -33,6 +33,7 @@ import QuestionResult from '@/components/question_result/question_result' // 问
 import QuestionHistory from '@/components/question_result/question_history' // 申请历史
 import JoinApply from '@/components/join_apply/join_apply' // 加盟申请
 import ReadJoin from '@/components/join_apply/read_join' // 加盟须知
+import UserCenter from '@/components/user_center/user_center' // 用户中心
 
 Vue.use(Router)
 Vue.use(require('vue-wechat-title'))
@@ -41,10 +42,10 @@ export default new Router({
   routes: [
     { // 首页
       path: '/',
-      name: 'Phone',
-      component: Phone,
+      name: 'userCenter',
+      component: UserCenter,
       meta: {
-        title: '绑定手机号'
+        title: '用户中心'
       }
     },
     { // 注册手机号
@@ -305,6 +306,14 @@ export default new Router({
       component: ReadJoin,
       meta: {
         title: '加盟须知'
+      }
+    },
+    {
+      path: '/userCenter',
+      name: 'userCenter',
+      component: UserCenter,
+      meta: {
+        title: '用户中心'
       }
     }
   ]

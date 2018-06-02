@@ -137,6 +137,9 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 @import './css/phone.css';
+html,body{
+  background-color:#F3F6F5!important;
+}
 </style>

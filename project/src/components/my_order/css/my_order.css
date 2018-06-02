@@ -3,6 +3,9 @@
     padding:0;
     font-family: 'Microsoft YaHei';
 }
+html,body{
+    background-color:#F3F6F5;
+}
 .order_wrap{
     width: 92%;
     margin:0 auto;

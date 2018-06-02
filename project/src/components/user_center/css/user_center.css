@@ -1,0 +1,99 @@
+
+.user_center_box{
+    width: 100%;
+    height: 8rem;
+    /* background-color: pink; */
+  }
+  .user_up_box{
+    width: 100%;
+    height: 5rem;
+    background: url('../img/user_bj.png') 100% 100%;
+    border-radius: 0 0 139% 132%;
+  }
+  .user_up_box img{
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+      margin-top: 11%;
+  }
+  .user_up_box p:nth-of-type(1){
+    font-size: 0.45rem;
+    color: #fff;
+    margin-bottom: 0.1rem;
+  }
+  .user_up_box p:nth-of-type(2){
+    font-size: 0.3rem;
+    color: #fff;
+    opacity: 0.8;
+  }
+  .user_cen_box{
+    width: 100%;
+    height: 4.5rem;
+    margin-top: -30%;
+  }
+  .user_cen_box li{
+    float: left;
+    width: 33%;
+    height: 50%;
+    cursor: pointer;
+  }
+  .user_cen_box li a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #999999;
+    text-decoration: none;
+    font-size: 0.3rem;
+  }
+  .user_cen_box li a img{
+    width: 0.8rem;
+    height: 0.7rem;
+    margin-top: 20%;
+  }
+  .tab_line{
+    width: 100%;
+    height: 0.2rem;
+    background-color: #F3F6F5;
+  }
+  .user_active{
+    width: 100%;
+  }
+  .user_active img{
+    width: 100%;
+    height: 4.18rem;
+  }
+  .active_title{
+    width: 100%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    font-size: 0.38rem;
+    color: #333333;
+  }
+  .active_title img{
+    width: 0.5rem;
+      height: 0.5rem;
+      float: left;
+      margin-left: 37%;
+      margin-right: -38%;
+      margin-top: 5%;
+  }
+  .check_more_submit{
+    display: block;
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    color: #999999;
+    cursor: pointer;
+  }
+  .bind_phone{
+    display: block;
+    width: 2.8rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    margin: 0 auto;
+    background-image: radial-gradient(53% 66%, #4F88E9 46%, #86BEF6 100%);
+    box-shadow: 0 2px 4px 0 #3A7FE4;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 0.3rem;
+  }

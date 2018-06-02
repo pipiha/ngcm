@@ -35,7 +35,8 @@
         </div> -->
     </div>
 
-        <!-- 零钱明细 -->
+        <!--  -->
+    <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
     <ul class="wallet_list">
         <li v-for="(item,index) in customerData">
             <div class="wallet_list_left">
@@ -51,26 +52,32 @@
         </li>
 
     </ul>
+    </mt-loadmore>
 
 </div>
 </template>
 
 <script>
-import { Indicator } from 'mint-ui'
+import { Indicator, Loadmore } from 'mint-ui'
 export default {
   components: {
-    Indicator
+    Indicator,
+    Loadmore
   },
   data () {
     return {
-      customerData: ''
+      pageConfig: { // 分页属性
+        page: 1
+      },
+      customerData: [],
+      allLoaded: false, // 是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
+      scrollMode: 'auto' // 移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
     }
   },
   methods: {
     customerList: function () {
       this.$axios.get('api/wxpub/siter/getUserList.html')
         .then((res) => {
-        //   console.log(res)
           if (res.data.code === 200) {
             // console.log(res.data.data.data)
             this.customerData = res.data.data.data
@@ -80,10 +87,29 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    loadBottom () {
+      this.pageConfig.page += 1
+      console.log(this.pageConfig.page)
+      //   this.$axios.get('api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page)
+      //     .then((res) => {
+      //       if (res.data.code === 200) {
+      //       // console.log(res.data.data.data)
+      //         this.customerData = res.data.data.data
+      //         if (parseInt(this.pageConfig.page) === res.data.data.last_page) {
+      //           this.allLoaded = true// 若数据已全部获取完毕
+      //         }
+      //       }
+      //     })
+      //     .catch((err) => {
+      //       console.log(err)
+      //     })
+      this.$refs.loadmore.onBottomLoaded()
     }
-  },
-  beforeCreate: function () {
 
+  },
+
+  beforeCreate: function () {
   },
   created: function () {
     // this.imgUrl =
@@ -223,7 +249,7 @@ export default {
 }
 .purse_ul li p:nth-of-type(1){
     color: #fff;
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
     margin: 0.2rem 0 0.1rem 0;
 }
 .purse_ul p:nth-of-type(2){

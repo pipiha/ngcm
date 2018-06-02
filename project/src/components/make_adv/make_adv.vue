@@ -26,12 +26,10 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 
 <style>
 @import './css/make_adv.css'
 </style>
-
-
