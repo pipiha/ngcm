@@ -12,7 +12,7 @@
                 </div>
             </li>
            <!-- 我的足迹部分 -->
-           <li v-else-if="advType == 1"  v-for="(item,index) in footData"  :code="item.h5_id">
+           <li @click="getAdvDetail(1,item.h5_id)" v-else-if="advType == 1"  v-for="(item,index) in footData"  :code="item.h5_id">
                 <img :src="'http://img.agrimedia.cn/' + item.h5_thumbnail" alt="">
                 <div class="adv_title">
                     <span>{{ item.create_time }}</span>
@@ -21,7 +21,7 @@
                 </div>
             </li>
             <!-- 我的广告 -->
-            <li v-else>
+            <li v-else @click="getAdvDetail(2,item.h5_id)">
                 <img src="./img/bj.png" alt="">
                 <div class="adv_title">
                     <span>剩余200天</span>

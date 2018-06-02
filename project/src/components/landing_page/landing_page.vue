@@ -2,26 +2,26 @@
 <div>
         <div v-wechat-title="$route.meta.title"></div>
         <div class="page_wrap">
-        <h3>老庙黄金，给您带来好运气</h3>
+        <h3>{{ dataTag.s_title }}</h3>
         <ul>
             <li>
-                <img src="./img/49476653903732260.png" alt="">
-                <p>老庙黄金的每件首饰都是福瑞，蕴含着百年的祥瑞与好运。</p>
+                <img :src="dataTag.s_thumb" alt="">
+                <p>{{ dataTag.s_content }}</p>
             </li>
-            <li>
+            <!-- <li>
                 <img src="./img/49476653903732260.png" alt="">
                 <p>老庙黄金的每件首饰都是福瑞，蕴含着百年的祥瑞与好运。老庙黄金的每件首饰都是福瑞，蕴含着百年的祥瑞与好运。</p>
-            </li>
+            </li> -->
         </ul>
         <div class="page_address">
             <div class="page_address_text">
                 <div style="width: 100%;height: 0.7rem;">
                     <img src="./img/address.png" alt="">
-                    <p>海德花园南门东行50米</p>
+                    <p>{{ item.s_address }}</p>
                 </div>
                 <div style="width: 100%;height: 0.7rem;">
                     <img style="width: 0.4rem;height: 0.4rem;" src="./img/tel.png" alt="">
-                    <p>1111111</p>
+                    <p>{{ dataTag.s_phone}}</p>
                 </div>
                 <div class="page_like">
                     <img src="./img/Fill 1.png" alt="" v-show="show_like">
@@ -34,7 +34,7 @@
     </div>
     <div class="page_btn">
         <div>一键咨询</div>
-        <div>我已阅读</div>
+        <div>{{ textTag }}</div>
     </div>
 </div>
 </template>
@@ -44,11 +44,47 @@ export default {
   data () {
     return {
       show_share: true,
-      show_like: false
+      show_like: false,
+      type: '',
+      advID: '',
+      textTag: '我已阅读',
+      dataTag: ''
     }
   },
   methods: {
+    getAdvDetail: function () { // 获取附近的活动详情
+      this.$axios.get('api/wxpub/user/getDetail.html?s_id=' + this.advID)
+        .then((res) => {
+          console.log(res)
+          if (res.data.code === 200) {
+            this.dataTag = res.data.data
+          }
+        })
+        .catch((err) => {
+          console.err(err)
+        })
+    }
+  },
+  beforeCreate: function () {
+    // window.location.reload()
+  },
+  created: function () {
+    this.advID = this.$route.query.code
+    this.type = this.$route.query.type
+    if (this.type === 0) { // 感兴趣详情
+      this.show_like = true
+      this.show_share = false
+      this.$route.meta.title = '我感兴趣'
+    }
+  },
+  beforeMount: function () {
+    this.getAdvDetail()
+  },
+  mounted: function () {
 
+  },
+  deactivated () {
+    // this.$destroy()
   }
 }
 </script>
