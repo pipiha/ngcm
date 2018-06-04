@@ -17,7 +17,7 @@
             <div class="page_address_text">
                 <div style="width: 100%;height: 0.7rem;">
                     <img src="./img/address.png" alt="">
-                    <p>{{ item.s_address }}</p>
+                    <p>{{ dataTag.s_address }}</p>
                 </div>
                 <div style="width: 100%;height: 0.7rem;">
                     <img style="width: 0.4rem;height: 0.4rem;" src="./img/tel.png" alt="">
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="page_btn">
-        <div>一键咨询</div>
+        <div @click="goLianxi()">一键咨询</div>
         <div>{{ textTag }}</div>
     </div>
 </div>
@@ -52,17 +52,24 @@ export default {
     }
   },
   methods: {
-    getAdvDetail: function () { // 获取附近的活动详情
+    getAdvDetail: function (advId) { // 获取附近的活动详情
       this.$axios.get('api/wxpub/user/getDetail.html?s_id=' + this.advID)
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.data.code === 200) {
+            // console.log(res.data.data)
             this.dataTag = res.data.data
+            console.log(this.dataTag)
           }
         })
         .catch((err) => {
-          console.err(err)
+          console.log(err)
         })
+    },
+    goLianxi: function () {
+      this.$router.push({
+        path: '/siteDetails'
+      })
     }
   },
   beforeCreate: function () {
@@ -75,10 +82,11 @@ export default {
       this.show_like = true
       this.show_share = false
       this.$route.meta.title = '我感兴趣'
+      this.getAdvDetail(this.advId)
     }
   },
   beforeMount: function () {
-    this.getAdvDetail()
+    // this.getAdvDetail(this.advId)
   },
   mounted: function () {
 

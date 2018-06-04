@@ -4,11 +4,11 @@
     <div class="customer_up_box">
         <ul class="purse_ul">
             <li>
-                <p>1888</p>
+                <p style="font-size:0.8rem;margin-top:0;">1888</p>
                 <p>总互动人数</p>
             </li>
             <li>
-                <p>1888</p>
+                <p style="font-size:0.8rem;margin-top:0;">1888</p>
                 <p>总扫码人数</p>
             </li>
         </ul>
@@ -36,7 +36,7 @@
     </div>
 
         <!--  -->
-    <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
+    <!-- <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore"> -->
     <ul class="wallet_list">
         <li v-for="(item,index) in customerData">
             <div class="wallet_list_left">
@@ -45,33 +45,49 @@
                 <p>{{ item.update_time }}</p>
             </div>
             <div class="wallet_list_right">
-                <!-- <p>-222.00</p> -->
                 <img v-if="item.update_time === 1" src="./img/girl.png" alt="">
                 <img v-else src="./img/boy.png" alt="">
             </div>
         </li>
 
     </ul>
-    </mt-loadmore>
+    <!-- </mt-loadmore> -->
+
+        <mt-datetime-picker
+        @confirm="handleConfirm"
+  v-model="pickerVisible"
+  type="date"
+  ref="picker"
+  year-format="{value}"
+  month-format="{value}">
+</mt-datetime-picker>
+<!-- <mt-datetime-picker
+    ref="picker"
+    type="time"
+    v-model="pickerValue">
+  </mt-datetime-picker> -->
 
 </div>
 </template>
 
 <script>
-import { Indicator, Loadmore } from 'mint-ui'
+import { Indicator, Loadmore, DatetimePicker } from 'mint-ui'
 export default {
   components: {
     Indicator,
-    Loadmore
+    Loadmore,
+    DatetimePicker
   },
   data () {
     return {
       pageConfig: { // 分页属性
         page: 1
       },
+      pickerVisible: '',
       customerData: [],
-      allLoaded: false, // 是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
-      scrollMode: 'auto' // 移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
+      allLoaded: false // 是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
+    //   scrollMode: 'auto' // 移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
+
     }
   },
   methods: {
@@ -88,23 +104,29 @@ export default {
           console.log(err)
         })
     },
-    loadBottom () {
-      this.pageConfig.page += 1
-      console.log(this.pageConfig.page)
-      //   this.$axios.get('api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page)
-      //     .then((res) => {
-      //       if (res.data.code === 200) {
-      //       // console.log(res.data.data.data)
-      //         this.customerData = res.data.data.data
-      //         if (parseInt(this.pageConfig.page) === res.data.data.last_page) {
-      //           this.allLoaded = true// 若数据已全部获取完毕
-      //         }
-      //       }
-      //     })
-      //     .catch((err) => {
-      //       console.log(err)
-      //     })
-      this.$refs.loadmore.onBottomLoaded()
+    // loadBottom () {
+    //   this.pageConfig.page += 1
+    //   console.log(this.pageConfig.page)
+    //   //   this.$axios.get('api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page)
+    //   //     .then((res) => {
+    //   //       if (res.data.code === 200) {
+    //   //       // console.log(res.data.data.data)
+    //   //         this.customerData = res.data.data.data
+    //   //         if (parseInt(this.pageConfig.page) === res.data.data.last_page) {
+    //   //           this.allLoaded = true// 若数据已全部获取完毕
+    //   //         }
+    //   //       }
+    //   //     })
+    //   //     .catch((err) => {
+    //   //       console.log(err)
+    //   //     })
+    //   this.$refs.loadmore.onBottomLoaded()
+    // },
+    openPicker () {
+      this.$refs.picker.open()
+    },
+    handleConfirm: function () {
+      console.log(this.pickerValue)
     }
 
   },
@@ -249,7 +271,7 @@ export default {
 }
 .purse_ul li p:nth-of-type(1){
     color: #fff;
-    /* font-size: 0.8rem; */
+    font-size: 0.8rem;
     margin: 0.2rem 0 0.1rem 0;
 }
 .purse_ul p:nth-of-type(2){

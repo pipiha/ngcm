@@ -30,7 +30,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/myAdv">
+        <router-link to="/myAdv?type=2">
           <img src="./img/my_adv.png" alt="">
           <p>我的广告</p>
         </router-link>

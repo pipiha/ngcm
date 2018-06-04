@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="siter_people">
-            <span>1888</span>
+            <span>{{ customerNum }}</span>
             <span>/顾客</span>
         </div>
     </div>
@@ -50,7 +50,8 @@
 export default {
   data () {
     return {
-      siteInfoText: ''
+      siteInfoText: '',
+      customerNum: 0
     }
   },
   methods: {
@@ -82,10 +83,21 @@ export default {
     getSiterInfo: function () {
       this.$axios.get('api/wxpub/siter/getSiterInfo.html')
         .then((res) => {
-        //   console.log(res.data)
           if (res.data.code === 200) {
-            console.log(res.data.data.siterInfo)
             this.siteInfoText = res.data.data.siterInfo
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    // 获取顾客总数
+    customerList: function () {
+      this.$axios.get('api/wxpub/siter/getUserList.html')
+        .then((res) => {
+          if (res.data.code === 200) {
+            this.customerNum = res.data.data.data.length
+            // Indicator.close()
           }
         })
         .catch((err) => {
@@ -101,6 +113,7 @@ export default {
     // this.imgUrl =
     this.getuserInfo()
     this.getSiterInfo()
+    this.customerList()
   },
   beforeMount: function () {
 

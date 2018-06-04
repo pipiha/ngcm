@@ -85,6 +85,8 @@ export default {
       this.addBtn = true
     },
     tocreatAdv: function (type) {
+      this.isShowAdd = false
+      this.addBtn = true
       if (type === 0) { // 数字
         this.$router.push({
           path: '/releaseActivity',

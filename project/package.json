@@ -24,6 +24,7 @@
     "qs": "^6.5.2",
     "vant": "^1.1.5",
     "vue": "^2.5.2",
+    "vue-baidu-map": "^0.21.10",
     "vue-router": "^3.0.1",
     "vue-wechat-title": "^2.0.4"
   },

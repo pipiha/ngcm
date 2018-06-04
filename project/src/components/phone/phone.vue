@@ -79,7 +79,7 @@ export default {
       })
       this.$axios({
         method: 'post',
-        url: this.utils.BaseURL + '/admin/base/sendcode.html',
+        url: 'api/admin/base/sendcode.html',
         data: postData
       })
         .then(function (res) {

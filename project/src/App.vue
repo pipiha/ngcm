@@ -49,9 +49,9 @@ export default {
   width: 100%;
   font-size: 0.4rem;
 } */
-html,body{
+/* html,body{
   background-color: #fff;
-}
+} */
 .kong_adv{
   width: 100%;
   height: 5rem;

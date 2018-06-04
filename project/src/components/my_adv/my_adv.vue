@@ -21,7 +21,7 @@
                 </div>
             </li>
             <!-- 我的广告 -->
-            <li v-else @click="getAdvDetail(2,item.h5_id)">
+            <li v-else-if="advType == '2'">
                 <img src="./img/bj.png" alt="">
                 <div class="adv_title">
                     <span>剩余200天</span>
@@ -220,15 +220,19 @@ export default {
       this.$route.meta.title = '我的足迹'
       Indicator.open()
       this.myFoot('/wxpub/user/mytrace.html')
-    } else {
+    } else if (this.advType === '2') {
       this.$route.meta.title = '我的广告'
+      Indicator.open()
+      this.myFoot('/wxpub/user/mytrace.html')
+    } else {
+
     }
   },
   mounted: function () {
 
   },
   deactivated () {
-    this.$destroy()
+    // this.$destroy()
   }
 }
 </script>
@@ -236,6 +240,6 @@ export default {
 <style scoped>
 @import './css/my_adv.css';
 html,body{
-    background-color:  #F3F6F5;
+  background-color:pink;
 }
 </style>
