@@ -64,37 +64,35 @@
 
 <script>
 export default {
-    data(){
-        return {
-            dataObj: [
-                {
-                    dataTitle : '广告名称',
-                    dataMsg: '老庙黄金'
-                },
-                {
-                    dataTitle : '预计播放日期',
-                    dataMsg: '2017-06-03'
-                },
-                {
-                    dataTitle : '广告持续时长(月)',
-                    dataMsg: '4'
-                },
-                {
-                    dataTitle : '视频时长',
-                    dataMsg: '15秒'
-                },
-                {
-                    dataTitle : '播放点位',
-                    dataMsg: '32个'
-                }
-            ]
+  data () {
+    return {
+      dataObj: [
+        {
+          dataTitle: '广告名称',
+          dataMsg: '老庙黄金'
+        },
+        {
+          dataTitle: '预计播放日期',
+          dataMsg: '2017-06-03'
+        },
+        {
+          dataTitle: '广告持续时长(月)',
+          dataMsg: '4'
+        },
+        {
+          dataTitle: '视频时长',
+          dataMsg: '15秒'
+        },
+        {
+          dataTitle: '播放点位',
+          dataMsg: '32个'
         }
+      ]
     }
+  }
 }
 </script>
 
 <style scoped>
 @import './css/wait_pay.css';
 </style>
-
-

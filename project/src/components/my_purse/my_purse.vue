@@ -19,11 +19,11 @@
 
         <ul class="purse_ul">
             <li>
-                <p style="margin-top:-0.5rem;">我的零钱(元)</p>
+                <p style="">我的零钱(元)</p>
                 <p>{{ moneyText.total_pocket_money }}</p>
             </li>
             <li>
-                <p  style="margin-top:-0.5rem;">推广费余额<i @click="wallet1()">?</i></p>
+                <p  style="">推广费余额<i @click="wallet1()">?</i></p>
                 <p>{{ moneyText.promotion_fee }}</p>
             </li>
         </ul>

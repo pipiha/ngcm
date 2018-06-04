@@ -216,18 +216,12 @@ export default {
       } else {
         MessageBox.alert('填写完毕')
         this.axiosSub()
+        axiosSub(this.imageUrl, this.actDes, this.isDayOn, this.actTel, this.actAddress)
       }
     },
     // 提交请求
-    axiosSub: function () {
-      let postData = this.$qs.stringify({
-
-      })
-      this.$axios({
-        url: 'api',
-        methods: 'post',
-        data: postData
-      })
+    axiosSub: function (thumb, content, duration, phone, address) {
+      this.$axios.get('api/wxpub/siter/send.html?s_thumb=' + thumb + '&s_content=' + content + '&duration=' + duration + '&s_phone=' + phone + '&s_address=' + address)
         .then((res) => {
           console.log(res)
           if (res.data.code === 200) {

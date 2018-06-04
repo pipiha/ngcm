@@ -17,25 +17,28 @@
             </div>
         </div>
         <div class="bill_up_right">
-            <p>筛选</p>
-            <p>月账单</p>
+            <p @click="filter()">筛选</p>
+            <p @click="checkMonth()">月账单</p>
         </div>
     </div>
 
     <!-- 零钱明细   v-for="(item,index) in moneyList" -->
     <ul class="wallet_list">
-        <li>
+        <li v-for="(item,index) in moneyList" @click="consumptionDetails()">   <!-- 推广费用明细 -->
             <div class="wallet_list_left">
-                <img src="./img/wallet_wechat.png" alt="">
-                <p>红包提现红包提现红包提现红包提现</p>
-                <p>5月3日  08:55</p>
+                <img v-if="item.f_io_type == 0" src="./img/wallet_chong.png" alt="">
+                <img v-else src="./img/wallet_xiao.png" alt="">
+                <p  v-if="item.f_io_type == 0">充值金额</p>
+                <p  v-else>消费金额</p>
+                <p>{{ item.create_time }}</p>
             </div>
             <div class="wallet_list_right">
-                <p>-222.00</p>
+                <p  v-if="item.f_io_type == 0">+{{ item.money }}</p>
+                <p  v-else>-{{ item.money }}</p>
                 <img src="./img/wallet_right.png" alt="">
             </div>
         </li>
-        <li>
+        <!-- <li>
             <div class="wallet_list_left">
                 <img src="./img/wallet_zu.png" alt="">
                 <p>红包提现红包提现红包提现红包提现</p>
@@ -56,29 +59,34 @@
                 <p>-222.00</p>
                 <img src="./img/wallet_right.png" alt="">
             </div>
-        </li>
+        </li> -->
     </ul>
 
     <mt-datetime-picker
-    @confirm="handleConfirm"
-  v-model="pickerValue"
-  type="date"
-  ref="picker"
-  :startDate="startDate"
-  :endDate="endDate"
-  year-format="{value}"
-  month-format="{value}">
-</mt-datetime-picker>
+      @confirm="handleConfirm"
+      v-model="pickerValue"
+      type="date"
+      ref="picker"
+      :startDate="startDate"
+      :endDate="endDate"
+      year-format="{value}"
+      month-format="{value}">
+    </mt-datetime-picker>
 
+    <mt-picker v-show="show_check_type" :slots="slots" style="width:100%;background-color:#fff;position:fixed;bottom: 1rem;"></mt-picker>
+    <div v-show="show_check_type"  class="submit_btn sure_btn" @click="sureType()">
+        确定
+    </div>
 </div>
 </template>
 
 <script>
-import { MessageBox, DatetimePicker } from 'mint-ui'
+import { MessageBox, DatetimePicker, Picker } from 'mint-ui'
 export default {
   components: {
     DatetimePicker,
-    MessageBox
+    MessageBox,
+    Picker
   },
   data () {
     return {
@@ -87,7 +95,16 @@ export default {
       pickerValue: '',
       startDate: new Date('2018-1-1'),
       endDate: new Date(),
-      moneyList: ''
+      moneyList: '',
+      show_check_type: false,
+      slots: [
+        {
+          // flex: 1,
+          values: ['', '全部', '红包', '提现', '充值', '分佣', '广告费支出'],
+          // className: 'slot1',
+          textAlign: 'center'
+        }
+      ]
     }
   },
   methods: {
@@ -152,6 +169,25 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    checkMonth: function () { // 月账单
+      this.$router.push({
+        path: '/mouthBill'
+      })
+    },
+    filter: function () { // 筛选
+      this.show_check_type = true
+    },
+    sureType: function () {
+      this.show_check_type = false
+    },
+    onValuesChange: function () {
+
+    },
+    consumptionDetails: function () {
+      this.$router.push({
+        path: '/payDetail'
+      })
     }
 
   },
@@ -175,4 +211,22 @@ export default {
 
 <style scoped>
 @import './css/my_wallet.css';
+.submit_btn{
+    width: 100%;
+    height: 1.07rem;
+    background-color: #5286EC;
+    line-height: 1.07rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.4rem;
+    position: fixed;
+    bottom: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+.sure_btn{
+    background-color:#fff!important;
+    color:#5186EB!important;
+    font-size: 0.45rem;
+}
 </style>
