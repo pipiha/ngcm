@@ -45,11 +45,13 @@
     padding-left: 0.4rem;
     margin-top: 0.15rem;
     margin-bottom: 0.1rem;
+    text-align: left;
 }
 .my_act_msg li span{
     font-size: 0.35rem;
     color: #979797;
     padding-left: 0.4rem;
+    float: left;
 }
 .my_act_msg li span:nth-of-type(2){
     float: right;

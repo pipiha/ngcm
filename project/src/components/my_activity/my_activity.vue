@@ -24,12 +24,21 @@
                 <span>{{ item.create_time }}</span>
                 <span>{{ item.s_address }}</span>
             </li>
-            <!-- <li>
-                <img src="./img/Group 4.png" alt="">
+            <li>
+                <img src="./img/Group 2.png" alt="">
                 <p>品牌厨具，买4送一</p>
                 <span>2018-09-09 10:00:00</span>
                 <span>晋州市马于镇人人乐超市</span>
-            </li> -->
+            </li>
+            <li>
+                <img src="./img/Group 3.png" alt="">
+                <p>品牌厨具，买4送一</p>
+                <span>2018-09-09 10:00:00</span>
+                <span>晋州市马于镇人人乐超市</span>
+                <div class="time_out_show">
+                    <img src="./img/timeout.png" alt="">
+                </div>
+            </li>
         </ul>
         <img @click="addAdvFn()"  class="add_adv_btn add_rotate" v-show="addBtn" src="./img/add.png" alt="">
 
@@ -112,7 +121,6 @@ export default {
             Indicator.close()
             let dataObj = res.data.data.data
             if (dataObj.length === 0) {
-              console.log('数据为空')
               this.isKong = true
             } else {
               dataObj.forEach((item) => {

@@ -3,8 +3,8 @@
         <div v-wechat-title="$route.meta.title"></div>
         <ul>
             <!-- 我感兴趣部分 -->
-            <li @click="getAdvDetail(0,item.h5_id)" v-if="advType === 0"  v-for="(item,index) in footData"  :code="item.h5_id" >
-                <img :src="'http://img.agrimedia.cn/' + item.h5_thumbnail" alt="">
+            <li v-if="advType === 0"  v-for="(item,index) in footData"  :code="item.h5_id" >
+                <img @click="getAdvDetail(0,item.h5_id)"  :src="'http://img.agrimedia.cn/' + item.h5_thumbnail" alt="">
                 <div class="adv_title">
                     <span>{{ item.create_time }}</span>
                     <span  @click="cancalFoot(1,1)" style="color: #999999;">删除</span>
@@ -172,7 +172,7 @@ export default {
       }
       this.$axios.get('api' + url)
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.data.code === 200) {
             this.show_cancel = false
             // 找到是删除的足迹id 删除
@@ -205,7 +205,7 @@ export default {
     // window.location.reload()
   },
   created: function () {
-    console.log('-----------------组件创建了-----------------')
+    // console.log('-----------------组件创建了-----------------')
 
     // console.log(this.$route.query.type)
   },
@@ -232,14 +232,17 @@ export default {
 
   },
   deactivated () {
-    // this.$destroy()
+    this.$destroy()
   }
 }
 </script>
 
 <style scoped>
 @import './css/my_adv.css';
-html,body{
-  background-color:pink;
+.adv_wrap{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #F3F6F5;
 }
 </style>

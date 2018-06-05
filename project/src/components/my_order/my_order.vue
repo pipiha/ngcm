@@ -1,8 +1,8 @@
 <template>
-<div>
+<div class="my_order_box">
     <div v-wechat-title="$route.meta.title"></div>
     <ul class="order_wrap">
-        <li>
+        <!-- <li>
             <div class="order_up">
                 <p>已付款</p>
                 <img src="./img/delete.png" alt="">
@@ -25,7 +25,7 @@
             <div class="order_down">
                 <p class="order_check_detail">查看详情</p>
             </div>
-        </li>
+        </li> -->
         <li>
             <div class="order_up">
                 <p style="color:#333333;">已完成</p>
@@ -47,7 +47,7 @@
 
             </div>
             <div class="order_down">
-                <p class="order_check_detail">查看详情</p>
+                <p class="order_check_detail" @click="advDetail()">查看详情</p>
             </div>
         </li>
 
@@ -56,20 +56,44 @@
 </template>
 
 <script>
+import { MessageBox } from 'mint-ui'
 export default {
+  components: {
+    MessageBox
+  },
   data () {
     return {
     //   advType: ''
     }
   },
   methods: {
+    advDetail: function () {
+      this.$router.push({
+        path: '/waitPay'
+      })
+    },
+    advList: function () {
+      let postData = this.$qs.stringify({
 
+      })
+      this.$axios({
+        methods: 'post',
+        url: 'api/',
+        data: postData
+      })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   },
   beforeCreate: function () {
 
   },
   created: function () {
-    console.log('-----------------组件创建了-----------------')
+    // console.log('-----------------组件创建了-----------------')
   },
   beforeMount: function () {
     // console.log(this.$route.query.type)
@@ -83,4 +107,10 @@ export default {
 
 <style lang="css" scoped>
 @import './css/my_order.css';
+.my_order_box{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #F3F6F5;
+}
 </style>

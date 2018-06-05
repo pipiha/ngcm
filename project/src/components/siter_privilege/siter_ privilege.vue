@@ -33,13 +33,19 @@
     </ul>
 
     <!-- 活动展示 -->
-    <ul class="siter_active">
+    <ul class="siter_active" style="height: 4rem;overflow: hidden;">
+        <li v-for="(item,index) in advList" @click="advDetails()">
+            <img src="../../../static/siter_privilege/img/317630780744939915.png" alt="">
+        </li>
+        <li>
+            <img src="../../../static/siter_privilege/img/317630780744939915.png" alt="">
+        </li>
         <li>
             <img src="../../../static/siter_privilege/img/317630780744939915.png" alt="">
         </li>
     </ul>
     <!-- 查看更多 -->
-    <div class="check_more">
+    <div class="check_more" @click="goMore()">
         查看更多
     </div>
 
@@ -51,7 +57,8 @@ export default {
   data () {
     return {
       siteInfoText: '',
-      customerNum: 0
+      customerNum: 0,
+      advList: ''
     }
   },
   methods: {
@@ -66,25 +73,13 @@ export default {
         })
       }
     },
-    getuserInfo: function () {
-      this.$axios.get('api/wxpub/user/getuserinfo')
-        .then((res) => {
-          // console.log(res.data)
-          //   res为axios包装后的数据体 自己请求的数据 在res。data 里面
-          if (res.data.code === 200) {
-            // 在这里不要比对code值 有些接口报错 但code值还是200
-            // console.log(res.data)
-          }
-        })
-        .catch((err) => {
-          console.error(err, '请求用户信息报错')
-        })
-    },
+    // 获取点位主信息
     getSiterInfo: function () {
       this.$axios.get('api/wxpub/siter/getSiterInfo.html')
         .then((res) => {
           if (res.data.code === 200) {
-            this.siteInfoText = res.data.data.siterInfo
+            this.siteInfoText = res.data.data.siterInfo // 点位主信息
+            this.advList = res.data.data.siterPromotion // 发布的活动列表
           }
         })
         .catch((err) => {
@@ -103,6 +98,21 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    // 跳转更多
+    goMore: function () {
+      this.$router.push({
+        path: '/myActivity'
+      })
+    },
+    // 单个活动点击
+    advDetails: function () {
+      this.$router.push({
+        path: '/actDetail',
+        query: {
+          code: '1'
+        }
+      })
     }
 
   },
@@ -111,7 +121,7 @@ export default {
   },
   created: function () {
     // this.imgUrl =
-    this.getuserInfo()
+    // this.getuserInfo()
     this.getSiterInfo()
     this.customerList()
   },

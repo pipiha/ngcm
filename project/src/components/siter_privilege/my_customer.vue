@@ -4,11 +4,11 @@
     <div class="customer_up_box">
         <ul class="purse_ul">
             <li>
-                <p style="font-size:0.8rem;margin-top:0;">1888</p>
+                <p style="font-size:0.8rem!important;margin-top:0;">1888</p>
                 <p>总互动人数</p>
             </li>
             <li>
-                <p style="font-size:0.8rem;margin-top:0;">1888</p>
+                <p style="font-size:0.8rem!important;margin-top:0;">1888</p>
                 <p>总扫码人数</p>
             </li>
         </ul>
@@ -58,6 +58,8 @@
   v-model="pickerVisible"
   type="date"
   ref="picker"
+  :startDate="startDate"
+  :endDate="endDate"
   year-format="{value}"
   month-format="{value}">
 </mt-datetime-picker>
@@ -80,6 +82,8 @@ export default {
   },
   data () {
     return {
+      startDate: new Date('2018-1-1'),
+      endDate: new Date(),
       pageConfig: { // 分页属性
         page: 1
       },
@@ -148,7 +152,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .customer_up_box{
     width: 100%;
     height: 4rem;

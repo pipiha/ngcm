@@ -56,7 +56,12 @@
         <img src="./img/siter_t.png" alt="">
         <p>附近活动</p>
       </div>
-      <img v-for="(item,index) in promotion" src="./img/show.png" alt="">
+      <ul class="siter_active">
+        <li v-for="(item,index) in promotion" >
+          <img src="./img/show.png" alt="">
+        </li>
+      </ul>
+      <!-- <imgsrc="./img/show.png" alt=""> -->
       <p class="check_more_submit" @click="toMore()">查看更多</p>
     </div>
 </div>
@@ -108,7 +113,6 @@ export default {
 
   },
   created: function () {
-    console.log('-----------------组件创建了-----------------')
     this.getuserInfo()
   },
   beforeMount: function () {
@@ -122,4 +126,17 @@ export default {
 
 <style>
 @import './css/user_center.css';
+.siter_active{
+    width: 100%;
+    height: 4rem;
+    overflow: hidden;
+}
+.siter_active li{
+    height: 4rem;
+    cursor: pointer;
+}
+.siter_active li img{
+    width:100%;
+    height: 100%;
+}
 </style>
