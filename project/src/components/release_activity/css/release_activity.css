@@ -158,8 +158,11 @@
     cursor: pointer;
 }
 .release_on{
+    /* border: 0.02rem solid #5286EC!important;
+    color: #5286EC!important; */
     border: 0.02rem solid #5286EC!important;
-    color: #5286EC!important;
+    background-color: #5286EC;
+    color: #fff!important;
 }
 .li_right input{
     width: 100%;

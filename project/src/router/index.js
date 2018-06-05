@@ -42,7 +42,7 @@ export default new Router({
   routes: [
     { // 首页
       path: '/',
-      name: 'userCenter',
+      // name: 'userCenter',
       component: UserCenter,
       meta: {
         title: '用户中心'
@@ -154,7 +154,7 @@ export default new Router({
       children: [
         {
           path: '/numDetail/',
-          name: 'tab1',
+          name: 'tab',
           component: TabOne
         },
         {
@@ -310,7 +310,7 @@ export default new Router({
     },
     {
       path: '/userCenter',
-      name: 'userCenter',
+      // name: 'userCenter',
       component: UserCenter,
       meta: {
         title: '用户中心'
