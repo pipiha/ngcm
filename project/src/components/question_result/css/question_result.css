@@ -2,7 +2,10 @@ html,body{
     background-color: #F3F6F5;
 }
 .question_wrap{
+    position: fixed;
     width: 100%;
+    height: 100%;
+    background-color: #F3F6F5;
 }
 .qs_bj{
     width: 100%;

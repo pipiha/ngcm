@@ -157,6 +157,7 @@ export default {
     width: 100%;
     height: 4rem;
     background: url('./img/bj.png') 100% 100%;
+    background-size: cover;
     padding: 0.1px;
 }
 .month_bill_up{

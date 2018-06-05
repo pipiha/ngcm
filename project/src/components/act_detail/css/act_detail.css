@@ -19,8 +19,7 @@ html,body{
     margin-top: 0.4rem;
 }
 .act_detail_top p{
-    font-size: 0.4rem;
-    font-weight: bold;
+    font-size: 0.45rem;
     text-align: center;
     margin-top: 0.4rem;
 }
@@ -32,12 +31,16 @@ html,body{
     width: 100%;
     margin-top: 0.4rem;
     font-size: 0.4rem;
-    color: #666666;
+    color: #999999;
+    text-align: left;
 }
 .act_detail_center ul li{
     width: 100%;
     height: 1.3rem;
     text-align: left;
+}
+.act_detail_center ul li:nth-of-type(2){
+   margin-bottom: 0.3rem;
 }
 .act_detail_center ul li img{
     width: 0.6rem;
@@ -89,11 +92,11 @@ html,body{
     margin-left: 0.4rem;
     float: left;
 }
-.act_head_wrap p{
+/* .act_head_wrap p{
     padding-left: 3rem;
     font-size: 0.4rem;
     color: #666666;
     line-height: 0.85rem;
     text-align: left;
-}
+} */
 

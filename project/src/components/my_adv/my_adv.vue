@@ -79,6 +79,17 @@
             </div>
         </div>
 
+        <img @click="addAdvFn()"  class="add_adv_btn add_rotate" v-show="addBtn" src="./img/add.png" alt="">
+
+        <!-- 添加广告 -->
+        <div class="add_adv_wrap" v-show="isShowAdd">
+            <div>
+                <img @click="tocreatAdv(0)" src="./img/add_shu.png" alt="">
+                <img @click="tocreatAdv(1)" src="./img/add_zhan.png" alt="">
+                <img @click="cancelAdd()" style="transform: rotate(90deg);" src="./img/add.png" alt="">
+            </div>
+        </div>
+
         </ul>
     </div>
 </template>
@@ -97,14 +108,38 @@ export default {
       footData: '',
       isKong: false,
       cancelID: '',
-      cancelIndex: ''
+      cancelIndex: '',
+      addBtn: false,
+      isShowAdd: false
     }
   },
   methods: {
     lovdData: function () {
 
     },
-    myFoot: function (url) { // 我的足迹数据 我的收藏数据 我的广告数据
+    addAdvFn: function () {
+      this.isShowAdd = true
+      this.addBtn = false
+      // this.isRotate = false
+    },
+    cancelAdd: function () {
+      this.isShowAdd = false
+      this.addBtn = true
+    },
+    tocreatAdv: function (type) {
+      this.isShowAdd = false
+      this.addBtn = true
+      if (type === 0) { // 数字
+        this.$router.push({
+          path: '/makeAdv'
+        })
+      } else { // 展示
+        this.$router.push({
+          path: '/releaseActivity'
+        })
+      }
+    },
+    myFoot: function (url) { // 我的足迹数据 我的收藏数据
       this.$axios.get('api' + url)
         .then((res) => {
         //   console.log(res)
@@ -199,6 +234,20 @@ export default {
           code: code
         }
       })
+    },
+    getActList: function () { // 我的广告列表
+      Indicator.close()
+      this.$axios.get('api/wxpub/show_adv_detail/allAdv')
+        .then((res) => {
+          console.log(res)
+          // Indicator.close()
+          if (res.data.code === 200) {
+            // Indicator.close()
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   beforeCreate: function () {
@@ -213,19 +262,23 @@ export default {
     // console.log(this.$route.query.type)  0 我感兴趣 1 我的足迹
     this.advType = this.$route.query.type
     if (this.advType === 0) {
+      console.log('我感兴趣')
       this.$route.meta.title = '我感兴趣'
       Indicator.open()
       this.myFoot('/wxpub/user/myCollection.html')
     } else if (this.advType === '1') {
+      console.log('我的足迹')
       this.$route.meta.title = '我的足迹'
       Indicator.open()
       this.myFoot('/wxpub/user/mytrace.html')
     } else if (this.advType === '2') {
+      console.log('我的广告')
       this.$route.meta.title = '我的广告'
-      Indicator.open()
-      this.myFoot('/wxpub/user/mytrace.html')
+      // Indicator.open()
+      this.addBtn = true
+      this.getActList()
     } else {
-
+      console.log('else')
     }
   },
   mounted: function () {
@@ -240,9 +293,50 @@ export default {
 <style scoped>
 @import './css/my_adv.css';
 .adv_wrap{
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   background-color: #F3F6F5;
+}
+/* 遮罩 */
+.add_adv_wrap{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color:rgba(51,51,51,0.50);
+}
+.add_adv_wrap img{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    position: absolute;
+}
+.add_adv_wrap img:nth-of-type(1){
+    bottom: 2.5rem;
+    right: 1.7rem;
+}
+.add_adv_wrap img:nth-of-type(2){
+    bottom: 0.8rem;
+    right: 2.8rem;
+}
+.add_adv_wrap img:nth-of-type(3){
+    bottom: 0.8rem;
+    right: 0.6rem;
+    transform:rotate(45deg);
+}
+.add_adv_btn{
+    width: 2rem;
+    height: 2rem;
+    /* position: relative;
+    bottom: 0.6rem;
+    right: -3.5rem; */
+    position: fixed;
+    bottom: 0.6rem;
+    right: 0.5rem;
+}
+.add_rotate{
+    transform:rotate(45deg);
 }
 </style>

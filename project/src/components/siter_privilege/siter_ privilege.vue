@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="siter_big_wrap">
     <div v-wechat-title="$route.meta.title"></div>
         <!-- 个人信息 -->
     <div class="siter_wrap">
@@ -91,7 +91,7 @@ export default {
       this.$axios.get('api/wxpub/siter/getUserList.html')
         .then((res) => {
           if (res.data.code === 200) {
-            this.customerNum = res.data.data.data.length
+            this.customerNum = res.data.data.total
             // Indicator.close()
           }
         })
@@ -138,4 +138,10 @@ export default {
 
 <style scoped>
 @import '../../../static/siter_privilege/css/siter_privilege.css';
+.siter_big_wrap{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #F3F6F5;
+}
 </style>

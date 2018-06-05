@@ -17,6 +17,7 @@ html,body{
     left: 0;
     bottom: 0;
     background: url(../img/bj.png) 100% 100%;
+    background-size: cover;
 }
 .red_bj img{
     width: 100%;

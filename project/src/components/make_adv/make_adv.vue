@@ -30,6 +30,6 @@ export default {
 }
 </script>
 
-<style>
-@import './css/make_adv.css'
+<style scoped>
+@import './css/make_adv.css';
 </style>

@@ -50,6 +50,7 @@ export default {
     width: 100%;
     height: 1.95rem;
     background: url('./img/banner.png') 100% 100%;
+    background-size: cover;
 }
 .read_join_bg p{
     text-align: center;

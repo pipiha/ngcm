@@ -20,7 +20,7 @@
                 </div>
                 <!-- 添加文字 -->
                 <div class="adv_add_text">
-                    <textarea name="" id="" cols="30" rows="10" placeholder="点击添加文字（必填）"></textarea>
+                    <textarea name="" id="" cols="30" rows="10" placeholder="点击添加文字"></textarea>
                 </div>
            </li>
            <li>
@@ -40,7 +40,7 @@
                  </div>
                  <!-- 添加文字 -->
                  <div class="adv_add_text">
-                     <textarea name="" id="" cols="30" rows="10" placeholder="点击添加文字（必填）"></textarea>
+                     <textarea name="" id="" cols="30" rows="10" placeholder="点击添加文字"></textarea>
                  </div>
             </li>
         </ul>

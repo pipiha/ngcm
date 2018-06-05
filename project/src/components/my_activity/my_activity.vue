@@ -70,7 +70,8 @@ export default {
       isShowAdd: false,
       addBtn: true,
       actData: '',
-      isKong: false
+      isKong: false,
+      actType: ''
     }
   },
   methods: {
@@ -85,9 +86,12 @@ export default {
       }
     },
     addAdvFn: function () {
-      this.isShowAdd = true
-      this.addBtn = false
+      // this.isShowAdd = true
+      // this.addBtn = false
       // this.isRotate = false
+      this.$router.push({
+        path: '/releaseActivity'
+      })
     },
     cancelAdd: function () {
       this.isShowAdd = false
@@ -98,17 +102,11 @@ export default {
       this.addBtn = true
       if (type === 0) { // 数字
         this.$router.push({
-          path: '/releaseActivity',
-          query: {
-            type: 0
-          }
+          path: '/makeAdv'
         })
       } else { // 展示
         this.$router.push({
-          path: '/releaseActivity',
-          query: {
-            type: 1
-          }
+          path: '/releaseActivity'
         })
       }
     },
@@ -135,13 +133,32 @@ export default {
         .catch((err) => {
           console.err(err)
         })
+    },
+    // 获取我的广告列表
+    getMyAdv: function () {
+      this.$axios.get('api/wxpub/show_adv_detail/allAdv')
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   beforeCreate: function () {
 
   },
   created: function () {
+    this.actType = this.$route.query.type
+    console.log(this.actType)
+    // if (this.actType === '0') { // 我的广告列表
+    //   console.log('if')
+    //   this.getMyAdv()
+    // } else { // 我的活动列表
+    //   console.log('else')
     this.getAdvData(1)
+    // }
+    // this.getAdvData(1)
   },
   beforeMount: function () {
 

@@ -24,6 +24,7 @@
 
     <!-- 零钱明细   v-for="(item,index) in moneyList" -->
     <ul class="wallet_list">
+        <p v-show="isKong" style="font-size: 0.4rem;margin-top: 30%;color: #999999;">暂无记录了</p>
         <li v-for="(item,index) in moneyList" @click="consumptionDetails()">   <!-- 推广费用明细 -->
             <div class="wallet_list_left">
                 <img v-if="item.f_io_type == 0" src="./img/wallet_chong.png" alt="">
@@ -33,7 +34,7 @@
                 <p>{{ item.create_time }}</p>
             </div>
             <div class="wallet_list_right">
-                <p  v-if="item.f_io_type == 0">+{{ item.money }}</p>
+                <p  v-if="item.f_io_type == 0" style="color: #F4B779;">+{{ item.money }}</p>
                 <p  v-else>-{{ item.money }}</p>
                 <img src="./img/wallet_right.png" alt="">
             </div>
@@ -72,6 +73,7 @@
       year-format="{value}"
       month-format="{value}">
     </mt-datetime-picker>
+    <div v-show="zheZhao" class="zhe_zhao"></div>
 
     <mt-picker v-show="show_check_type" :slots="slots" style="width:100%;background-color:#fff;position:fixed;bottom: 1rem;"></mt-picker>
     <div v-show="show_check_type"  class="submit_btn sure_btn" @click="sureType()">
@@ -81,15 +83,17 @@
 </template>
 
 <script>
-import { MessageBox, DatetimePicker, Picker } from 'mint-ui'
+import { MessageBox, DatetimePicker, Picker, Indicator } from 'mint-ui'
 export default {
   components: {
     DatetimePicker,
     MessageBox,
-    Picker
+    Picker,
+    Indicator
   },
   data () {
     return {
+      zheZhao: false,
       timeText: this.formatDate(new Date()),
       pickerVisible: '',
       pickerValue: '',
@@ -104,7 +108,8 @@ export default {
           // className: 'slot1',
           textAlign: 'center'
         }
-      ]
+      ],
+      isKong: false
     }
   },
   methods: {
@@ -137,6 +142,11 @@ export default {
         .then((res) => {
           console.log(res)
           if (res.data.code === 200) {
+            // if(res.data.data.length === 0){
+            this.isKong = true
+            // }else{
+            //   let obj = res.data.data.data
+            // }
             let obj = [{
               'money': '224.00',
               'create_time': '2018-05-30 06:18:17',
@@ -164,6 +174,7 @@ export default {
             }]
 
             this.moneyList = obj
+            Indicator.close()
           }
         })
         .catch((err) => {
@@ -177,9 +188,11 @@ export default {
     },
     filter: function () { // 筛选
       this.show_check_type = true
+      this.zheZhao = true
     },
     sureType: function () {
       this.show_check_type = false
+      this.zheZhao = false
     },
     onValuesChange: function () {
 
@@ -198,6 +211,7 @@ export default {
     // console.log(time)
     // console.log(this.formatDate(new Date(), 0))
     let intiTime = this.formatDate(new Date(), 0)
+    Indicator.open()
     this.timeMoney('', intiTime)
   },
   beforeMount: function () {
@@ -228,5 +242,13 @@ export default {
     background-color:#fff!important;
     color:#5186EB!important;
     font-size: 0.45rem;
+}
+.zhe_zhao{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,.4)
 }
 </style>

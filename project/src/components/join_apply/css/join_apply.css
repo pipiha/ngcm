@@ -11,7 +11,7 @@
     width: 100%;
     height: 1rem;
     font-size: 0.43rem;
-    font-weight: 700;
+    /* font-weight: 700; */
     color: #3877E9;
     text-align: left;
     line-height: 1.3rem;
@@ -23,16 +23,16 @@
     font-size: 0.38rem;
 }
 .join_apply_wrap ul li input::-webkit-input-placeholder{
-    color: #999999;
+    color: rgb(153,153,153,.8);
 }
 .join_apply_wrap ul li input::-moz-input-placeholder{
-    color: #999999;
+    color: rgb(153,153,153,.8);
 }
 .join_apply_wrap ul li input::-o-input-placeholder{
-    color: #999999;
+    color: rgb(153,153,153,.8);
 }
 .join_apply_wrap ul li input::input-placeholder{
-    color: #999999;
+    color: rgb(153,153,153,.8);
 }
 
 .join_check_box{

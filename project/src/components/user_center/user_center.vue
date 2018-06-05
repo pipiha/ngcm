@@ -25,7 +25,7 @@
       </li>
       <li>
         <router-link to="/myAdv?type=1">
-          <img src="./img/my_love.png" alt="">
+          <img style="width: 0.5rem;" src="./img/foot.png" alt="">
           <p>我的足迹</p>
         </router-link>
       </li>
@@ -124,7 +124,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/user_center.css';
 .siter_active{
     width: 100%;

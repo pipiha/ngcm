@@ -2,7 +2,7 @@
 <div>
     <div v-wechat-title="$route.meta.title"></div>
     <!-- 支付成功详情 -->
-    <div class="success_wrap">
+    <div class="success_wrap" style="display: none;">
         <img src="./img/success.png" alt="">
         <p class="pay_des" style="margin-left: -0.3rem;">充值成功</p>
         <!-- 支付成功 -->
@@ -25,7 +25,7 @@
     </div>
 
     <!-- 支付失败详情 -->
-    <div class="fail_wrap"  style="display: none;">
+    <div class="fail_wrap">
         <img src="./img/fail.png" alt="">
         <p class="pay_des">充值失败</p>
         <div class="fail_money_box">
@@ -43,6 +43,6 @@ export default {
 }
 </script>
 
-<style>
-@import './css/pay_detail.css'
+<style scoped>
+@import './css/pay_detail.css';
 </style>

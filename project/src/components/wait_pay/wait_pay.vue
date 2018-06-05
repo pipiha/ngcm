@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="wait_type_wrap">
    <div class="wait_pay_up">
        <p>已完成订单</p>
        <!-- <img style="width:1.5rem;" src="./img/cancel.png" alt=""> -->
@@ -56,9 +56,13 @@
        </li>
        <li>
            <span>支付金额</span>
-           <span  style="color: #5286EC;">￥31.00</span>
+           <span style="color: #5286EC;">￥31.00</span>
        </li>
    </ul>
+
+   <div class="goPay">
+       前往支付
+   </div>
 </div>
 </template>
 
@@ -66,28 +70,7 @@
 export default {
   data () {
     return {
-      dataObj: [
-        {
-          dataTitle: '广告名称',
-          dataMsg: '老庙黄金'
-        },
-        {
-          dataTitle: '预计播放日期',
-          dataMsg: '2017-06-03'
-        },
-        {
-          dataTitle: '广告持续时长(月)',
-          dataMsg: '4'
-        },
-        {
-          dataTitle: '视频时长',
-          dataMsg: '15秒'
-        },
-        {
-          dataTitle: '播放点位',
-          dataMsg: '32个'
-        }
-      ]
+
     }
   }
 }
@@ -95,4 +78,24 @@ export default {
 
 <style scoped>
 @import './css/wait_pay.css';
+.wait_type_wrap{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #F3F6F5;
+}
+.goPay{
+    width: 100%;
+    height: 1.07rem;
+    margin: 0 auto;
+    background: -webkit-gradient(linear, right top, left top, from(#4189D0), color-stop(68%, #5286EC));
+    background: linear-gradient(-90deg, #4189D0 0%, #5286EC 68%);
+    /* border-radius: 0.7rem; */
+    text-align: center;
+    line-height: 1.07rem;
+    color: #fff;
+    font-size: 0.38rem;
+    margin-top: 0.7rem;
+    cursor: pointer;
+}
 </style>

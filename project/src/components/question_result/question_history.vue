@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="question_history_box">
     <div v-wechat-title="$route.meta.title"></div>
     <div class="question_wrap">
         <div class="qs_bj">
@@ -120,6 +120,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/question_history.css';
+.question_history_box{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #F3F6F5;
+}
 </style>

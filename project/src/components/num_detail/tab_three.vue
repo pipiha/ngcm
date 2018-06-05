@@ -69,7 +69,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/num_detail.css';
 @import '../play_time/css/play_time.css';
+.site_bili_left{
+    text-align: left;
+}
 </style>

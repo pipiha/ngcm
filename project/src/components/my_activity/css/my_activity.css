@@ -15,13 +15,13 @@
     float: left;
     text-align: center;
     line-height: 1.26rem;
-    font-size: 0.4rem;
-    font-weight: bold;
+    font-size: 0.43rem;
+    /* font-weight: bold; */
     box-sizing: border-box;
 }
 .act_on{
     color:  #5286EC;
-    border-bottom: 0.05rem solid #5286EC;
+    border-bottom: 0.0834rem solid #5286EC;
 }
 .my_act_msg{
     width: 100%;

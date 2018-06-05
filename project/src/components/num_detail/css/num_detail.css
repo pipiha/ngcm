@@ -86,8 +86,9 @@ html.body{
 .ad_img_show p{
     text-align: center;
     font-size: 0.3rem;
-    color: #999999;
+    /* color: #999999; */
     margin-top: 0.2rem;
+    color: rgb(153,153,153,.8);
 }
 .mine ul{
     width: 100%;
@@ -105,6 +106,7 @@ html.body{
     line-height: 1.35rem;
     color: #666666;
     float: left;
+    text-align: right;
 }
 .mine ul li p:nth-of-type(2){
     width: 60%;
@@ -220,6 +222,7 @@ html.body{
 .site_bili_left{
     width: 20%;
     height: 100%;
+    text-align: left;
 }
 .site_bili_center{
     width: 59%;
