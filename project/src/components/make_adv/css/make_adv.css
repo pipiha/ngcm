@@ -41,6 +41,7 @@
     width: 50%;
     height: 100%;
     float: left;
+    position: relative;
     /* background-color: pink; */
 }
 .make_adv_right{
@@ -86,6 +87,7 @@
 .make_adv_right{
     text-align: center;
     padding: 0.1px;
+    position: relative;
 }
 .make_adv_right div{
     width: 2.15rem;
