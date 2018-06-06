@@ -18,6 +18,7 @@
     "echarts": "^4.1.0",
     "http-proxy-middleware": "^0.18.0",
     "iview": "^2.14.0-rc.5",
+    "jquery": "^3.3.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "mint-ui": "^2.2.13",

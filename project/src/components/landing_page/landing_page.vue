@@ -6,7 +6,7 @@
         <ul>
             <li>
                 <img :src="dataTag.s_thumb" alt="">
-                <p>{{ dataTag.s_content }}</p>
+                <p style="text-algin:left;">{{ dataTag.s_content }}</p>
             </li>
             <!-- <li>
                 <img src="./img/49476653903732260.png" alt="">

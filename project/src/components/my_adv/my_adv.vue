@@ -304,6 +304,7 @@ export default {
       this.$route.meta.title = '我的广告'
       // Indicator.open()
       this.addBtn = true
+      Indicator.open()
       this.getActList()
     } else {
       console.log('else')
