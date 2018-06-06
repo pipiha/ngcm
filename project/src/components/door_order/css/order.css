@@ -1,0 +1,563 @@
+*{
+  margin:0;
+  padding:0;
+}
+.ccc_box{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #fff;
+  display: none;
+}
+.closeCoupon{
+  /* float:right;
+  margin-top:-4rem;
+  margin-right: -2rem;
+  font-size:0.4rem; */
+  width: 76%;
+  height: 1rem;
+  margin: 0 auto;
+  margin-top: 1.2rem;
+  line-height: 1rem;
+  text-align: center;
+  border-radius: 0.7rem;
+  background-color: #2993f1;
+  font-size: 0.45rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 下单 */
+.order_wrap{
+  width: 100%;
+}
+.orderBanner{
+  width: 100%;
+  height: 5.5rem;
+  background: url('../img/orderBanner.png') no-repeat;
+  background-size: 100% 100%;
+  margin-top: -1.1rem;
+}
+.user_wrap{
+  width: 90%;
+  height: 1.7rem;
+  margin: 0 auto;
+  margin-top: -1.43rem;
+  margin-bottom: 1.6rem;
+  border-bottom: 0.01rem solid #e2e2e2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 0.4rem;
+}
+.user_wrap p{
+  color: #236be8;
+  text-align: left;
+}
+.user_wrap span{
+  color: gray;
+}
+.user_wrap input{
+  border: none;
+  margin-bottom: 0.2rem;
+  font-size: 0.38rem;
+}
+.check_time{
+  width: 100%;
+  height: 1rem;
+  font-size: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.check_time span{cursor: pointer;}
+
+/* 提交订单 */
+.submit_btn{
+  width: 100%;
+  height: 1.3rem;
+  background-color: #2993f1;
+  color: #fff;
+  font-size: 0.4rem;
+  text-align: center;
+  line-height: 1.3rem;
+  position: fixed;
+  bottom: 0;
+}
+.submit_btn2{
+  width: 100%;
+  height: 1.3rem;
+  background-color: #2993f1;
+  color: #fff;
+  font-size: 0.4rem;
+  text-align: center;
+  line-height: 1.3rem;
+  float: left;
+}
+
+
+
+/* 选择乡镇 */
+.check_area{
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,.3);
+  display: none;
+}
+.check_area_up{
+  width: 100%;
+  height: 1.3rem;
+  background-color: #fff;;
+  position: absolute;
+  bottom: 5.7rem;
+}
+.check_area_up ul{
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+}
+.check_area_up ul li{
+  width: 50%;
+  height: 100%;
+  float: left;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 1.3rem;
+  font-size: 0.4rem;
+}
+.check_area_up ul li{
+  cursor: pointer;
+}
+.color_style{
+  border-bottom: 0.05rem solid #3b89f3;
+  color: #3b89f3;
+}
+
+.check_area_center{
+  width: 100%;
+  height: 4.4rem;
+  background-color: #f5f5f4;
+  position: absolute;
+  bottom: 1.3rem;;
+  overflow: auto;
+}
+.check_area_center p{
+  display: inline-block;
+  width: 20%;
+  height: 0.8rem;
+  border-radius: 0.4rem;
+  line-height: 0.8rem;
+  font-size: 0.38rem;
+  color: #666666;
+  border: 0.01rem solid #666666;
+  margin: 0 0.2rem 0 .2rem;
+  text-align: center;
+  margin-top: 0.25rem;
+  cursor: pointer;
+
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.check_area_center p{
+  cursor: pointer;
+}
+.check_area_center span{
+  cursor: pointer;
+}
+.check_area_center i{
+  cursor: pointer;
+}
+/* .check_area_center p i{
+  display: inline-block;
+  width: 70%;
+  height: 0.8rem;
+
+} */
+.color_styleP{
+  background-color: #3b89f3;
+  border: 0.01rem solid #3b89f3 !important;
+  color: #fff !important;
+}
+.color_styleP span{
+ color: #3b89f3;
+ background-color: #fff;
+ border-radius: 0 0.35rem 0.35rem 0;
+}
+.color_styleP span{
+  cursor: pointer;
+}
+#town_msg p{
+  width: 24%;
+  padding-left: 0.2rem;
+  margin-left: 0.4rem;
+}
+#town_msg i{
+  display: inline-block;
+  width: 60%;
+  height: 0.8rem;
+  font-style: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  float: left;
+}
+#town_msg span{
+  display: inline-block;
+  width: 37%;
+  height: 0.8rem;
+  border-left: 0.02rem solid #666666;
+  text-align: center;
+  line-height: 0.8rem;
+}
+
+#village_msg{
+  display: none;
+  overflow: auto;
+}
+#village_msg .haha{
+  width: 100%;
+  height:100%;
+  position: absolute;
+}
+#village_msg .color_styleV{
+  border: 0.02rem solid #3b89f3;
+  color: #3b89f3;
+
+}
+#village_msg p{
+  height: 0.75rem;
+  line-height: 0.75rem;
+  margin-left: 0.25rem;
+  border: 0.02rem solid #666666;
+}
+#village_msg p{
+  cursor: pointer;
+}
+
+/* 选择点位的结果 */
+.area_result{
+  width: 100%;
+  border-bottom: 0.01rem solid #e2e2e2;
+  display: none;
+}
+.area_result_up{
+  width: 100%;
+  height: auto;
+  margin-top: 0.3rem;
+  border-top: 0.07rem dotted #e2e2e2;
+}
+.area_result_up .up_title{
+  position: relative;
+  top: -0.3rem;
+  width: 18%;
+  height: 0.5rem;
+  color: #666666;
+  background-color: #fff;
+  font-size: 0.38rem;
+}
+.area_result_up .up_title{
+  cursor: pointer;
+}
+/* 全选整镇 */
+.area_result_every{
+  width: 30%;
+  height: 0.8rem;
+  border: 0.02rem solid #3a89f3;
+  border-radius: 0.5rem;
+  float: left;
+  margin: 0.2rem 0 0.1rem 0.2rem;
+}
+.area_result_every i{
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  font-weight: inherit;
+  font-size: 0.4rem;
+  color: #fff;
+  line-height: 0.3rem;
+  text-align: center;
+  padding: 0.05rem;
+  background-color: #3a89f3;
+  border-radius: 0.5rem;
+  position: relative;
+  float: right;
+  top: -1.1rem;
+  right: -0.2rem;
+  cursor: pointer;
+  font-style: normal;
+}
+.area_result_every p{
+  display: inline-block;
+  width: 70%;
+  height: 100%;
+  background-color: #3a89f3;
+  color: #fff;
+  float: left;
+  border-radius: 0.5rem 0 0 0.5rem;
+  text-align: center;
+  line-height: 0.77rem;
+  font-size: 0.38rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.area_result_every span{
+  display: inline-block;
+  width: 30%;
+  height: 100%;
+  background-color: #fff;
+  color: #3a89f3;
+  border-radius: 0 0.5rem 0.5rem 0;
+  text-align: center;
+  line-height: 0.75rem;
+  font-size: 0.4rem;
+  float: right;
+}
+
+/* 小焦镇 */
+.area_result_down{
+  width: 100%;
+  height: auto;
+  margin-top: 0.3rem;
+  border-top: 0.07rem dotted #e2e2e2;
+  float: left;
+  font-size: 0.38rem;
+}
+.area_result_down p{
+  position: relative;
+  top: -0.3rem;
+  width: 18%;
+  height: 0.5rem;
+  color: #666666;
+  background-color: #fff;
+  font-size: 0.38rem;
+}
+.area_result_v{
+  width: 20%;
+  height: 0.8rem;
+  float: left;
+  margin: 0.1rem 0 0.2rem 0.3rem;
+  position:relative;
+}
+.area_result_v p{
+  display: inline-block;
+  width: 100%;
+  height: 0.7rem;
+  border: 0.03rem solid #3a89f3;
+  color: #3a89f3;
+  border-radius: 0.4rem;
+  text-align: center;
+  line-height: 0.7rem;
+  font-size: 0.38rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.area_result_v i{
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  font-weight: inherit;
+  font-size: 0.4rem;
+  color: #fff;
+  line-height: 0.3rem;
+  text-align: center;
+  padding: 0.05rem;
+  background-color: #3a89f3;
+  border-radius: 0.5rem;
+  position: absolute;
+  /* top: -0.2rem; */
+  top: -24%;
+  right: -0.25rem;
+  cursor: pointer;
+  text-align: center;
+  font-style: normal;
+  list-style: none;
+}
+/* 点位总计 */
+.area_result_num{
+  width: 100%;
+  height: 1rem ;
+  margin-top: 0.3rem;
+  float: left;
+  font-size: 0.38rem;
+}
+.area_result_num p{
+  float: left;
+  color: #666666;
+}
+
+.check_area_down{
+  width: 100%;
+  height: 1.3rem;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.check_area_down p{
+  display: inline-block;
+  width: 25%;
+  height: 1.3rem;
+  background-color: #fff;
+  font-size: 0.4rem;
+  text-align: center;
+  line-height: 1.3rem;
+}
+.check_area_down p:nth-of-type(3){
+  width: 50%;
+  background-color: #2496f0;
+  color: #fff;
+}
+
+
+/* 检车缺漏的样式 */
+.townMsgP, .townMsgP i,.townMsgP span{
+  cursor: pointer;
+}
+#town_msg .townMsgP .townCheck{
+  cursor: pointer;
+}
+
+
+
+/* 弹框 */
+.alert_wrap{
+  position: absolute;
+  top: 43%;
+  left: 27%;
+  width: 4.5rem;
+  height: 1rem;
+  background-color: rgba(0,0,0,.4);
+  border-radius: 1rem;
+  text-align: center;
+  line-height: 1rem;
+  font-size: 0.4rem;
+  color: #fff;
+  display: none;
+}
+
+
+
+
+/*  */
+.area_result .townMsgP{
+  width: 33.33%;
+  height: 0.8rem;
+  border-radius: 0.4rem;
+  line-height: 0.8rem;
+  font-size: 0.38rem;
+  float: left;
+  position: relative;
+  margin-right: 2%;
+}
+.area_result .townMsgP .getVillage{
+  display: inline-block;
+  width: 61%;
+  height: 0.8rem;
+  font-style: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  float: left;
+  text-align: center;
+}
+.area_result .townMsgP .townCheck{
+  display: inline-block;
+  width: 37.6%;
+  height: 0.8rem;
+  border-left: 0.02rem solid #666666;
+  text-align: center;
+  line-height: 0.8rem;
+}
+
+/* 引入外部html */
+.couponWrap{
+  width: 100%;
+  height: auto;
+  background-color: pink;
+  position: absolute;
+}
+
+
+/*start loading*/
+.loading{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top:0;
+  z-index: 99;
+}
+.loading .loading-cover{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+}
+.loader.small {
+  -webkit-transform: scale(.5);
+  transform: scale(.5);
+}
+
+.loader.circle-line,
+.loader.circle-round {
+  height: 5rem;
+}
+/*circle-spin*/
+
+.loader.circle-spin {
+  border-radius: 50%;
+  border: .2rem solid rgba(0, 0, 0, .05);
+  width: 3rem;
+  height: 3rem;
+  box-sizing: content-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -1.5rem;
+  margin-left: -1.5rem;
+}
+
+.loader.circle-spin .loader-placeholder {
+  position: absolute;
+  top: -.2rem;
+  left: -.2rem;
+  border-radius: 50%;
+  border: .2rem solid transparent;
+  border-top: .2rem solid #0c0c0c;
+  width: 3rem;
+  height: 3rem;
+  box-sizing: content-box;
+  -webkit-animation: circle-spin 1s ease infinite;
+  animation: circle-spin 1s ease infinite;
+}
+
+@keyframes circle-spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes circle-spin {
+  0% {
+    -webkit-transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+/*end loading*/

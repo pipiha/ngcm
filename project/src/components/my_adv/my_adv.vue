@@ -140,7 +140,7 @@ export default {
         })
       } else { // 展示
         this.$router.push({
-          path: '/releaseActivity'
+          path: '/doorOrder'
         })
       }
     },
