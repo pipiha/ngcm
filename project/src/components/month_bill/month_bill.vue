@@ -65,8 +65,8 @@ export default {
       pickerValue: '',
       startDate: new Date('2018-1-1'),
       endDate: new Date(),
-      text:0,
-      money:0
+      text: 0,
+      money: 0
     }
   },
   beforeCreate: function () {
@@ -83,17 +83,17 @@ export default {
     this.setMoney()
   },
   methods: {
-    setMoney(){
+    setMoney () {
       console.log(0)
-     axios.get('api/wxpub/user_wallet/adverExtensionRecord.html')  // 问号后面是要传送的参数
-      .then( reponse => {   //  请求成功后的函数
-                console.log(reponse.data.data.last_page)
-                this.text = reponse.data.data.last_page
-                this.money = reponse.data.data.per_page
-            })
-            .catch( error=> {	  //  请求失败后的函数
-                console.log(error)
-            })
+      axios.get('api/wxpub/user_wallet/adverExtensionRecord.html') // 问号后面是要传送的参数
+        .then(reponse => { //  请求成功后的函数
+          console.log(reponse.data.data.last_page)
+          this.text = reponse.data.data.last_page
+          this.money = reponse.data.data.per_page
+        })
+        .catch(error => { //  请求失败后的函数
+          console.log(error)
+        })
     },
     openPicker () { // 显示选择时间日期
       this.$refs.picker.open()

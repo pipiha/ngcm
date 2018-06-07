@@ -151,7 +151,7 @@
 </template>
 
 <script>
-import { userArea } from './order.js' // 注意路径
+import { init } from './order.js' // 注意路径
 // import { init } from './order.js'
 export default {
   data () {
@@ -166,7 +166,7 @@ export default {
 
   },
   created: function () {
-    this.userArea()
+    this.init()
     // this.__startTime
   }
 

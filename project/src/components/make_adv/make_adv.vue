@@ -61,7 +61,7 @@ export default {
   methods: {
     // 获取七牛云uptoken
     getToken: function () {
-      this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:jDxWPX9ExbT-rmEgPG_Ja3qDwYU=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODI3NjQzNX0='
+      this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:Ka4Ak0XdxJTBrU1-sey-Jf6k4aE=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODM3NzUxNn0='
       this.$axios.get('http://www.agrimedia.cn/service/adv_api/getuptoken')
         .then((res) => {
           console.log(res)

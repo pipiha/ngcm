@@ -36,6 +36,8 @@ import ReadJoin from '@/components/join_apply/read_join' // 加盟须知
 import UserCenter from '@/components/user_center/user_center' // 用户中心
 import DoorOrder from '@/components/door_order/door_order' // 展示型广告
 
+import Demo from '@/components/demo.vue'
+
 Vue.use(Router)
 Vue.use(require('vue-wechat-title'))
 
@@ -260,12 +262,12 @@ export default new Router({
         title: '月账单'
       }
     },
-    { // 我的零钱
+    { // 交易记录
       path: '/myWallet',
       name: 'myWallet',
       component: MyWallet,
       meta: {
-        title: '我的零钱'
+        title: '交易记录'
       }
     },
     { // 我的钱包
@@ -323,6 +325,10 @@ export default new Router({
       meta: {
         title: '我要下单'
       }
+    },
+    {
+      path: '/demo',
+      component: Demo
     }
   ]
 })
