@@ -1,13 +1,20 @@
 <template>
 <div class="my_order_box">
     <div v-wechat-title="$route.meta.title"></div>
+    <div class="order_wrap_title">
+        <ul>
+            <li v-for="(item,index) in typeList">
+                <p style="width: 33%;margin: 0 auto;" :class="{order_title_on:index==current}" @click="selectStyle(item,index)">{{ item }}</p>
+            </li>
+        </ul>
+    </div>
     <ul class="order_wrap">
-        <!-- <li>
+        <li style="height: 4.2rem;">
             <div class="order_up">
                 <p>已付款</p>
                 <img  @click="cancalAdv()" src="./img/delete.png" alt="">
             </div>
-            <div class="order_center">
+            <div class="order_center" style="height:48%;">
                 <div class="order_title">
                     <span>订单编号:</span>
                     <span>1232509386038</span>
@@ -16,16 +23,12 @@
                     <span>广告主姓名:</span>
                     <span>张三三</span>
                 </div>
-                <div class="order_title">
-                    <span>合计金额:</span>
-                    <span>￥9000.00</span>
-                </div>
 
             </div>
             <div class="order_down">
                 <p class="order_check_detail">查看详情</p>
             </div>
-        </li> -->
+        </li>
         <li>
             <div class="order_up">
                 <p style="color:#333333;">已完成</p>
@@ -37,12 +40,16 @@
                     <span>1232509386038</span>
                 </div>
                 <div class="order_title">
-                    <span>广告主姓名:</span>
-                    <span>张三三</span>
+                    <span>广告名称:</span>
+                    <span>老庙黄金</span>
                 </div>
                 <div class="order_title">
-                    <span>合计金额:</span>
-                    <span>￥9000.00</span>
+                    <span>订单金额:</span>
+                    <span>￥3000.00</span>
+                </div>
+                <div class="order_title">
+                    <span>持续时长:</span>
+                    <span>三个月</span>
                 </div>
 
             </div>
@@ -76,7 +83,9 @@ export default {
   },
   data () {
     return {
-      show_cancel: false
+      show_cancel: false,
+      current: 0,
+      typeList: ['展示广告', '数字传单']
     }
   },
   methods: {
@@ -112,6 +121,9 @@ export default {
     },
     sureCancel: function () { // 确认取消
       console.log('确认取消')
+    },
+    selectStyle (item, index) {
+      this.current = index
     }
   },
   beforeCreate: function () {
@@ -187,5 +199,28 @@ export default {
     line-height: 0.7rem;
     color: #fff;
     font-size: 0.35rem;
+}
+.order_wrap_title{
+    width: 100%;
+    height: 1.13rem;
+    line-height: 1.13rem;
+    text-align: center;
+    background-color: #fff;
+}
+.order_wrap_title li{
+    width: 49%;
+    height: 100%;
+    float: left;
+    font-size: 0.4rem;
+    color: #666666;
+}
+.order_title_on{
+    color: #5286EC;
+    border-bottom: 0.08rem solid #5286EC;
+}
+.order_title_on ul li p{
+    display: block;
+    width: 33%;
+    margin: 0 auto;
 }
 </style>

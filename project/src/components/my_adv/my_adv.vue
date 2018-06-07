@@ -21,14 +21,19 @@
                 </div>
             </li>
             <!-- 我的广告 -->
-            <li v-else-if="advType == '2'">
-                <img src="./img/bj.png" alt="">
+            <li v-else-if="advType == '2'"  :code="item.adv_id">
+                <img :src="item.video_myself + '?vframe/jpg/offset/0/imageView2/1/w/690/h/390/q/75|imageslim'" alt="">
                 <div class="adv_title">
-                    <span>剩余200天</span>
-                    <span>已上刊</span>
-                    <p>自然堂促销广告</p>
+                    <span v-if="item.o_status == '2'">剩余{{ item.resTime }}天</span>
+                    <span v-else>剩余0天</span>
+                    <span v-if="item.o_status === 1">已下刊</span>
+                    <span v-else-if="item.o_status === 2">已上刊</span>
+                    <span v-else-if="item.o_status === 3"  style="color: #F1965A;">等待付款</span>
+                    <span v-else="item.o_status === 4" style="color: #F1965A;">等待编辑</span>
+                    <p>{{ item.adv_title }}</p>
                 </div>
-                <img src="./img/icon1.png" alt="">
+                <img v-if="item.adv_type == 0" src="./img/icon1.png" alt="">
+                <img v-else="item.adv_type == 1" src="./img/icon2.png" alt="">
             </li>
             <!-- <li>
                 <img src="./img/bj.png" alt="">
@@ -62,7 +67,7 @@
         </ul>
 
         <div class="kong_adv" v-show="isKong" style="margin-top: 45%;">
-          <p>暂无足迹，赶快去看看吧~</p>
+          <p>暂无记录，赶快去看看吧~</p>
         </div>
 
         <!-- 删除弹窗 -->
@@ -135,7 +140,7 @@ export default {
         })
       } else { // 展示
         this.$router.push({
-          path: '/releaseActivity'
+          path: '/doorOrder'
         })
       }
     },
@@ -239,10 +244,33 @@ export default {
       Indicator.close()
       this.$axios.get('api/wxpub/show_adv_detail/allAdv')
         .then((res) => {
-          console.log(res)
           // Indicator.close()
           if (res.data.code === 200) {
-            // Indicator.close()
+            Indicator.close()
+            if (res.data.data.length === 0) {
+              this.isKong = true
+            } else {
+              this.footData = res.data.data
+              // this.footData = [
+              //   [
+              //     {
+              //       'adv_title': '龙华驾校',
+              //       'adv_id': 'a_527',
+              //       'video_myself': 'http://oxk4ui39b.bkt.clouddn.com/bf0477bd9effa73d4ef61960667e7680.mp4',
+              //       'adv_type': 1,
+              //       'or_status': 1
+              //     },
+              //     {
+              //       'adv_title': '龙华驾校（藁城）',
+              //       'adv_id': 'a_121',
+              //       'video_myself': 'http://oxk4ui39b.bkt.clouddn.com/d2135857f87f725a57e2754a5946c163.mp4',
+              //       'adv_type': 1,
+              //       'or_status': 2,
+              //       'resTime': 52
+              //     }
+              //   ]
+              // ]
+            }
           }
         })
         .catch((err) => {
@@ -276,6 +304,7 @@ export default {
       this.$route.meta.title = '我的广告'
       // Indicator.open()
       this.addBtn = true
+      Indicator.open()
       this.getActList()
     } else {
       console.log('else')

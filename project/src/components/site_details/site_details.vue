@@ -87,7 +87,7 @@ export default {
             })
             // console.log(siteObj)
             _this.markerArr = siteObj
-            _this.getMap()
+            // _this.getMap()
           }
         })
         .catch(function (err) {

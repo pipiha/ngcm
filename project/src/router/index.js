@@ -34,6 +34,7 @@ import QuestionHistory from '@/components/question_result/question_history' // �
 import JoinApply from '@/components/join_apply/join_apply' // 加盟申请
 import ReadJoin from '@/components/join_apply/read_join' // 加盟须知
 import UserCenter from '@/components/user_center/user_center' // 用户中心
+import DoorOrder from '@/components/door_order/door_order' // 展示型广告
 
 Vue.use(Router)
 Vue.use(require('vue-wechat-title'))
@@ -300,7 +301,7 @@ export default new Router({
         keepAlive: true
       }
     },
-    {
+    { // 加盟须知
       path: '/readJoin',
       name: 'readJoin',
       component: ReadJoin,
@@ -308,12 +309,19 @@ export default new Router({
         title: '加盟须知'
       }
     },
-    {
+    { // 用户中心
       path: '/userCenter',
       // name: 'userCenter',
       component: UserCenter,
       meta: {
         title: '用户中心'
+      }
+    },
+    {
+      path: '/doorOrder',
+      component: DoorOrder,
+      meta: {
+        title: '我要下单'
       }
     }
   ]

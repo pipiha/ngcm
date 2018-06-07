@@ -5,7 +5,8 @@
             <p>开始创作</p>
             <p>开启您的广告之旅</p>
         </div>
-        <div class="make_adv_center" :style="uploadImg">
+        <div class="make_adv_center" :style="imageUrl">
+          <img :src="imageUrl" alt="" class="upload_img">
             <div class="make_adv_left">
                 <div>
                     <img src="./img/clip.png" alt="">
@@ -17,7 +18,7 @@
                 <div>
                     <img src="./img/add.png" alt="">
                 </div>
-                <input  @change="upLoading($event)" style="float: right;width: 54%;height: 100%;margin-top: -5rem;" class="upload_file" id='uploadCompress' type="file" name="picture" accept="image/*">
+                <input  @change="upLoading($event)" style="float: right;width: 31%;height: 49%;margin-top: -2.5rem;margin-right: 1rem;" class="upload_file" id='uploadCompress' type="file" name="picture" accept="image/*">
                 <p>添加广告机背景照片</p>
             </div>
             <!-- <img :src="imageUrl" alt="" class="upload_img"> -->
@@ -60,7 +61,7 @@ export default {
   methods: {
     // 获取七牛云uptoken
     getToken: function () {
-      this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:KhTL2hXaIIYiM36n9ghIa8l7mVk=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODIwMDY1OH0='
+      this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:jDxWPX9ExbT-rmEgPG_Ja3qDwYU=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODI3NjQzNX0='
       this.$axios.get('http://www.agrimedia.cn/service/adv_api/getuptoken')
         .then((res) => {
           console.log(res)
@@ -100,10 +101,19 @@ export default {
         })
     },
     nextClick: function () {
-       this.$router.push({
-           path: '/createPhoneadv'
-       })
-    }   
+      if (this.imageUrl.substring(0, 4) !== 'http') {
+        MessageBox.alert('请上传广告机背景图')
+      } else {
+        this.$router.push({
+          path: '/createPhoneadv',
+          query: {
+            title: this.advTitle,
+            tel: this.advTel,
+            imgUrl: this.imageUrl
+          }
+        })
+      }
+    }
 
   }
 }
@@ -114,11 +124,13 @@ export default {
 .upload_img{
     width: 100%;
     height: 100%;
-    background-color: pink;
-    /* margin-top: -7rem;  http://img.agrimedia.cn/Fg4IJi9odGgKYOr76WXdqJYyVxIj */
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .make_adv_center{
-    /* background-image: url('http://img.agrimedia.cn/Fg4IJi9odGgKYOr76WXdqJYyVxIj'); */
+    position: relative;
     background-size: cover;
+    overflow: hidden;
 }
 </style>

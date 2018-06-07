@@ -6,7 +6,7 @@
         <ul>
             <li>
                 <img :src="dataTag.s_thumb" alt="">
-                <p>{{ dataTag.s_content }}</p>
+                <p style="text-algin:left;">{{ dataTag.s_content }}</p>
             </li>
             <!-- <li>
                 <img src="./img/49476653903732260.png" alt="">
@@ -78,18 +78,31 @@ export default {
   created: function () {
     this.advID = this.$route.query.code
     this.type = this.$route.query.type
+    console.log(this.type)
     if (this.type === 0) { // 感兴趣详情
       this.show_like = true
       this.show_share = false
       this.$route.meta.title = '我感兴趣'
       this.getAdvDetail(this.advId)
+    } else {
+      console.log(this.$route.query.conent)
+      this.dataTag = this.$route.query.conent
     }
+    //  else {
+    //   console.log('else')
+    //   this.$on('advData', function (data) {
+    //     console.log(data)
+    //   })
+    // }
   },
   beforeMount: function () {
     // this.getAdvDetail(this.advId)
   },
   mounted: function () {
-
+    // console.log('ddd')
+    // this.$bus.on('advData', function (data) {
+    //   console.log(data)
+    // })
   },
   deactivated () {
     // this.$destroy()
@@ -97,6 +110,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/landing_page.css';
 </style>
