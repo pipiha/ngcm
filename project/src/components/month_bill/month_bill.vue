@@ -13,11 +13,10 @@
     </div>
 
     <div class="bill_title">
-        <p style="margin-bottom: 0.3rem;">共收入15笔，合计</p>
+        <p style="margin-bottom: 0.3rem;">共收入<span>{{text}}</span>笔，合计</p>
         <span>￥</span>
-        <span>620.42</span>
+        <span>{{money}}</span>
     </div>
-
     <div class="bill_title">
         <p  style="margin-top: 0.8rem;margin-bottom: 0.3rem;">收入对比</p>
         <div style="margin-top:-1rem;" :id="id" :style="{height:height,width:width}" ref="myEchart"></div>
@@ -40,6 +39,7 @@
 <script>
 import echarts from 'echarts'
 import { DatetimePicker } from 'mint-ui'
+import axios from 'axios'
 export default {
   components: {
     DatetimePicker
@@ -64,7 +64,9 @@ export default {
       pickerVisible: '',
       pickerValue: '',
       startDate: new Date('2018-1-1'),
-      endDate: new Date()
+      endDate: new Date(),
+      text:0,
+      money:0
     }
   },
   beforeCreate: function () {
@@ -78,8 +80,21 @@ export default {
   },
   mounted: function () {
     this.creatEchart() // 图表统计
+    this.setMoney()
   },
   methods: {
+    setMoney(){
+      console.log(0)
+     axios.get('api/wxpub/user_wallet/adverExtensionRecord.html')  // 问号后面是要传送的参数
+      .then( reponse => {   //  请求成功后的函数
+                console.log(reponse.data.data.last_page)
+                this.text = reponse.data.data.last_page
+                this.money = reponse.data.data.per_page
+            })
+            .catch( error=> {	  //  请求失败后的函数
+                console.log(error)
+            })
+    },
     openPicker () { // 显示选择时间日期
       this.$refs.picker.open()
     },

@@ -11,9 +11,9 @@
             <img src="./img/down.png" alt=""> -->
             <div class="money_title">
                 <span>支出</span>
-                <span>￥235.00</span>
+                <span>￥{{zhichu}}</span>
                 <span>收入</span>
-                <span>￥35.70</span>
+                <span>￥{{shouru}}</span>
             </div>
         </div>
         <div class="bill_up_right">
@@ -84,6 +84,7 @@
 
 <script>
 import { MessageBox, DatetimePicker, Picker, Indicator } from 'mint-ui'
+import axios from 'axios'
 export default {
   components: {
     DatetimePicker,
@@ -94,13 +95,15 @@ export default {
   data () {
     return {
       zheZhao: false,
-      timeText: this.formatDate(new Date()),
-      pickerVisible: '',
-      pickerValue: '',
+      timeText: this.formatDate(new Date('2018-1-1')),
+      pickerVisible: null,
+      pickerValue: null,
       startDate: new Date('2018-1-1'),
       endDate: new Date(),
       moneyList: '',
       show_check_type: false,
+      zhichu:0,
+      shouru:0,
       slots: [
         {
           // flex: 1,
@@ -112,13 +115,29 @@ export default {
       isKong: false
     }
   },
+   mounted: function () {
+    this.setzhichu()
+  },
   methods: {
+    setzhichu(){
+      console.log(0)
+      axios.get('api/wxpub/user_wallet/adverExtensionRecord.html')  // 问号后面是要传送的参数
+      .then( reponse => {   //  请求成功后的函数
+                console.log(reponse.data.data)
+                this.zhichu = reponse.data.data.last_page
+                this.shouru = reponse.data.data.per_page
+            })
+            .catch( error=> {	  //  请求失败后的函数
+                console.log(error)
+            })
+    },
     openPicker () { // 显示选择时间日期
       this.$refs.picker.open()
     },
     handleConfirm: function () { // 日期确认之后
+    console.log(this.pickerValue)
       let timeTag = this.pickerValue
-      console.log(this.formatDate(timeTag, 1))
+      console.log(this.formatDate(timeTag))
       this.timeText = this.formatDate(timeTag, 1)
     },
     formatDate: function (date, type) { // 标准日期转  type为0: '2018-1-1'  1 年月日
@@ -216,9 +235,6 @@ export default {
   },
   beforeMount: function () {
 
-  },
-  mounted: function () {
-    // this.timeDown()
   }
 }
 </script>
