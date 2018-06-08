@@ -101,6 +101,7 @@
 
 <script>
 import { Indicator, MessageBox } from 'mint-ui'
+import { mapState } from 'Vuex'
 export default {
   components: {
     Indicator,
@@ -281,7 +282,13 @@ export default {
   beforeCreate: function () {
     // window.location.reload()
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.userInfo
+    })
+  },
   created: function () {
+    console.log(this.userInfo) // 这里降会输出小姐姐真漂亮
     // console.log('-----------------组件创建了-----------------')
 
     // console.log(this.$route.query.type)
