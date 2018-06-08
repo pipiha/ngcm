@@ -13,7 +13,6 @@ import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import axios from 'axios'
 import qs from 'qs'
-import $ from 'jquery'
 
 Vue.use(Mint)
 Vue.use(VueWechatTitle)
