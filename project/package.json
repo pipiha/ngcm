@@ -30,7 +30,8 @@
     "vue-bus": "^1.1.0",
     "vue-concise-slider": "^2.4.8",
     "vue-router": "^3.0.1",
-    "vue-wechat-title": "^2.0.4"
+    "vue-wechat-title": "^2.0.4",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

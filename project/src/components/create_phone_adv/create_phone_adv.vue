@@ -218,10 +218,12 @@ export default {
       //   console.log(this.lookData)
       //   console.log(this.$bus)
       //   this.$bus.emit('advData', this.lookData)
+      bus.$emit('LOOKDATA', this.lookData)
+      console.log(this.lookData)
       this.$router.push({
         path: '/landingPage',
         query: {
-          conent: this.lookData
+          type: 1
         }
       })
     }
