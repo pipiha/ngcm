@@ -6,8 +6,8 @@
            <li v-for="(item,index) in advData">
                <div class="adv_up">
                    <img @click="deleteConent(item.advIndex)" src="./img/close.png" alt="">
-                   <img src="./img/down.png" alt="">
-                   <img src="./img/up2.png" alt="">
+                   <img @click="moveConentDown(item,index)" src="./img/down.png" alt="">
+                   <img @click="moveConentUp(item,index)" src="./img/up2.png" alt="">
                </div>
                <!-- 上传图片 -->
                 <div class="uploadImg" style="position: relative;">
@@ -120,9 +120,34 @@ export default {
       this.cancelId = id
       this.advData.splice(this.advData.findIndex(item => item.advIndex === this.cancelId), 1)
     },
-    //  向上移动  向下移动
-    moveConent: function () {
+    //  向上移动
+    moveConentUp: function (item, index) {
+      // 拼接函数(索引位置, 要删除元素的数量, 元素)
+      // array.splice(2, 0, "three");
+      // console.log(index + '当前')
 
+      // console.log(this.advData)
+      if (index === 0) {
+        console.log('已经是第一项了')
+      } else {
+        // console.log('else')
+        this.advData.splice(index - 1, 0, (this.advData[index])) // 在上一项插入
+        this.advData.splice(index + 1, 1) // 删除后一项
+      }
+
+      // console.log(this.advData)
+    },
+    // 向下移动
+    moveConentDown: function (item, index) {
+      // this.advData.splice(this.advData.findIndex(item => item.advIndex === this.index), 1)
+      // this.advData.splice(index, 0, item)
+      console.log(index)
+      if (index === this.advData.length - 1) {
+        console.log('最后一项了')
+      } else {
+        this.advData.splice(index + 2, 0, this.advData[index]) // 在下一项插入
+        this.advData.splice(index, 1) // 删除前一项
+      }
     },
     advSubmit: function () {
       let myreg = /^[1][3,4,5,7,8][0-9]{9}$/ // 验证手机号
