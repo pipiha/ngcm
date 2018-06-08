@@ -5,7 +5,7 @@
             <p>开始创作</p>
             <p>开启您的广告之旅</p>
         </div>
-        <div class="make_adv_center" :style="imageUrl">
+        <!-- <div class="make_adv_center" :style="imageUrl">
           <img :src="imageUrl" alt="" class="upload_img">
             <div class="make_adv_left">
                 <div>
@@ -21,8 +21,28 @@
                 <input  @change="upLoading($event)" style="float: right;width: 31%;height: 49%;margin-top: -2.5rem;margin-right: 1rem;" class="upload_file" id='uploadCompress' type="file" name="picture" accept="image/*">
                 <p>添加广告机背景照片</p>
             </div>
-            <!-- <img :src="imageUrl" alt="" class="upload_img"> -->
+        </div> -->
+
+        <div class="make_adv_wrap">
+            <img class="upload_img" :src="imageUrl" alt="">
+            <img class="adv_bottom" src="./img/bottom.png" alt="">
+            <img class="saoma" src="./img/saoma.png" alt="">
+            <div class="make_adv_left">
+                <div>
+                    <img src="./img/clip.png" alt="">
+                    <p style="font-size:0.3rem;color:#999999;">二维码区域</p>
+                </div>
+            </div>
+            <p class="tishi_text">点击修改背景图片</p>
+            <div class="bottom_text_wrap">
+                <p>广告地址</p>
+                <p>联系电话</p>
+            </div>
+            <input  @change="upLoading($event)" class="upload_file" id='uploadCompress' type="file" name="picture" accept="image/*">
         </div>
+        <input class="input_bottom" v-model="advTitle" type="text" placeholder="请输入广告名称">
+        <input class="input_bottom" v-model="advTel" type="text" placeholder="请输入联系电话">
+
         <div class="sure_btn" @click="nextClick()">下一步</div>
     </div>
 </template>
@@ -38,7 +58,7 @@ export default {
   data () {
     return {
       imgToken: '', // 上传七牛token
-      imageUrl: require('../../static/release_activity/img/111.png'),
+      imageUrl: require('./img/791287872032788714.png'),
       uploadImg: {
         'background-image': ''
       },
@@ -62,14 +82,15 @@ export default {
     // 获取七牛云uptoken
     getToken: function () {
       // this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:yjX89mCrRrTttbMgTAXq3eJHAmw=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODM4MzU2OX0='
-      this.$axios.get('api/service' / adv_api / getuptoken)
+      this.$axios.get('api/service/adv_api/getuptoken')
         .then((res) => {
-          console.log(res)
-          if (res.data === 200) {
-            this.imgToken = res.data.uptoken
-          } else {
+        //   console.log(res)
+          this.imgToken = res.data.uptoken
+        //   if (res.data === 200) {
+        //     this.imgToken = res.data.uptoken
+        //   } else {
 
-          }
+        //   }
         })
         .catch((err) => {
           console.log(err)
@@ -102,8 +123,15 @@ export default {
         })
     },
     nextClick: function () {
+      let myreg = /^[1][3,4,5,7,8][0-9]{9}$/ // 验证手机号
       if (this.imageUrl.substring(0, 4) !== 'http') {
         MessageBox.alert('请上传广告机背景图')
+      } else if (this.advTitle === '') {
+        MessageBox.alert('请输入广告名称')
+      } else if (this.advTel === '') {
+        MessageBox.alert('请输入联系电话')
+      } else if (!myreg.test(this.advTel)) {
+        MessageBox.alert('请填写正确的手机号')
       } else {
         this.$router.push({
           path: '/createPhoneadv',

@@ -64,16 +64,16 @@ export default {
   methods: {
     // 获取七牛云uptoken
     getToken: function () {
-      this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:5gmDRQjMbqVD4bD7_ERYiQbDIF8=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODI2OTA3OH0='
-      this.$axios.get('http://argri.laimaidi.com/index.php/service/adv_api/getuptoken')
+      // this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:5gmDRQjMbqVD4bD7_ERYiQbDIF8=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODI2OTA3OH0='
+      this.$axios.get('api/service/adv_api/getuptoken')
         .then((res) => {
-          console.log(res)
-          if (res.data === 200) {
-            this.imgToken = res.data.data.uptoken
-            console.log(this.imgToken)
-          } else {
+          this.imgToken = res.data.uptoken
+          // if (res.data === 200) {
+          //   this.imgToken = res.data.data.uptoken
+          //   console.log(this.imgToken)
+          // } else {
 
-          }
+          // }
         })
         .catch((err) => {
           console.log(err)
@@ -88,7 +88,7 @@ export default {
       param.append('file', file, file.name)// 通过append向form对象添加数据
       param.append('token', this.imgToken)
       param.append('chunk', '0')// 添加form表单中其他数据
-      console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
+      // console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
       let config = {
         headers: {'Content-Type': 'multipart/form-data'}
       } // 添加请求头 http://up-z1.qiniu.com  http://upload.qiniu.com/
@@ -208,7 +208,7 @@ export default {
   created: function () {
     // console.log(this.$route.query.imgUrl)
     this.appPic = this.$route.query.imgUrl // 广告机背景图 上一页传过来的
-    this.srcTitle = this.$route.query.title // 广告名称
+    this.advAdress = this.$route.query.title // 广告名称 改成地址了
     this.advTel = this.$route.query.tel // 电话
     this.getToken()
   },
