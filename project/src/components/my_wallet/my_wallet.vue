@@ -1,7 +1,7 @@
 <template>
 <div>
     <div v-wechat-title="$route.meta.title"></div>
-    <!-- <div  class="month_bill_up">
+    <div  class="month_bill_up" style="position: fixed;top:0;z-index: 10;">
         <div class="bill_up_left">
             <div class="check_time" @click="openPicker()">
                 <p>{{ timeText }}</p>
@@ -18,11 +18,11 @@
             <p @click="filter()">筛选</p>
             <p @click="checkMonth()">月账单</p>
         </div>
-    </div> -->
+    </div>
     <!-- <mt-spinner v-show="list<1 && InitialLoading" color="#26a2ff"></mt-spinner> -->
 
     <!-- 零钱明细   v-for="(item,index) in moneyList" -->
-    <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+    <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px'}">
     <mt-loadmore :top-method="loadTop" @translate-change="translateChange" @top-status-change="handleTopChange"
         :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded"
         :auto-fill="false" ref="loadmore">
@@ -31,7 +31,7 @@
         <li v-for="(item,index) in moneyList" :code="item.f_id">   <!-- 推广费用明细 -->
           <div v-show="item.showHead"  class="month_bill_up">
               <div class="bill_up_left">
-                  <div class="check_time" @click="openPicker()">
+                  <div class="check_time" @click="openPicker(item,index)">
                       <p>{{ item.timeAxis.current_time }}</p>
                       <img src="./img/down.png" alt="">
                   </div>
@@ -45,8 +45,8 @@
                   </div>
               </div>
               <div class="bill_up_right">
-                  <p @click="filter()">筛选</p>
-                  <p @click="checkMonth()">月账单</p>
+                  <!-- <p @click="filter()">筛选</p> -->
+                  <p @click="checkMonth()" style="float: right;margin-right: 13%;">月账单</p>
               </div>
           </div>
           <div style="width:92%;margin:0 auto;height: 2rem;border-bottom: 0.02rem solid #ECECEC;"  @click="consumptionDetails()">
@@ -142,22 +142,12 @@ export default {
       wrapperHeight: 0, // 容器高度
       topStatus: '', // 顶部下拉加载状态
       translate: 0, //
-      moveTranslate: 0
+      moveTranslate: 0,
+      itemItem: '' // 保存要选择时间的item数据
     }
   },
   methods: {
-
-    inArray (stringToSearch, arrayToSearch) {
-      for (let s = 0; s < arrayToSearch.length; s++) {
-        let thisEntry = arrayToSearch[s].toString()
-        if (thisEntry === stringToSearch) {
-          return true
-        }
-      }
-      return false
-    },
     setzhichu (type, time, io, page) {
-      console.log('请求数据')
       this.$axios.get('api/wxpub/user_wallet/adverExtensionRecord.html?type=' + type + '&start_time=' + time + '&io=' + io + '&page=' + page) // 问号后面是要传送的参数
         .then(res => { //  请求成功后的函数
           if (this.pageNum === res.data.data.last_page) {
@@ -175,24 +165,25 @@ export default {
               obj.forEach((item) => {
                 // 如果不等于选择的月 不展示月账单那栏
                 if (item.timeAxis.length !== 0) { // 判断是否展示月份支出收入部分
-                  console.log(item.timeAxis)
-                  // if (this.inArray((item.timeAxis.current_time))) {
-                  //   this.monthArr.push(item.timeAxis.current_time)
-                  // }
-                  // let arr = this.monthArr
+                  // this.monthArr.push(item.timeAxis.current_time)
+                  // console.log(this.monthArr)
+                  // let a = this.monthArr.find((value, index, arr) => {
+                  //   if (item.timeAxis !== value) {
+                  //     return false
+                  //   }
+                  //   return true
+                  // })
+                  let a = this.monthArr.indexOf(item.timeAxis.current_time)
                   this.monthArr.push(item.timeAxis.current_time)
-                  console.log(this.monthArr)
-                  let a = this.monthArr.find((value, index, arr) => {
-                    if (item.timeAxis !== value) {
-                      return false
-                    }
-                    return true
-                  })
-                  // console.log(a)
-
-                  if (!a) {
+                  if (a === -1) {
                     item.showHead = true
+                  } else {
+                    item.showHead = false
                   }
+
+                  // if (!a) {
+                  //   item.showHead = true
+                  // }
                 } else { // 为空直接不展示
                   item.showHead = false
                 }
@@ -206,20 +197,6 @@ export default {
             let obj = res.data.data.data
             obj.forEach((item) => {
               if (item.timeAxis.length !== 0) {
-                // console.log(this.monthArr)
-                console.log('所有的月份：' + this.monthArr)
-                console.log('当前月份是：' + item.timeAxis.current_time)
-                // let b = this.monthArr.findIndex((value, index, arr) => {
-                //   // console.log(value + 'aaa')
-                //   // if (item.timeAxis.current_time === value) {
-                //   //   return true
-                //   // }
-                //   return item.timeAxis.current_time !== value
-                //   // }
-                //   // return item.timeAxis.current_time === value
-                // })
-                // console.log('比较月份是：' + b)
-
                 let b = this.monthArr.indexOf(item.timeAxis.current_time)
                 console.log(b)
                 this.monthArr.push(item.timeAxis.current_time)
@@ -246,13 +223,19 @@ export default {
           MessageBox.alert('请稍后重试')
         })
     },
-    openPicker () { // 显示选择时间日期
+    openPicker (item, index) { // 显示选择时间日期
+      // console.log(item)
+      this.itemItem = item
       this.$refs.picker.open()
     },
     handleConfirm: function () { // 日期确认之后
       // console.log(this.pickerValue)
+      // console.log(this.itemItem.timeAxis.)
       let timeTag = this.pickerValue
       this.timeText = this.formatDate(timeTag, 1)
+      let time = this.formatDate(timeTag, 0)
+      Indicator.open()
+      this.setzhichu(3, time, '', 1)
     },
     formatDate: function (date, type) { // 标准日期转  type为0: '2018-1-1'  1 年月日
       date = new Date(date)
@@ -286,21 +269,27 @@ export default {
       // console.log(this.pickerValue)
       let startTime = this.formatDate(this.pickerValue, 0)
       console.log(startTime)
-      // if (this.shaiXuan === '') {
+      // type:1,io:0 广告费支出
+      // type:1,io:1 充值
+      // type:4,io:1 提现
+      // type:4,io:0 红包
+      // type:5,io:0 分佣
+      // type:3,io:false 全部
+      if (this.shaiXuan === '') {
 
-      // } else if (this.shaiXuan === '全部') {
-      //   this.setzhichu(3, intiTime, '')
-      // } else if (this.shaiXuan === '红包') {
-      //   this.setzhichu(3, intiTime, '')
-      // } else if (this.shaiXuan === '提现') {
-      //   this.setzhichu(3, intiTime, '')
-      // } else if (this.shaiXuan === '充值') {
-      //   this.setzhichu(3, intiTime, '')
-      // } else if (this.shaiXuan === '分佣') {
-      //   this.setzhichu(3, intiTime, '')
-      // } else if (this.shaiXuan === '广告费支出') {
-      //   this.setzhichu(3, intiTime, '')
-      // }
+      } else if (this.shaiXuan === '全部') {
+        this.setzhichu(3, startTime, '', 1)
+      } else if (this.shaiXuan === '红包') {
+        this.setzhichu(3, startTime, '', 1)
+      } else if (this.shaiXuan === '提现') {
+        this.setzhichu(3, startTime, '', 1)
+      } else if (this.shaiXuan === '充值') {
+        this.setzhichu(3, startTime, '', 1)
+      } else if (this.shaiXuan === '分佣') {
+        this.setzhichu(3, startTime, '', 1)
+      } else if (this.shaiXuan === '广告费支出') {
+        this.setzhichu(3, startTime, '', 1)
+      }
     },
     onValuesChange: function (picker, values) {
       this.shaiXuan = values[0]

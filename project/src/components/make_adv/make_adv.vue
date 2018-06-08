@@ -61,12 +61,12 @@ export default {
   methods: {
     // 获取七牛云uptoken
     getToken: function () {
-      this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:Ka4Ak0XdxJTBrU1-sey-Jf6k4aE=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODM3NzUxNn0='
-      this.$axios.get('http://www.agrimedia.cn/service/adv_api/getuptoken')
+      // this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:yjX89mCrRrTttbMgTAXq3eJHAmw=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODM4MzU2OX0='
+      this.$axios.get('api/service' / adv_api / getuptoken)
         .then((res) => {
           console.log(res)
           if (res.data === 200) {
-            this.imgToken = res.data.data.uptoken
+            this.imgToken = res.data.uptoken
           } else {
 
           }
@@ -96,8 +96,9 @@ export default {
           console.log(this.imageUrl)
         })
         .catch((err) => {
-          MessageBox.alert('请稍后再试')
-          Indicator.close()
+          upLoading(e)
+          // MessageBox.alert('请稍后再试')
+          // Indicator.close()
         })
     },
     nextClick: function () {

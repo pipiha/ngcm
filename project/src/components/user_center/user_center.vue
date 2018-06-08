@@ -60,7 +60,7 @@
         <template>
           <swiper :options="swiperOption" ref="mySwiper">
             <!-- slides -->
-            <swiper-slide>I'm Slide 1</swiper-slide>
+            <swiper-slide><img style="width:100%;height:100%;" src="./img/user_bj.png" alt=""></swiper-slide>
             <swiper-slide>I'm Slide 2</swiper-slide>
             <swiper-slide>I'm Slide 3</swiper-slide>
             <swiper-slide>I'm Slide 4</swiper-slide>
@@ -106,7 +106,7 @@ export default {
         autoHeight: true,
         pagination: '.swiper-pagination',
         paginationClickable: true,
-        autoplay: true,
+        autoplay: false,
         speed: 900,
         loop: true,
         grabCursor: true,
@@ -132,7 +132,7 @@ export default {
             // 在这里不要比对code值 有些接口报错 但code值还是200
             // console.log(res.data.data.userInfo)
             this.userInfo = res.data.data.userInfo
-            this.promotion = res.data.data.promotion.data
+            this.promotion = res.data.data.promotion.data // 活动信息
           }
         })
         .catch((err) => {

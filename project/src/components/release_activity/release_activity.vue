@@ -165,15 +165,16 @@ export default {
     },
     // 获取七牛云uptoken
     getToken: function () {
-      this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:sZ1C-vHB3zy63aUcVzNOqfYBg50=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODA4NDU2Nn0='
-      this.$axios.get('http://www.agrimedia.cn/service/adv_api/getuptoken')
+    //   this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:sZ1C-vHB3zy63aUcVzNOqfYBg50=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODA4NDU2Nn0='
+      this.$axios.get('api/service/adv_api/getuptoken')
         .then((res) => {
           console.log(res)
-          if (res.data === 200) {
-            this.imgToken = res.data.data.uptoken
-          } else {
+          this.imgToken = res.data.uptoken
+        //   if (res.data === 200) {
+        //     this.imgToken = res.data.data.uptoken
+        //   } else {
 
-          }
+        //   }
         })
         .catch((err) => {
           console.log(err)
