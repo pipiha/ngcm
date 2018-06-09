@@ -234,6 +234,7 @@ export default {
   },
   created: function () {
     // console.log(this.$route.query.imgUrl)
+    this.$store.dispatch('getUser', '小姐姐好漂亮啊，')
     this.appPic = this.$route.query.imgUrl // 广告机背景图 上一页传过来的
     this.advAdress = this.$route.query.title // 广告名称 改成地址了
     this.advTel = this.$route.query.tel // 电话

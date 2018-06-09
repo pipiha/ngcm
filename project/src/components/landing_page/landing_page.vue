@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -75,8 +76,13 @@ export default {
   beforeCreate: function () {
     // window.location.reload()
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.userInfo
+    })
+  },
   created: function () {
-    this.$store.dispatch('getUser', '小姐姐真漂亮')
+    console.log(this.userInfo, 'userInfo')
     // this.advID = this.$route.query.code
     // bus.$on('LOOKDATA', (data) => {
     //   console.log(data)

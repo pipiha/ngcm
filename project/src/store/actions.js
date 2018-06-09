@@ -8,5 +8,5 @@ export const getUser = ({ commit }, data) => {
      *  commit 定义里更改mutions的事件类型 actions 不能直接操作mutinons  以及state
      *  比如通过types 定义事件类型 大写 然后通过事件类型 映射到mutinons里面具体的事件 然后更改state
      */
-  commit(types.GET_USER)
+  commit(types.GET_USER, data)
 }
