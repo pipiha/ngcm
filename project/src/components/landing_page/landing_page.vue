@@ -1,9 +1,9 @@
 <template>
 <div>
-        <div v-wechat-title="$route.meta.title"></div>
-        <div class="page_wrap">
-        <h3>{{ dataTag.s_title }}</h3>
-        <ul>
+      <div v-wechat-title="$route.meta.title"></div>
+      <div v-if="type === '0'" class="page_wrap">
+          <h3>{{ dataTag.s_title }}</h3>
+          <ul>
             <li>
                 <img :src="dataTag.s_thumb" alt="">
                 <p style="text-algin:left;">{{ dataTag.s_content }}</p>
@@ -12,8 +12,8 @@
                 <img src="./img/49476653903732260.png" alt="">
                 <p>老庙黄金的每件首饰都是福瑞，蕴含着百年的祥瑞与好运。老庙黄金的每件首饰都是福瑞，蕴含着百年的祥瑞与好运。</p>
             </li> -->
-        </ul>
-        <div class="page_address">
+          </ul>
+          <div class="page_address">
             <div class="page_address_text">
                 <div style="width: 100%;height: 0.7rem;">
                     <img src="./img/address.png" alt="">
@@ -30,7 +30,38 @@
                     <p v-show="show_share">分享</p>
                 </div>
             </div>
-        </div>
+          </div>
+    </div>
+    <div v-else class="page_wrap">
+          <h3>{{ dataTag.s_title }}</h3>
+          <ul>
+            <li>
+                <img :src="dataTag.s_thumb" alt="">
+                <p style="text-algin:left;">{{ dataTag.s_content }}</p>
+            </li>
+            <!-- <li>
+                <img src="./img/49476653903732260.png" alt="">
+                <p>老庙黄金的每件首饰都是福瑞，蕴含着百年的祥瑞与好运。老庙黄金的每件首饰都是福瑞，蕴含着百年的祥瑞与好运。</p>
+            </li> -->
+          </ul>
+          <div class="page_address">
+            <div class="page_address_text">
+                <div style="width: 100%;height: 0.7rem;">
+                    <img src="./img/address.png" alt="">
+                    <p>{{ dataTag.s_address }}</p>
+                </div>
+                <div style="width: 100%;height: 0.7rem;">
+                    <img style="width: 0.4rem;height: 0.4rem;" src="./img/tel.png" alt="">
+                    <p>{{ dataTag.s_phone}}</p>
+                </div>
+                <div class="page_like">
+                    <img src="./img/Fill 1.png" alt="" v-show="show_like">
+                    <p v-show="show_like">感兴趣</p>
+                    <img src="./img/share.png" alt="" v-show="show_share">
+                    <p v-show="show_share">分享</p>
+                </div>
+            </div>
+          </div>
     </div>
     <div class="page_btn">
         <div @click="goLianxi()">一键咨询</div>
@@ -40,6 +71,7 @@
 </template>
 
 <script>
+import { Indicator, MessageBox } from 'mint-ui'
 import { mapState } from 'vuex'
 export default {
   data () {
@@ -57,14 +89,15 @@ export default {
       this.$axios.get('api/wxpub/user/getDetail.html?s_id=' + this.advID)
         .then((res) => {
           // console.log(res)
+          console.log('进入请求数据')
+          Indicator.close()
           if (res.data.code === 200) {
             // console.log(res.data.data)
             this.dataTag = res.data.data
-            console.log(this.dataTag)
           }
         })
         .catch((err) => {
-          console.log(err)
+          MessageBox.alert('请稍后再试')
         })
     },
     goLianxi: function () {
@@ -82,20 +115,26 @@ export default {
     })
   },
   created: function () {
-    console.log(this.userInfo)
+    Indicator.open()
+    // console.log(this.userInfo)
     // this.advID = this.$route.query.code
     // bus.$on('LOOKDATA', (data) => {
     //   console.log(data)
     // })
     // console.log(this.lookData)
+    this.advID = this.$route.query.code
     this.type = this.$route.query.type
     console.log(this.type)
-    if (this.type === 0) { // 感兴趣详情
+    if (this.type === '0') { // 感兴趣详情
+    console.log('if')
       this.show_like = true
       this.show_share = false
       this.$route.meta.title = '我感兴趣'
+
       this.getAdvDetail(this.advId)
     } else {
+      console.log('else')
+       console.log(this.userInfo)
       // console.log(this.$route.query.conent)
       // this.dataTag = this.$route.query.conent
     }

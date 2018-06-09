@@ -26,15 +26,15 @@
         </div>
         <ul class="call_ul">
             <li>
-                <p>北京-农广传媒</p>
+                <p>{{ showComMsg.title }}</p>
                 <img src="./img/hotel.png" alt="">
             </li>
             <li>
-                <p>133 3333 3333</p>
+                <p>{{ showComMsg.tel }}</p>
                 <img src="./img/tel.png" alt="">
             </li>
             <li>
-                <p>北京市朝阳区京辰大厦A座1层</p>
+                <p>{{ showComMsg.detail_area }}</p>
                 <img src="./img/address.png" alt="">
             </li>
         </ul>
@@ -61,6 +61,11 @@ export default {
       center: {lng: 0, lat: 0},
       autoLocationPoint: {lng: 0, lat: 0},
       initLocation: false,
+      showComMsg: {
+        'title': '奥体中心京辰大厦',
+        'tel': '400-069-0088',
+        'detail_area': '奥体中心京辰大厦'
+      },
       markerArr: [
         // { title: '名称：广州火车站', point: '113.264531,23.157003', address: '广东省广州市广州火车站', tel: '12306' },
         // { title: '名称：广州塔（赤岗塔）', point: '113.330934,23.113401', address: '广东省广州市广州塔（赤岗塔） ', tel: '18500000000' },
@@ -134,15 +139,17 @@ export default {
         marker[i].setLabel(label)
         info[i] = new window.BMap.InfoWindow('<p style=’font-size:12px;lineheight:1.8em;’>' + markerArr[i].title + '</br>地址：' + markerArr[i].address + '</br> 电话：' + markerArr[i].tel + '</br></p>') // 创建信息窗口对象
       }
-      marker[0].addEventListener('mouseover', function () {
-        this.openInfoWindow(info[0])
+
+      marker.forEach((item,index) => {
+        let arrindex = index
+        item.addEventListener('click',() => {
+          // console.log(arrindex)
+          // console.log(item)
+          this.showComMsg = this.markerArr[arrindex]
+            // console.log(this.markerArr[arrindex])
+        })
       })
-      marker[1].addEventListener('mouseover', function () {
-        this.openInfoWindow(info[1])
-      })
-      marker[2].addEventListener('mouseover', function () {
-        this.openInfoWindow(info[2])
-      })
+
     }
   },
   beforeCreate: function () {
@@ -162,4 +169,7 @@ export default {
 
 <style scoped>
 @import './css/site_details.css';
+.BMapLabel{
+  border:none!important;
+}
 </style>

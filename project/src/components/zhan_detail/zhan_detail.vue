@@ -2,8 +2,9 @@
     <div class="detail_wrap">
         <div v-wechat-title="$route.meta.title"></div>
         <div class="detail_img">
-            <img src="./img/advimg.png" alt="">
-            <img src="./img/play.png" alt="">
+            <img v-if="showVideo" src="./img/advimg.png" alt="">
+            <img @click="lookVideo()" v-if="showVideo" src="./img/play.png" alt="">
+            <video id="myvideo" v-else src="http://img.agrimedia.cn/09ef3694b670904efe5b0a8e01c56586.mp4" style="width:92%;position: absolute;top: 0;left: 0;"></video>
         </div>
 
         <ul class="detail_time">
@@ -20,7 +21,7 @@
             <div class="site_numer_box">
                 <p>播放点位总计</p>
                 <p>152</p>
-                <p>查看详情</p>
+                <p @click="checkSiteAll()">查看详情</p>
             </div>
         </div>
 
@@ -40,6 +41,11 @@
             </li>
         </ul>
 
+        <!-- video展示 -->
+        <!-- <div class="video_wrap" v-show="showVideo">
+            <video src="http://img.agrimedia.cn/09ef3694b670904efe5b0a8e01c56586.mp4"></video>
+        </div> -->
+
     </div>
 </template>
 
@@ -47,20 +53,10 @@
 export default {
   data () {
     return {
-      msg: 152
+      msg: 152,
+      showVideo: true,
+      circleData: 80
     }
-  },
-  beforeCreate: function () {
-
-  },
-  created: function () {
-
-  },
-  beforeMount: function () {
-
-  },
-  mounted: function () {
-    this.creatCanvas() // 创建canvas
   },
   methods: {
     // 创建canvas
@@ -81,7 +77,7 @@ export default {
       // document.body.appendChild(c);
       var ctx = c.getContext('2d')
       c.setAttribute('style', 'position: absolute;top: 7.7rem;width: 9rem;height: 4.5rem;left: 0;')
-      var x = 70 // x为百分比值(0-100)
+      var x = this.circleData // x为百分比值(0-100)
       ctx.beginPath()
       ctx.lineCap = 'round'
       ctx.lineWidth = 5
@@ -93,11 +89,58 @@ export default {
       ctx.strokeStyle = grad
       ctx.arc(170, 100, 60, -90 * Math.PI / 180, (x * 3.6 - 90) * Math.PI / 180)
       ctx.stroke()
+    },
+    checkSiteAll: function(){
+        this.$router.push({
+            path: '/PlayTime'
+        })
+    },
+    // 获取详情数据
+    getSiteData: function(advId){
+        this.$axios.get ('api/wxpub/show_adv_detail/allAdv?adv_id=' + advId)
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    },
+    // 点击播放视频
+    lookVideo: function(){
+        this.showVideo = false
+        this._dom = document.getElementById('myvideo')
+        this._dom.play()
     }
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+      let advId = this.$route.query.advID
+      this.getSiteData(advId)
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+    this.creatCanvas() // 创建canvas
   }
 }
 </script>
 
 <style scoped>
 @import './css/zhan_detail.css';
+.video_wrap{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index:10;
+}
+/* .detail_img video{
+    width: 92%;
+    margin-top: 20%;
+} */
 </style>

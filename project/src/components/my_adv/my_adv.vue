@@ -35,7 +35,7 @@
                 <img v-if="item.adv_type == 0" src="./img/icon1.png" alt="">
                 <img v-else="item.adv_type == 1" src="./img/icon2.png" alt="">
             </li> -->
-            <li @clcik="goZhanDetail()">
+            <li @click="goZhanDetail(advID,advType,num)">
                 <img src="./img/bj.png" alt="">
                 <div class="adv_title">
                     <span>已有1688人浏览</span>
@@ -45,7 +45,7 @@
                 <img src="./img/icon2.png" alt="">
                 <div class="adv_down"></div>
             </li>
-            <li @click="goShuDeatil()">
+            <li @click="goShuDeatil(advID,advType,num)">
                 <img src="./img/bj.png" alt="">
                 <div class="adv_title">
                     <span></span>
@@ -269,14 +269,24 @@ export default {
           console.log(err)
         })
     },
-    goZhanDetail: function () { // 展示型广告详情
+    goZhanDetail: function (advID,advType,num) { // 展示型广告详情
       this.$router.push({
-        path: '/zhanDetail'
+        path: '/zhanDetail',
+        query: {
+          advID: advID,  //广告id
+          advType: advType, // 广告状态码
+          num: num //流水订单号
+        }
       })
     },
-    goShuDeatil: function () { // 数字传单广告详情
+    goShuDeatil: function (advID,advType,num) { // 数字传单广告详情
       this.$router.push({
-        path: '/numDetail'
+        path: '/numDetail',
+        query: {
+          advID: advID,
+          advType: advType,
+          num: num
+        }
       })
     }
   },

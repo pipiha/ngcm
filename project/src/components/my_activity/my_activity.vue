@@ -165,6 +165,10 @@ export default {
   },
   mounted: function () {
 
+  },
+  deactivated () {
+    // this.$destroy()
+    Indicator.close()
   }
 
 }
