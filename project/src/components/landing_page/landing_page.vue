@@ -76,6 +76,7 @@ export default {
     // window.location.reload()
   },
   created: function () {
+    this.$store.dispatch('getUser', '小姐姐真漂亮')
     // this.advID = this.$route.query.code
     // bus.$on('LOOKDATA', (data) => {
     //   console.log(data)
