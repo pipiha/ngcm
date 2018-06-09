@@ -99,7 +99,7 @@ export default {
     getSiteData: function(advId){
         this.$axios.get ('api/wxpub/show_adv_detail/allAdv?adv_id=' + advId)
         .then((res) => {
-            console.log(res)
+            // console.log(res)
         })
         .catch((err) => {
             console.log(err)

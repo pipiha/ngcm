@@ -46,16 +46,17 @@
               </div>
               <div class="bill_up_right">
                   <p @click="filter()">筛选</p>
-                  <p @click="checkMonth()" style="float: right;margin-right: 13%;">月账单</p>
+                  <!-- style="float: right;margin-right: 13%;" -->
+                  <p @click="checkMonth()">月账单</p>
               </div>
           </div>
-          <div style="width:92%;margin:0 auto;height: 2rem;border-bottom: 0.02rem solid #ECECEC;"  @click="consumptionDetails()">
+          <div style="width:92%;margin:0 auto;height: 2rem;border-bottom: 0.02rem solid #ECECEC;"  @click="consumptionDetails(item.create_time,item.f_io_type)">
             <div class="wallet_list_left">
                 <img v-if="item.f_io_type == 1" src="./img/wallet_chong.png" alt="">
                 <img v-else src="./img/wallet_xiao.png" alt="">
                 <p  v-if="item.f_io_type == 1">充值金额</p>
                 <p  v-else>消费金额</p>
-                <p>{{ item.create_time }}</p>
+                <p>{{ item.create_time.substr(0,10) }}</p>
             </div>
             <div class="wallet_list_right">
                 <p  v-if="item.f_io_type == 1" style="color: #F4B779;">+{{ item.money }}</p>
@@ -295,9 +296,15 @@ export default {
       this.shaiXuan = values[0]
       // console.log(this.shaiXuan)
     },
-    consumptionDetails: function () {
+    consumptionDetails: function (code,f_io) {
+      // console.log(f_io)
+      // console.log(code.substr(0,10))
       this.$router.push({
-        path: '/payDetail'
+        path: '/ConsumptionDetails',
+        query: {
+          code: code.substr(0,10),
+          f_io: f_io
+        }
       })
     },
     // 上拉加载

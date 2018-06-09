@@ -98,20 +98,13 @@ export default {
       })
     },
     advList: function () {
-      let postData = this.$qs.stringify({
-
-      })
-      this.$axios({
-        methods: 'post',
-        url: 'api/',
-        data: postData
-      })
-        .then((res) => {
+      this.$axios.get('api/wxpub/orders_controller/orderIndex')
+      .then((res) => {
           console.log(res)
-        })
-        .catch((err) => {
+      })
+      .catch((err) => {
           console.log(err)
-        })
+      })
     },
     cancalAdv: function () {
       this.show_cancel = true
@@ -121,6 +114,7 @@ export default {
     },
     sureCancel: function () { // 确认取消
       console.log('确认取消')
+    //   this.footData.splice(this.footData.findIndex(item => item.h5_id === this.cancelID), 1)
     },
     selectStyle (item, index) {
       this.current = index
@@ -131,6 +125,7 @@ export default {
   },
   created: function () {
     // console.log('-----------------组件创建了-----------------')
+    this.advList()
   },
   beforeMount: function () {
     // console.log(this.$route.query.type)

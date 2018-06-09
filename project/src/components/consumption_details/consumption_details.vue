@@ -3,32 +3,20 @@
     <div v-wechat-title="$route.meta.title"></div>
     <!-- <p>支付详情</p> -->
     <div class="consumption_up">
-        <img src="./img/chong.png" alt="">
+        <img v-if="isChong" src="./img/chong.png" alt="">
+        <img v-else src="./img/xiaofei.png" alt="">
         <p>到账金额</p>
         <span>￥</span>
-        <p>1.00</p>
+        <p>{{ moneyList.total_money }}</p>
     </div>
 
     <ul class="ad_money_wrap">
-        <li>
+        <li v-for="(item,inex) in moneyList.data.data">
            <div class="adv_title">
-                <span>xxx查看了您老庙黄金广告</span>
-                <span>-2.00</span>
-                <p>5月3日  08:55</p>
-            </div>
-       </li>
-       <li>
-           <div class="adv_title">
-                <span>xxx查看了您老庙黄金广告</span>
-                <span>-2.00</span>
-                <p>5月3日  08:55</p>
-            </div>
-       </li>
-       <li>
-           <div class="adv_title">
-                <span>xxx查看了您老庙黄金广告</span>
-                <span>-2.00</span>
-                <p>5月3日  08:55</p>
+                <span>{{ item.f_tips }}</span>
+                <span v-if="isChong">+{{ item.money }}</span>
+                <span v-else>-{{ item.money }}</span>
+                <p>{{ item.create_time }}</p>
             </div>
        </li>
     </ul>
@@ -78,8 +66,79 @@
 export default {
   data () {
     return {
-      show_ul: false
+      show_ul: false,
+      moneyList: '',
+      isChong: true
     }
+  },
+  methods: {
+      getMoneyMsg: function(time,type){
+          this.$axios.get('api/wxpub/user_wallet/showDetailByDay.html?time=' + time + '&io=' + type)
+          .then((res) => {
+            //   console.log(res.data.data)
+            //   this.moneyList = res.data.data
+            this.moneyList = {
+		        "total_money": 78,
+		        "data": {
+			        "total": 39,
+			        "per_page": 10,
+			        "current_page": 1,
+			        "last_page": 4,
+			        "data": [{
+				        "money": "2.00",
+				        "create_time": "2018-05-12 18:35:31",
+                        "f_io_type": 0,
+                        "f_tips": '哈哈哈'
+                    },
+                    {
+				        "money": "2.00",
+				        "create_time": "2018-05-12 17:31:24",
+                        "f_io_type": 0,
+                        "f_tips": '哈哈哈'
+                    },
+                    {
+				        "money": "2.00",
+				        "create_time": "2018-05-12 17:17:56",
+                        "f_io_type": 0,
+                        "f_tips": '哈哈哈'
+                    },
+                    {
+				        "money": "2.00",
+				        "create_time": "2018-05-12 15:30:23",
+                        "f_io_type": 0,
+                        "f_tips": '哈哈哈'
+                    }
+                    ]
+		        }
+	        }
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+      }
+  },
+  beforeCreate: function(){
+
+  },
+  created: function(){
+      let time = this.$route.query.code
+      let type = this.$route.query.f_io
+      if(type === '0'){
+          console.log('if')
+      }else{
+          console.log('else')
+          this.isChong = false
+      }
+      this.getMoneyMsg(time,type)
+  },
+  beforeMount: function(){
+
+  },
+  mounted: function(){
+
+  },
+  destroyed: function(){
+
   }
 }
 </script>

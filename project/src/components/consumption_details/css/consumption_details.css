@@ -19,7 +19,7 @@ html,body{
 }
 .consumption_up p:nth-of-type(2){
     color:  #333333;
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     font-weight: bold;
     float: left;
 }
