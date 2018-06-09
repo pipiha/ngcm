@@ -9,7 +9,37 @@
         </ul>
     </div>
     <ul class="order_wrap">
-        <li style="height: 4.2rem;">
+        <!-- 展示型 -->
+        <li v-if="showType === 1"  v-for="(item,index) in orderList">
+            <div class="order_up">
+                <!-- style="color:#333333;" -->
+                <p>已完成</p>
+                <img  @click="cancalAdv()" src="./img/delete.png" alt="">
+            </div>
+            <div class="order_center">
+                <div class="order_title">
+                    <span>订单编号:</span>
+                    <span>{{ item.or_number }}</span>
+                </div>
+                <div class="order_title">
+                    <span>广告名称:</span>
+                    <span>{{ item.adv_title }}</span>
+                </div>
+                <div class="order_title">
+                    <span>订单金额:</span>
+                    <span>￥{{ item.or_total_money}}.00</span>
+                </div>
+                <div class="order_title">
+                    <span>持续时长:</span>
+                    <span>{{ item.month}}个月</span>
+                </div>
+            </div>
+            <div class="order_down">
+                <p class="order_check_detail" @click="advDetail()">查看详情</p>
+            </div>
+        </li>
+        <!-- 数字传单 -->
+        <li v-else="showType === 2" style="height: 4.2rem;"  v-for="(item,index) in orderList">
             <div class="order_up">
                 <p>已付款</p>
                 <img  @click="cancalAdv()" src="./img/delete.png" alt="">
@@ -17,44 +47,16 @@
             <div class="order_center" style="height:48%;">
                 <div class="order_title">
                     <span>订单编号:</span>
-                    <span>1232509386038</span>
+                    <span>{{ item.o_number }}</span>
                 </div>
                 <div class="order_title">
                     <span>广告主姓名:</span>
-                    <span>张三三</span>
+                    <span>{{ item.h5_src_title }}</span>
                 </div>
 
             </div>
             <div class="order_down">
                 <p class="order_check_detail">查看详情</p>
-            </div>
-        </li>
-        <li>
-            <div class="order_up">
-                <p style="color:#333333;">已完成</p>
-                <img  @click="cancalAdv()" src="./img/delete.png" alt="">
-            </div>
-            <div class="order_center">
-                <div class="order_title">
-                    <span>订单编号:</span>
-                    <span>1232509386038</span>
-                </div>
-                <div class="order_title">
-                    <span>广告名称:</span>
-                    <span>老庙黄金</span>
-                </div>
-                <div class="order_title">
-                    <span>订单金额:</span>
-                    <span>￥3000.00</span>
-                </div>
-                <div class="order_title">
-                    <span>持续时长:</span>
-                    <span>三个月</span>
-                </div>
-
-            </div>
-            <div class="order_down">
-                <p class="order_check_detail" @click="advDetail()">查看详情</p>
             </div>
         </li>
 
@@ -76,16 +78,19 @@
 </template>
 
 <script>
-import { MessageBox } from 'mint-ui'
+import { MessageBox,Indicator } from 'mint-ui'
 export default {
   components: {
-    MessageBox
+    MessageBox,
+    Indicator
   },
   data () {
     return {
       show_cancel: false,
       current: 0,
-      typeList: ['展示广告', '数字传单']
+      typeList: ['展示广告', '数字传单'],
+      orderList: [],  // 所有数据的数组
+      showType: 1 //默认是展示型广告
     }
   },
   methods: {
@@ -97,10 +102,54 @@ export default {
         }
       })
     },
-    advList: function () {
+    advList: function (typevalue) {
       this.$axios.get('api/wxpub/orders_controller/orderIndex')
       .then((res) => {
-          console.log(res)
+          console.log(res.data.data)
+          Indicator.close()
+        //   if(res.data.data.length === 0){
+        //       console.log('为空')
+        //   }else {
+        //       this.orderList = res.data.data
+        //   }
+        let obj = [
+    [
+      {
+        "or_id": 34,
+        "or_number": "152490726317937",
+        "adv_title": "自然堂助听器（藁城）",
+        "or_total_money": 30,
+        "or_status": 2,
+        "adv_type": 1,
+        "month": 1
+      },
+      {
+        "or_id": 68,
+        "or_number": "152698891761742",
+        "adv_title": "寒蝉凄切",
+        "or_total_money": 744,
+        "or_status": 0,
+        "adv_type": 1,
+        "month": 6
+      }
+    ],
+    [
+      {
+        "h5_src_title": "来买地",
+        "o_number": "152186214750676",
+        "o_status": 3,
+        "o_id": 8,
+        "adv_type": 2
+      }
+    ]
+  ]
+        if(typevalue === 1){
+            // 展示型
+            this.orderList = obj[0]
+        }else {
+            // 数字传单列表
+            this.orderList = obj[1]
+        }
       })
       .catch((err) => {
           console.log(err)
@@ -118,6 +167,14 @@ export default {
     },
     selectStyle (item, index) {
       this.current = index
+      Indicator.open()
+      if(index === 0){
+          this.showType = 1
+          this.advList(1)
+      }else{
+          this.showType = 2
+          this.advList(2)
+      }
     }
   },
   beforeCreate: function () {
@@ -125,7 +182,8 @@ export default {
   },
   created: function () {
     // console.log('-----------------组件创建了-----------------')
-    this.advList()
+    Indicator.open()
+    this.advList(this.showType)  //默认 展示 展示型广告 1  数字传单 2
   },
   beforeMount: function () {
     // console.log(this.$route.query.type)
