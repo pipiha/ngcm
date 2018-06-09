@@ -8,13 +8,14 @@
             </li>
         </ul>
     </div>
-    <ul class="order_wrap">
-        <!-- 展示型 -->
-        <li v-if="showType === 1"  v-for="(item,index) in orderList">
+    <ul class="order_wrap" v-if="showType === 1">
+        <!-- 展示型 style="color:#333333;" 完成字体 -->
+        <li  v-for="(item,index) in orderList" :code="item.or_id">
             <div class="order_up">
-                <!-- style="color:#333333;" -->
-                <p>已完成</p>
-                <img  @click="cancalAdv()" src="./img/delete.png" alt="">
+                <p v-if="item.or_status === 0" style="color:#333333;">待支付</p>
+                <p v-else-if="item.or_status === 2">已上刊</p>
+                <p v-else style="color:#333333;">待审核</p>
+                <img  @click="cancalAdv(item.or_id,1)" src="./img/delete.png" alt="">
             </div>
             <div class="order_center">
                 <div class="order_title">
@@ -38,11 +39,15 @@
                 <p class="order_check_detail" @click="advDetail()">查看详情</p>
             </div>
         </li>
-        <!-- 数字传单 -->
-        <li v-else="showType === 2" style="height: 4.2rem;"  v-for="(item,index) in orderList">
+        <!-- 数字传单 v-for="(item,index) in orderList1"  ="showType === 2"-->
+    </ul>
+
+    <ul class="order_wrap" v-else>
+         <li style="height: 4.2rem;" v-for="(item,index) in orderList1" :code="item.o_id">  
             <div class="order_up">
-                <p>已付款</p>
-                <img  @click="cancalAdv()" src="./img/delete.png" alt="">
+                <p v-if="item.o_status === 3">待付款</p>
+                <p v-else>已上刊</p>
+                <img  @click="cancalAdv(item.o_id,2)" src="./img/delete.png" alt="">
             </div>
             <div class="order_center" style="height:48%;">
                 <div class="order_title">
@@ -59,7 +64,6 @@
                 <p class="order_check_detail">查看详情</p>
             </div>
         </li>
-
     </ul>
 
     <!-- 删除弹窗 -->
@@ -68,7 +72,7 @@
                 <img src="./img/cancel.png" alt="">
                 <p>确定删除？</p>
                 <div class="alert_bottom">
-                    <p @click="sureCancel(advType)" class="sureCancel">确定</p>
+                    <p @click="sureCancel()" class="sureCancel">确定</p>
                     <p @click="cancelCancel()" class="cancelCancel">取消</p>
                 </div>
             </div>
@@ -90,7 +94,11 @@ export default {
       current: 0,
       typeList: ['展示广告', '数字传单'],
       orderList: [],  // 所有数据的数组
-      showType: 1 //默认是展示型广告
+      showType: 1, //默认是展示型广告
+      orderList1: [],
+      cancelIdZ: -1, //删除的订单id 展示型
+      cancelIdS: -1, //数字型
+      cancelType: -1, // 判断删除的是数字型 还是展示型
     }
   },
   methods: {
@@ -105,7 +113,7 @@ export default {
     advList: function (typevalue) {
       this.$axios.get('api/wxpub/orders_controller/orderIndex')
       .then((res) => {
-          console.log(res.data.data)
+        //   console.log(res.data.data)
           Indicator.close()
         //   if(res.data.data.length === 0){
         //       console.log('为空')
@@ -140,6 +148,13 @@ export default {
         "o_status": 3,
         "o_id": 8,
         "adv_type": 2
+      },
+      {
+        "h5_src_title": "来买地2",
+        "o_number": "152186214750676",
+        "o_status": 3,
+        "o_id": 8,
+        "adv_type": 2
       }
     ]
   ]
@@ -148,22 +163,33 @@ export default {
             this.orderList = obj[0]
         }else {
             // 数字传单列表
-            this.orderList = obj[1]
+            this.orderList1 = obj[1]
         }
       })
       .catch((err) => {
           console.log(err)
       })
     },
-    cancalAdv: function () {
+    cancalAdv: function (orderId,type) {
       this.show_cancel = true
+      if(type === 1){
+          this.cancelIdZ = orderId
+          this.cancelType = 1
+      }else{
+          this.cancelIdS = orderId
+          this.cancelType = 2
+      }
     },
     cancelCancel: function () { // 取消 取消
       this.show_cancel = false
     },
     sureCancel: function () { // 确认取消
-      console.log('确认取消')
-    //   this.footData.splice(this.footData.findIndex(item => item.h5_id === this.cancelID), 1)
+      if(this.cancelType === 1){ // 展示型
+         this.orderList.splice(this.orderList.findIndex(item => item.or_id === this.cancelIdZ), 1)
+      }else{
+          this.orderList1.splice(this.orderList1.findIndex(item => item.o_id === this.cancelIdS), 1)
+      }
+      this.show_cancel = false
     },
     selectStyle (item, index) {
       this.current = index
