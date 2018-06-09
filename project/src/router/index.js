@@ -36,8 +36,6 @@ import ReadJoin from '@/components/join_apply/read_join' // 加盟须知
 import UserCenter from '@/components/user_center/user_center' // 用户中心
 import DoorOrder from '@/components/door_order/door_order' // 展示型广告
 
-import Demo from '@/components/demo.vue'
-
 Vue.use(Router)
 Vue.use(require('vue-wechat-title'))
 
@@ -325,10 +323,6 @@ export default new Router({
       meta: {
         title: '我要下单'
       }
-    },
-    {
-      path: '/demo',
-      component: Demo
     }
   ]
 })

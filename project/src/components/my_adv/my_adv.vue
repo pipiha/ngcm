@@ -21,7 +21,7 @@
                 </div>
             </li>
             <!-- 我的广告 -->
-            <li v-else-if="advType == '2'"  :code="item.adv_id">
+            <!-- <li v-else-if="advType == '2'"  :code="item.adv_id">
                 <img :src="item.adv_video_path + '?vframe/jpg/offset/0/imageView2/1/w/690/h/390/q/75|imageslim'" alt="">
                 <div class="adv_title">
                     <span v-if="item.o_status == '2'">剩余{{ item.resTime }}天</span>
@@ -34,8 +34,8 @@
                 </div>
                 <img v-if="item.adv_type == 0" src="./img/icon1.png" alt="">
                 <img v-else="item.adv_type == 1" src="./img/icon2.png" alt="">
-            </li>
-            <!-- <li>
+            </li> -->
+            <li @clcik="goZhanDetail()">
                 <img src="./img/bj.png" alt="">
                 <div class="adv_title">
                     <span>已有1688人浏览</span>
@@ -45,7 +45,7 @@
                 <img src="./img/icon2.png" alt="">
                 <div class="adv_down"></div>
             </li>
-            <li>
+            <li @click="goShuDeatil()">
                 <img src="./img/bj.png" alt="">
                 <div class="adv_title">
                     <span></span>
@@ -54,15 +54,6 @@
                 </div>
                 <img src="./img/icon1.png" alt="">
             </li>
-            <li>
-                <img src="./img/bj.png" alt="">
-                <div class="adv_title">
-                    <span></span>
-                    <span style="color: #F1965A;">等待编辑</span>
-                    <p>自然堂促销广告</p>
-                </div>
-                <img src="./img/icon2.png" alt="">
-            </li> -->
 
         </ul>
 
@@ -101,7 +92,7 @@
 
 <script>
 import { Indicator, MessageBox } from 'mint-ui'
-import { mapState } from 'Vuex'
+// import { mapState } from 'Vuex'
 export default {
   components: {
     Indicator,
@@ -277,18 +268,28 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    goZhanDetail: function () { // 展示型广告详情
+      this.$router.push({
+        path: '/zhanDetail'
+      })
+    },
+    goShuDeatil: function () { // 数字传单广告详情
+      this.$router.push({
+        path: '/numDetail'
+      })
     }
   },
   beforeCreate: function () {
     // window.location.reload()
   },
-  computed: {
-    ...mapState({
-      userInfo: state => state.userInfo
-    })
-  },
+  // computed: {
+  //   ...mapState({
+  //     userInfo: state => state.userInfo
+  //   })
+  // },
   created: function () {
-    console.log(this.userInfo) // 这里降会输出小姐姐真漂亮
+    // console.log(this.userInfo) // 这里降会输出小姐姐真漂亮
     // console.log('-----------------组件创建了-----------------')
 
     // console.log(this.$route.query.type)
