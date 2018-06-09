@@ -220,7 +220,8 @@ export default {
       //   this.$bus.emit('advData', this.lookData)
       // bus.$emit('LOOKDATA', this.lookData)
       // this.$store.dispatch('getUser', '小姐姐真漂亮')
-      console.log(this.lookData)
+      this.$store.dispatch('getUser', this.lookData)
+      // console.log(this.lookData)
       this.$router.push({
         path: '/landingPage',
         query: {
@@ -236,8 +237,6 @@ export default {
   },
   created: function () {
     // console.log(this.$route.query.imgUrl)
-    this.$store.dispatch('getUser', '小姐姐真漂亮')
-
     this.appPic = this.$route.query.imgUrl // 广告机背景图 上一页传过来的
     this.advAdress = this.$route.query.title // 广告名称 改成地址了
     this.advTel = this.$route.query.tel // 电话

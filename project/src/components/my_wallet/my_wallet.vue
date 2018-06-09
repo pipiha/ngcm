@@ -1,7 +1,7 @@
 <template>
 <div>
     <div v-wechat-title="$route.meta.title"></div>
-    <div  class="month_bill_up" style="position: fixed;top:0;z-index: 10;">
+    <!-- <div  class="month_bill_up" style="position: fixed;top:0;z-index: 10;">
         <div class="bill_up_left">
             <div class="check_time" @click="openPicker()">
                 <p>{{ timeText }}</p>
@@ -18,7 +18,7 @@
             <p @click="filter()">筛选</p>
             <p @click="checkMonth()">月账单</p>
         </div>
-    </div>
+    </div> -->
     <!-- <mt-spinner v-show="list<1 && InitialLoading" color="#26a2ff"></mt-spinner> -->
 
     <!-- 零钱明细   v-for="(item,index) in moneyList" -->
@@ -45,7 +45,7 @@
                   </div>
               </div>
               <div class="bill_up_right">
-                  <!-- <p @click="filter()">筛选</p> -->
+                  <p @click="filter()">筛选</p>
                   <p @click="checkMonth()" style="float: right;margin-right: 13%;">月账单</p>
               </div>
           </div>
@@ -280,15 +280,15 @@ export default {
       } else if (this.shaiXuan === '全部') {
         this.setzhichu(3, startTime, '', 1)
       } else if (this.shaiXuan === '红包') {
-        this.setzhichu(3, startTime, '', 1)
+        this.setzhichu(4, startTime, 0, 1)
       } else if (this.shaiXuan === '提现') {
-        this.setzhichu(3, startTime, '', 1)
+        this.setzhichu(4, startTime, 1, 1)
       } else if (this.shaiXuan === '充值') {
-        this.setzhichu(3, startTime, '', 1)
+        this.setzhichu(1, startTime, 1, 1)
       } else if (this.shaiXuan === '分佣') {
-        this.setzhichu(3, startTime, '', 1)
+        this.setzhichu(5, startTime, 0, 1)
       } else if (this.shaiXuan === '广告费支出') {
-        this.setzhichu(3, startTime, '', 1)
+        this.setzhichu(1, startTime, 0, 1)
       }
     },
     onValuesChange: function (picker, values) {

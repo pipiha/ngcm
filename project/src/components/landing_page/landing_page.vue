@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapState } from 'Vuex'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -82,8 +82,7 @@ export default {
     })
   },
   created: function () {
-    console.log(this.userInfo) // 这里降会输出小姐姐真漂亮
-    // this.$store.dispatch('getUser', '小姐姐真漂亮')
+    console.log(this.userInfo)
     // this.advID = this.$route.query.code
     // bus.$on('LOOKDATA', (data) => {
     //   console.log(data)
@@ -112,6 +111,7 @@ export default {
   },
   deactivated () {
     // this.$destroy()
+    Indicator.close()
   }
 }
 </script>

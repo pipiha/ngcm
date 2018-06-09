@@ -322,6 +322,7 @@ export default {
 
   },
   deactivated () {
+    Indicator.close()
     this.$destroy()
   }
 }
