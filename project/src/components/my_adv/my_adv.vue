@@ -22,7 +22,7 @@
             </li>
             <!-- 我的广告 -->
             <li v-else-if="advType == '2'"  :code="item.adv_id">
-                <img :src="item.video_myself + '?vframe/jpg/offset/0/imageView2/1/w/690/h/390/q/75|imageslim'" alt="">
+                <img :src="item.adv_video_path + '?vframe/jpg/offset/0/imageView2/1/w/690/h/390/q/75|imageslim'" alt="">
                 <div class="adv_title">
                     <span v-if="item.o_status == '2'">剩余{{ item.resTime }}天</span>
                     <span v-else>剩余0天</span>
