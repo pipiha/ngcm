@@ -35,7 +35,8 @@ export default {
           url: '/numDetail/tab4'
         }
       ],
-      o_id: -1
+      o_id: -1,
+      o_status: 0
     }
   },
   methods: {
@@ -45,7 +46,8 @@ export default {
       this.$router.push({
         path: item.url,
         query: {
-          o_id: this.o_id
+          o_id: this.o_id,
+          o_status: this.o_status
         }
       })
     },
@@ -60,6 +62,7 @@ export default {
   },
   created: function () {
     this.o_id = this.$route.query.o_id
+    this.o_status = this.$route.query.o_status
   },
   beforeMount: function () {
 
@@ -73,6 +76,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/num_detail.css';
 </style>

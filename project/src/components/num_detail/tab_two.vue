@@ -244,7 +244,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scope>
 @import './css/num_detail.css';
 @import '../play_time/css/play_time.css';
    .demo-Circle-custom{
