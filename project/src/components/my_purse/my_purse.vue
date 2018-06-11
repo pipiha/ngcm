@@ -36,7 +36,7 @@
         </div>
         <p>{{ moneyText.total_pocket_money }}</p>
         <p>可提现金额(元)</p>
-        <p>我要提现</p>
+        <p><router-link to="/withdrawal">我要提现</router-link></p>
     </div>
 
 </div>

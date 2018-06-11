@@ -6,7 +6,10 @@ import router from './router'
 import utils from './assets/common/js/common.js' // 公共js 例如:主域名等）
 import BaiduMap from 'vue-baidu-map'
 import VueBus from 'vue-bus'
-import store from './store'
+import VueScroller from 'vue-scroller'
+
+// import iView from 'iview';
+// import 'iview/dist/styles/iview.css';
 import VueWechatTitle from 'vue-wechat-title'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'

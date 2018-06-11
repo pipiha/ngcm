@@ -77,7 +77,6 @@
                 </div>
             </div>
         </div>
-
 </div>
 </template>
 
@@ -191,7 +190,11 @@ export default {
       }
       this.show_cancel = false
     },
-    selectStyle (item, index) {
+    sureCancel: function (){
+      this.show_cancel = false
+      this.dianji = false
+    },
+    selectStyle (item, index){
       this.current = index
       Indicator.open()
       if (index === 0) {
@@ -295,6 +298,9 @@ export default {
     float: left;
     font-size: 0.4rem;
     color: #666666;
+}
+.order_wrap li:first-child{
+    height:4.2rem;
 }
 .order_title_on{
     color: #5286EC;
