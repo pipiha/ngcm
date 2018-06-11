@@ -296,13 +296,13 @@ export default {
       this.shaiXuan = values[0]
       // console.log(this.shaiXuan)
     },
-    consumptionDetails: function (code,f_io) {
+    consumptionDetails: function (code, f_io) {
       // console.log(f_io)
       // console.log(code.substr(0,10))
       this.$router.push({
         path: '/ConsumptionDetails',
         query: {
-          code: code.substr(0,10),
+          code: code.substr(0, 10),
           f_io: f_io
         }
       })

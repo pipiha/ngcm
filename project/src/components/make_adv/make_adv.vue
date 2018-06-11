@@ -93,7 +93,7 @@ export default {
         //   }
         })
         .catch((err) => {
-          console.log(err)
+          MessageBox.alert('请稍后重试')
         })
     },
     // 上传图片
@@ -118,8 +118,8 @@ export default {
         })
         .catch((err) => {
           upLoading(e)
-          // MessageBox.alert('请稍后再试')
-          // Indicator.close()
+          MessageBox.alert('请稍后再试')
+          Indicator.close()
         })
     },
     nextClick: function () {

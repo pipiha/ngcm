@@ -25,8 +25,8 @@
            </li>
         </ul>
         <!-- 创建新的内容 -->
-        <div class="create_new_content" @click="addNew()">
-            <img src="./img/addadv.png" alt="">
+        <div class="create_new_content">
+            <img @click="addNew()" src="./img/addadv.png" alt="">
         </div>
         <input v-model="srcTitle" type="text" placeholder="请输入广告名称（必填）">
         <input v-model="advAdress" type="text" placeholder="请输入您的地址（必填）">
@@ -215,19 +215,57 @@ export default {
           h5_address: this.advAdress
         }
       )
-      //   console.log(this.lookData)
-      //   console.log(this.$bus)
-      //   this.$bus.emit('advData', this.lookData)
       // bus.$emit('LOOKDATA', this.lookData)
       // this.$store.dispatch('getUser', '小姐姐真漂亮')
       this.$store.dispatch('getUser', this.lookData)
       // console.log(this.lookData)
-      this.$router.push({
-        path: '/landingPage',
-        query: {
-          type: 1
-        }
-      })
+
+      let myreg = /^[1][3,4,5,7,8][0-9]{9}$/ // 验证手机号
+      if (this.advConentTitle === '') {
+        MessageBox.alert('请填写广告内容标题')
+      } else if (this.srcTitle === '') {
+        MessageBox.alert('请填写广告名称')
+      } else if (this.advAdress === '') {
+        MessageBox.alert('请填写您的地址')
+      } else if (this.advTel === '') {
+        MessageBox.alert('请填写您的电话')
+      } else if (!myreg.test(this.advTel)) {
+        MessageBox.alert('请填写正确的手机号')
+      } else if (this.advData[0].advImg.substring(0, 4) !== 'http') {
+        MessageBox.alert('请上传至少一张广告图片')
+      } else if (this.advData[0].advConent === '') {
+        MessageBox.alert('请填写至少一个广告内容')
+      } else {
+        let postData = this.$qs.stringify({
+          h5_title: this.advConentTitle,
+          h5_content: this.advData,
+          h5_phone: this.advTel,
+          h5_src_title: this.srcTitle,
+          h5_address: this.advAdress,
+          h5_app_pic: this.appPic
+        })
+        this.$axios({
+          method: 'post',
+          url: 'api/wxpub/create_adv/saveSecond',
+          data: postData
+        })
+          .then((res) => {
+            console.log(res)
+            if (res.data.code === 200) {
+              this.$router.push({
+                path: '/landingPage',
+                query: {
+                  type: 1
+                }
+              })
+            } else {
+              MessageBox.alert(res.data.msg)
+            }
+          })
+          .catch((err) => {
+            MessageBox.alert('请稍后再试')
+          })
+      }
     }
 
   },
@@ -244,11 +282,14 @@ export default {
   },
   mounted: function () {
 
+  },
+  deactivated: function () {
+    Indicator.close()
   }
 
 }
 </script>
 
-<style soped>
+<style scoped>
 @import './css/create_phone_adv.css';
 </style>

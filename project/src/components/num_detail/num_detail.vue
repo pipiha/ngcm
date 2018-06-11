@@ -34,7 +34,9 @@ export default {
           title: '金额明细',
           url: '/numDetail/tab4'
         }
-      ]
+      ],
+      o_id: -1,
+      o_status: 0
     }
   },
   methods: {
@@ -42,14 +44,38 @@ export default {
     selectStyle (item, index) {
       this.current = index
       this.$router.push({
-        path: item.url
+        path: item.url,
+        query: {
+          o_id: this.o_id,
+          o_status: this.o_status
+        }
       })
+    },
+    // 获取我的 页面 的数据
+    getMine: function () {
+
     }
+
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    this.o_id = this.$route.query.o_id
+    this.o_status = this.$route.query.o_status
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+
+  },
+  deactivated: function () {
 
   }
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/num_detail.css';
 </style>

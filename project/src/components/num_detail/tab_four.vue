@@ -6,22 +6,31 @@
         <img src="./img/tab4.png" alt="">
         <p>每日消费设置</p>
       </div>
-      <div class="up_center_box">
+      <!-- <div class="up_center_box">
           <span>设置单屏每日消费金额</span>
           <img src="./img/icon_jian.png" alt="">
           <input type="text" placeholder="" value="￥300.00">
           <img src="./img/icon_jia.png" alt="">
-      </div>
+      </div> -->
       <ul class="up_ul">
         <li>
-          <p>4000</p>
+          <p>{{ moneyShow.totalMoney }}</p>
           <p>推广费总金额(元）</p>
         </li>
         <li>
-          <p>3467</p>
+          <p>{{ moneyShow.lastMoney }}</p>
           <p>推广费余额(元）</p>
         </li>
       </ul>
+    </div>
+
+    <div class="num_set_dayMoney">
+      <p>设置单屏每日消费金额</p>
+      <div class="num_set_input_box">
+        <p>金额</p>
+        <input v-model="dayMoney" type="text" placeholder="请输入每日消费金额">
+        <p @click="sureDayMoney()" class="setMoneyBtn">确定</p>
+      </div>
     </div>
 
     <div class="num_tab4_center">
@@ -34,13 +43,13 @@
         </div>
       </div>
       <div class="center_center">
-        <p>3000</p>
+        <p>{{ moneyShow.lastMoney }}</p>
         <p>剩余金额</p>
-        <p>3000</p>
+        <p>{{ moneyShow.spendMoney }}</p>
         <p>消费金额</p>
       </div>
       <div class="center_right">
-        <p>176</p>
+        <p>{{ parseInt(moneyShow.resDay)}}天</p>
         <p>预计可播放时长</p>
         <p>我要续期</p>
       </div>
@@ -60,8 +69,13 @@
 </template>
 
 <script>
+import { Indicator, MessageBox } from 'mint-ui'
 import echarts from 'echarts'
 export default {
+  components: {
+    Indicator,
+    MessageBox
+  },
   props: {
     id: {
       type: String,
@@ -78,42 +92,33 @@ export default {
   },
   data () {
     return {
-
+      o_id: 0,
+      o_status: 0,
+      moneyShow: '',
+      xData: [],
+      yData: [],
+      dayMoney: '' // 每日限额消费
     }
-  },
-  beforeCreate: function () {
-
-  },
-  created: function () {
-
-  },
-  beforeMount: function () {
-
-  },
-  mounted: function () {
-    // this.creatCanvas(); //创建canvas
-    this.creatEchart() // 图表统计
   },
   methods: {
     // 创建图表
     creatEchart: function () {
       this.chart = echarts.init(this.$refs.myEchart_tab4)
-
-      // var myChart = echarts.init(document.getElementById('main'));
-      let dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '点', '击', '柱', '子', '或', '者', '两']
+      // let dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '点', '击', '柱', '子', '或', '者', '两22222']
       let data = [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330, 310]
-      let yMax = 400
-      let dataShadow = []
+      // console.log(dataAxis)
+      // console.log(this.xData)
+      let dataAxis = this.xData
+      // let data = this.xData
+      // let dataAxis = this.yData
+      // let yMax = 1400
+      // let dataShadow = []
 
-      for (var i = 0; i < data.length; i++) {
-        dataShadow.push(yMax)
-      }
+      // for (var i = 0; i < data.length; i++) {
+      //   dataShadow.push(yMax)
+      // }
 
       this.chart.setOption({
-        // title: {
-        //     text: '特性示例：渐变色 阴影 点击缩放',
-        //     subtext: 'Feature Sample: Gradient Color, Shadow, Click Zoom'
-        // },
         xAxis: {
           data: dataAxis,
           axisLabel: {
@@ -154,16 +159,6 @@ export default {
           }
         ],
         series: [
-          // { // For shadow
-          //     type: 'line',
-          //     itemStyle: {
-          //         normal: {color: 'rgba(0,0,0,0.05)'}
-          //     },
-          //     barGap:'-100%',
-          //     barCategoryGap:'40%',
-          //     data: dataShadow,
-          //     animation: false
-          // },
           {
             type: 'line',
             smooth: true,
@@ -196,12 +191,52 @@ export default {
       })
 
       // myChart.setOption(option);
+    },
+    // 获取金额明细数据
+    getMoneyList: function (o_id, o_status, money) {
+      this.$axios.get('api/wxpub/show_adv_detail/mathAdvMoneyDetail?o_id=' + o_id + '&o_status=' + o_status + '&oneSrcMoney=' + money)
+        .then((res) => {
+          Indicator.close()
+          if (res.data.code === 200) {
+            this.moneyShow = res.data.result
+            this.moneyShow.listMoney.forEach((item) => {
+              this.xData.push(item.create_time.substring(0, 10))
+              this.yData.push(parseInt(item.daySum))
+            })
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    sureDayMoney: function () {
+      this.getMoneyList(this.o_id, this.o_status, this.dayMoney)
+      Indicator.open()
     }
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    this.o_id = this.$route.query.o_id
+    this.o_status = this.$route.query.o_status
+    this.getMoneyList(this.o_id, this.o_status, 0)
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+    // this.creatCanvas(); //创建canvas
+    this.creatEchart() // 图表统计
+    Indicator.open()
+  },
+  deactivated: function () {
+    Indicator.close()
   }
 
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/num_detail.css';
 </style>

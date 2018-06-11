@@ -55,7 +55,8 @@ export default {
     return {
       msg: 152,
       showVideo: true,
-      circleData: 80
+      circleData: 80,
+      advData: '' // 广告数据
     }
   },
   methods: {
@@ -97,9 +98,13 @@ export default {
     },
     // 获取详情数据
     getSiteData: function (advId, advType) {
-      this.$axios.get('api/wxpub/create_adv/oneAdvStatus?list_id=' + advId + '&o_status=' + advType)
+      console.log('获取广告详情')
+      this.$axios.get('api/wxpub/show_adv_detail/oneAdvStatus?list_id=' + advId + '&o_status=' + advType)
         .then((res) => {
           console.log(res)
+          if (res.data.code === 200) {
+            this.advData = res.data.data
+          }
         })
         .catch((err) => {
           console.log(err)

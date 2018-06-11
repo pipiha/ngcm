@@ -138,7 +138,7 @@ export default {
     myFoot: function (url) { // 我的足迹数据 我的收藏数据
       this.$axios.get('api' + url)
         .then((res) => {
-        //   console.log(res)
+          console.log(res)
           if (res.data.code === 200) {
             let obj = res.data.data.data
             // let obj = [{
@@ -177,10 +177,12 @@ export default {
               })
               this.footData = obj
             }
+            console.log(this.footData)
           }
         })
         .catch((err) => {
-          console.err(err)
+          Indicator.close()
+          MessageBox.alert('请稍后再试')
         })
     },
     // 取消足迹
@@ -218,7 +220,8 @@ export default {
           }
         })
         .catch((err) => {
-          console.err(err)
+          Indicator.close()
+          MessageBox.alert('请稍后再试')
         })
     },
     getAdvDetail: function (type, code) { // 跳转详情
@@ -307,7 +310,7 @@ export default {
   beforeMount: function () {
     // console.log(this.$route.query.type)  0 我感兴趣 1 我的足迹
     this.advType = this.$route.query.type
-    if (this.advType === 0) {
+    if (this.advType === '0') {
       console.log('我感兴趣')
       this.$route.meta.title = '我感兴趣'
       Indicator.open()
