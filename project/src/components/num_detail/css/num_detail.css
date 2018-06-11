@@ -287,7 +287,7 @@ html.body{
 
 .num_tab4_up{
     width: 96%;
-    height: 5.25rem;
+    height: 3rem;
     margin: 0 auto;
     border-radius: 0.3rem;
     box-shadow: 0 0.01rem 0.1rem 0.1rem rgba(234,234,234,0.50)
@@ -344,10 +344,12 @@ html.body{
 }
 .up_ul {
     width: 100%;
+    height: 2rem;
+    float: left;
 }
 .up_ul li{
     width: 50%;
-    height: 2.2rem;
+    height: 100%;
     float: left;
 }
 .up_ul li p:nth-of-type(1){
@@ -438,4 +440,65 @@ html.body{
     margin-top: -1rem!important;
     /* width: 100%;
     height: 5rem; */
+}
+
+/* 设置单屏每日消费限额 */
+.num_set_dayMoney{
+    width: 100%;
+    height: 2rem;
+    margin-top: 0.5rem;
+}
+.num_set_dayMoney p:nth-of-type(1){
+    width: 100%;
+    height: 40%;
+    text-align: left;
+    font-size: 0.38rem;
+    color:  #888888;
+    padding-left: 0.4rem;
+}
+.num_set_input_box{
+    width: 100%;
+    height: 54%;
+    border: 0.03rem solid #E2E2E2;
+    border-radius: 0.3rem;
+}
+.num_set_input_box p:nth-of-type(1){
+    width: 13%;
+    height: 100%;
+    float: left;
+    line-height: 1.1rem;
+    font-size: 0.45rem;
+    color: #333333;
+}
+.num_set_input_box input{
+    width: 62%;
+    height: 100%;
+    border: none;
+    color:  #BBBBBB;
+    float: left;
+    font-size: 0.4rem;
+    padding-left: 0.3rem;
+}
+.num_set_input_box input::-webkit-input-placeholder{
+    color: #BBBBBB;
+}
+.num_set_input_box input::-webkit-moz-placeholder{
+    color: #BBBBBB;
+}
+.num_set_input_box input::-webkit-o-placeholder{
+    color: #BBBBBB;
+}
+.num_set_input_box input::input-placeholder{
+    color: #BBBBBB;
+}
+.num_set_input_box .setMoneyBtn{
+    width: 15%;
+    height: 70%;
+    font-size: 0.4rem;
+    color: #BBBBBB;
+    margin-top: 2%;
+    float: left;
+    border-left: 0.02rem solid #BBBBBB;
+    cursor: pointer;
+    line-height: 0.75rem;
 }

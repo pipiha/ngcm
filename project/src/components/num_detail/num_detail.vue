@@ -34,7 +34,8 @@ export default {
           title: '金额明细',
           url: '/numDetail/tab4'
         }
-      ]
+      ],
+      o_id: -1
     }
   },
   methods: {
@@ -42,9 +43,31 @@ export default {
     selectStyle (item, index) {
       this.current = index
       this.$router.push({
-        path: item.url
+        path: item.url,
+        query: {
+          o_id: this.o_id
+        }
       })
+    },
+    // 获取我的 页面 的数据
+    getMine: function () {
+
     }
+
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    this.o_id = this.$route.query.o_id
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+
+  },
+  deactivated: function () {
 
   }
 }

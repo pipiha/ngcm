@@ -33,11 +33,11 @@
           </div>
     </div>
     <div v-else class="page_wrap">
-          <h3>{{ dataTag.s_title }}</h3>
+          <h3>{{ lookData[1].h5_title }}</h3>
           <ul>
-            <li>
-                <img :src="dataTag.s_thumb" alt="">
-                <p style="text-algin:left;">{{ dataTag.s_content }}</p>
+            <li v-for="(item,index) in lookData[2].h5_content">
+                <img :src="item.advImg" alt="">
+                <p style="text-algin:left;">{{ item.advConent }}</p>
             </li>
             <!-- <li>
                 <img src="./img/49476653903732260.png" alt="">
@@ -48,11 +48,11 @@
             <div class="page_address_text">
                 <div style="width: 100%;height: 0.7rem;">
                     <img src="./img/address.png" alt="">
-                    <p>{{ dataTag.s_address }}</p>
+                    <p>{{ lookData[5].h5_address }}</p>
                 </div>
                 <div style="width: 100%;height: 0.7rem;">
                     <img style="width: 0.4rem;height: 0.4rem;" src="./img/tel.png" alt="">
-                    <p>{{ dataTag.s_phone}}</p>
+                    <p>{{ lookData[3].h5_phone}}</p>
                 </div>
                 <div class="page_like">
                     <img src="./img/Fill 1.png" alt="" v-show="show_like">
@@ -81,7 +81,8 @@ export default {
       type: '',
       advID: '',
       textTag: '我已阅读',
-      dataTag: ''
+      dataTag: '',
+      lookData: ''
     }
   },
   methods: {
@@ -126,17 +127,15 @@ export default {
     this.type = this.$route.query.type
     console.log(this.type)
     if (this.type === '0') { // 感兴趣详情
-    console.log('if')
+      console.log('if')
       this.show_like = true
       this.show_share = false
       this.$route.meta.title = '我感兴趣'
 
       this.getAdvDetail(this.advId)
     } else {
-      console.log('else')
-       console.log(this.userInfo)
-      // console.log(this.$route.query.conent)
-      // this.dataTag = this.$route.query.conent
+      this.lookData = this.userInfo // 创建好广告预览的数据
+      Indicator.close()
     }
   },
   beforeMount: function () {

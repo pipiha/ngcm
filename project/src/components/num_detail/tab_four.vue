@@ -6,12 +6,12 @@
         <img src="./img/tab4.png" alt="">
         <p>每日消费设置</p>
       </div>
-      <div class="up_center_box">
+      <!-- <div class="up_center_box">
           <span>设置单屏每日消费金额</span>
           <img src="./img/icon_jian.png" alt="">
           <input type="text" placeholder="" value="￥300.00">
           <img src="./img/icon_jia.png" alt="">
-      </div>
+      </div> -->
       <ul class="up_ul">
         <li>
           <p>4000</p>
@@ -22,6 +22,15 @@
           <p>推广费余额(元）</p>
         </li>
       </ul>
+    </div>
+
+    <div class="num_set_dayMoney">
+      <p>设置单屏每日消费金额</p>
+      <div class="num_set_input_box">
+        <p>金额</p>
+        <input type="text" placeholder="请输入每日消费金额">
+        <p class="setMoneyBtn">确定</p>
+      </div>
     </div>
 
     <div class="num_tab4_center">
