@@ -10,7 +10,7 @@
     </div>
     <ul class="order_wrap" v-if="showType === 1">
         <!-- 展示型 style="color:#333333;" 完成字体 -->
-        <li  v-for="(item,index) in orderList" :code="item.or_id">
+        <li  style="height:6.12rem;" v-for="(item,index) in orderList" :code="item.or_id">
             <div class="order_up">
                 <p v-if="item.or_status === 0" style="color:#333333;">待支付</p>
                 <p v-else-if="item.or_status === 2">已上刊</p>
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="order_down">
-                <p class="order_check_detail" @click="advDetail()">查看详情</p>
+                <p class="order_check_detail" @click="advDetail(item.or_id)">查看详情</p>
             </div>
         </li>
         <!-- 数字传单 v-for="(item,index) in orderList1"  ="showType === 2"-->
@@ -101,11 +101,12 @@ export default {
     }
   },
   methods: {
-    advDetail: function () {
+    advDetail: function (id) {
       this.$router.push({
         path: '/waitPay',
         query: {
-          type: 0
+          type: 0,
+          f_id:id
         }
       })
     },

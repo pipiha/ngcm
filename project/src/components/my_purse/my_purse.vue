@@ -38,7 +38,6 @@
         <p>可提现金额(元)</p>
         <p><router-link to="/withdrawal">我要提现</router-link></p>
     </div>
-
 </div>
 </template>
 

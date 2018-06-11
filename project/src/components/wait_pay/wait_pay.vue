@@ -13,7 +13,7 @@
        </li> -->
        <li>
            <span>广告名称</span>
-           <span>老庙黄金</span>
+           <span>{}</span>
        </li>
        <li>
            <span>预计播放日期</span>
@@ -70,9 +70,30 @@
 export default {
   data () {
     return {
-
+        f_id:0,
+        huangjin:{},
+        
     }
-  }
+  },
+  mounted () {
+      this.getMoney( this.$route.query.f_id )
+      this.f_id = this.$route.query.f_id
+  },
+  methods: {
+        getMoney: function ( id ) {
+        this.$axios.get('api//wxpub/show_adv_detail/showAdv?adv_id='+id)
+            .then((res) => {
+                console.log(res.data.data)
+            if (res.data.code === 200) {
+                this.huangjin = res.data.data
+                console.log(this.huangjin)
+            }
+            })
+            .catch((err) => {
+            console.log(err)
+            })
+    },
+    }
 }
 </script>
 

@@ -457,11 +457,9 @@ export default {
     line-height: 50px;
     text-align: center
 }
-
 .page-loadmore-listitem {
     border-top: 1px solid #eee
 }
-
 .page-loadmore-wrapper {
     overflow: scroll
 }
@@ -470,7 +468,6 @@ export default {
   padding: 0;
   margin: 0;
   position: relative;
-
 }
 .mint-loadmore-text{
   display: inline-block!important;

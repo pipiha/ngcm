@@ -4,9 +4,7 @@ import types from './types'
 import * as actions from './actions'
 
 Vue.use(Vuex)
-
 const debug = process.env.NODE_ENV !== 'production'
-
 const state = {
   userInfo: ''
 }
