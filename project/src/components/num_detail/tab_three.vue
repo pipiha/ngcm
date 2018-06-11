@@ -11,26 +11,26 @@
                     <p>投放点位</p>
                     <img src="./img/house.png" alt="">
                 </div>
-                <p class="site_num_tag">53</p>
+                <p class="site_num_tag">{{ aresData.countSite }}</p>
                 <img src="./img/time_bj.png" alt="">
             </div>
 
             <ul class="site_bili_ul">
-                <li>
+                <li v-for="(item,index) in aresData.data">
                     <div class="site_bili_left">
-                        <p>田村</p>
-                        <p>小焦镇</p>
+                        <p>{{ item.siteTown }}</p>
+                        <p>{{ item.siteVillage }}</p>
                     </div>
                     <div class="site_bili_center">
                         <p></p>
-                        <p></p>
+                        <p :style="'width: 10%;'"></p>
                     </div>
                     <div class="site_bili_right">
-                        <p>699</p>
+                        <p>{{ item.count }}</p>
                         <img src="./img/num_play.png" alt="">
                   </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div class="site_bili_left">
                         <p>田村</p>
                         <p>小焦镇</p>
@@ -57,7 +57,7 @@
                         <p>699</p>
                         <img src="./img/num_play.png" alt="">
                     </div>
-                </li>
+                </li> -->
             </ul>
 
         </div>
@@ -69,8 +69,11 @@ export default {
     return {
       timeCheck: ['昨天', '近7天', '根据日期搜索'],
       current: 0,
+      sevenTime: 0,
+      yesterdayTime: 0,
       todayTime: 0,
-      sevenTime: ''
+      oid: 0,
+      aresData: ''
     }
   },
   methods: {
@@ -78,9 +81,11 @@ export default {
       this.current = index
     },
     getAreaData: function (id, startTime, endTime) {
-      this.$axios.get('api//wxpub/count_controller/getCountFromSites.html?o_id=' + id + '&period_start=' + startTime + '&period_end=' + endTime)
+      this.$axios.get('api/wxpub/show_adv_detail/getCountFromSites?o_id=' + id + '&period_start=' + startTime + '&period_end=' + endTime)
         .then((res) => {
-          console.log(res)
+          if (res.data.code === 200) {
+            this.aresData = res.data.data
+          }
         })
         .catch((err) => {
           console.log(err)
@@ -91,8 +96,10 @@ export default {
       let preDate
       if (type === 0) {
         preDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000) // 昨天
-      } else {
+      } else if (type === 1) {
         preDate = new Date(curDate.getTime() - 24 * 60 * 60 * 6000) // 前七天
+      } else {
+        preDate = new Date(curDate.getTime() - 24 * 60 * 60) // 今天
       }
       let d = new Date(preDate)
       let time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
@@ -109,11 +116,11 @@ export default {
 
   },
   created: function () {
-    console.log(this.getTadyTime(this.getBeforeTime1(0))) // 昨天的时间戳
-    console.log(this.getTadyTime(this.getBeforeTime1(1))) // 前7天的时间戳
-    this.todayTime = this.getTadyTime(this.getBeforeTime1(0)) // 昨天的时间戳
+    this.oid = this.$route.query.num // 订单id
+    this.yesterdayTime = this.getTadyTime(this.getBeforeTime1(0)) // 昨天的时间戳
     this.sevenTime = this.getTadyTime(this.getBeforeTime1(1)) // 前7天的时间戳
-    this.getAreaData(15, 1528128000, 1528732800)
+    this.todayTime = this.getTadyTime(this.getBeforeTime1(2)) // 今天的时间戳 + 8640 就是下一天
+    this.getAreaData(this.oid, this.todayTime, this.todayTime + 86400)
   },
   beforeMount: function () {
 

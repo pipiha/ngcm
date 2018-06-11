@@ -2,7 +2,7 @@
 <div style="margin-top: -1.2rem;">
     <div v-wechat-title="$route.meta.title"></div>
     <ul class="ul">
-        <li :class="{on:index==current}" v-for="(item,index) in titleLi" @click="selectStyle(item,index)">{{ item.title }}</li>
+        <li :class="{on:index==current}" v-for="(item,index) in titleLi" @click="selectStyle(item,index,num)">{{ item.title }}</li>
     </ul>
 
     <div class="tab_box">
@@ -36,18 +36,20 @@ export default {
         }
       ],
       o_id: -1,
-      o_status: 0
+      o_status: 0,
+      num: 0
     }
   },
   methods: {
     // 子路由切换、li样式添加
-    selectStyle (item, index) {
+    selectStyle (item, index, num) {
       this.current = index
       this.$router.push({
         path: item.url,
         query: {
           o_id: this.o_id,
-          o_status: this.o_status
+          o_status: this.o_status,
+          num: this.num
         }
       })
     },
@@ -63,6 +65,7 @@ export default {
   created: function () {
     this.o_id = this.$route.query.o_id
     this.o_status = this.$route.query.o_status
+    this.num = this.$route.query.oid
   },
   beforeMount: function () {
 

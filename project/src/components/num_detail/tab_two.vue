@@ -89,14 +89,27 @@ export default {
     return {
       msg: 152,
       show_canvas: false,
-      time_echart: false
+      time_echart: false,
+      hid: 0,
+      status: 0,
+      oid: 0,
+      yesterdayTime: 0,
+      sevenTime: 0,
+      todayTime: 0
     }
   },
   beforeCreate: function () {
 
   },
   created: function () {
-
+    this.hid = this.$route.query.o_id // list id
+    this.status = this.$route.query.o_status
+    this.oid = this.$route.query.oid
+    this.yesterdayTime = this.getTadyTime(this.getBeforeTime1(0)) // 昨天的时间戳
+    this.sevenTime = this.getTadyTime(this.getBeforeTime1(1)) // 前7天的时间戳
+    this.todayTime = this.getTadyTime(this.getBeforeTime1(2)) // 今天的时间戳 + 8640 就是下一天
+    // console.log(this.todayTime + 86400)
+    this.getSearchData(this.todayTime, this.todayTime + 86400) // 默认展示今天0点 - 24点
   },
   beforeMount: function () {
 
@@ -106,6 +119,34 @@ export default {
     this.creatEchart() // 图表统计
   },
   methods: {
+    getSearchData: function (starTime, endTime) {
+      this.$axios.get('api/wxpub/count_controller/getBrowseTimes.html?o_id=' + this.oid + '&period_start=' + starTime + '&period_end=' + endTime)
+        .then((res) => {
+          console.log(res)
+        })
+        .cathc((err) => {
+          console.log(err)
+        })
+    },
+    getBeforeTime1: function (type) {
+      let curDate = new Date()
+      let preDate
+      if (type === 0) {
+        preDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000) // 昨天
+      } else if (type === 1) {
+        preDate = new Date(curDate.getTime() - 24 * 60 * 60 * 6000) // 前七天
+      } else {
+        preDate = new Date(curDate.getTime() - 24 * 60 * 60) // 今天
+      }
+      let d = new Date(preDate)
+      let time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
+      return time
+    },
+    getTadyTime: function (time) { // 时间转时间戳
+      let timestamp2 = Date.parse(time)
+      timestamp2 = timestamp2 / 1000
+      return timestamp2
+    },
     // 创建canvas
     creatCanvas: function () {
       let c1 = document.createElement('canvas')

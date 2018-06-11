@@ -26,7 +26,7 @@
         <!-- 我的广告 -->
         <ul v-show="advType == 2">
           <!-- 展示型 -->
-          <li v-if="item.adv_type == 1" v-for="(item,index) in advData"  :code="item.adv_id">
+          <li v-for="(item,index) in advData"  :code="item.adv_id">
                 <img @click="goZhanDetail(item.adv_id,item.or_status)" :src="item.video_myself + '?vframe/jpg/offset/0/imageView2/1/w/690/h/390/q/75|imageslim'" alt="">
                 <div class="adv_title">
                     <span v-if="item.or_status == '2'">剩余{{ item.resTime }}天</span>
@@ -40,11 +40,11 @@
                 <img src="./img/icon2.png" alt="">
           </li>
           <!-- 数字传单 -->
-          <li v-else v-for="(item,index) in advData"  :code="item.adv_id">
-                <img @click="goShuDeatil(item.adv_id,item.o_status)" :src="item.h5_app_pic" alt="">
+          <li v-for="(item,index) in advData2"  :code="item.adv_id">
+                <img @click="goShuDeatil(item.h5_id,item.o_status,item.o_id)" :src="'http://img.agrimedia.cn/' + item.h5_app_pic" alt="">
                 <div class="adv_title">
                     <span v-if="item.or_status == '2'">剩余{{ item.resTime }}天</span>
-                    <span v-else>剩余0天</span>
+                    <span v-else></span>
                     <span v-if="item.o_status === 1">已下刊</span>
                     <span v-else-if="item.o_status === 2">已上刊</span>
                     <span v-else-if="item.o_status === 3"  style="color: #F1965A;">等待付款</span>
@@ -106,7 +106,8 @@ export default {
       cancelIndex: '',
       addBtn: false,
       isShowAdd: false,
-      advData: []
+      advData: [], // 展示型广告
+      advData2: [] // 数字传单
     }
   },
   methods: {
@@ -245,6 +246,7 @@ export default {
               this.isKong = true
             } else {
               this.advData = res.data.data[0]
+              this.advData2 = res.data.data[1]
               // this.footData = [
               //   [
               //     {
@@ -282,13 +284,13 @@ export default {
         }
       })
     },
-    goShuDeatil: function (advID, advType) { // 数字传单广告详情
+    goShuDeatil: function (advID, advType, num) { // 数字传单广告详情
       this.$router.push({
         path: '/numDetail',
         query: {
-          advID: advID,
-          advType: advType
-          // num: num
+          o_id: advID,
+          o_status: advType,
+          oid: num // 订单号
         }
       })
     }
