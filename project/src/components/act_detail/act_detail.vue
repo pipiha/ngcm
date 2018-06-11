@@ -2,12 +2,13 @@
     <div class="act_detail_wrap">
         <div v-wechat-title="$route.meta.title"></div>
         <div class="act_detail_top">
-            <img class="act_img" src="./img/Group 2.png" alt="">
-            <p style="font-size:0.45rem;">品牌厨具，买4送一</p>
+            <!-- <img class="act_img" src="./img/Group 2.png" alt=""> -->
+            <img class="act_img" :src="actData.s_thumb" alt="">
+            <p style="font-size:0.45rem;">{{ actData.s_title }}</p>
         </div>
 
         <div class="act_detail_center">
-            <p>活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。活动详情说明。</p>
+            <p>{{ actData.s_content }}</p>
             <ul>
                 <li>
                     <img src="./img/tiem.png" alt="">
@@ -32,11 +33,11 @@
                 <ul class="adv_detail_user_msg">
                     <li>
                         <img style="height: 0.4rem;" src="./img/name.png" alt="">
-                        <p>张三</p>
+                        <p>{{ actData.site_title}}</p>
                     </li>
                      <li>
                          <img src="./img/tel.png" alt="">
-                        <p>186-0066-8910</p>
+                        <p>{{ actData.s_phone}}</p>
                     </li>
                 </ul>
             </div>
@@ -47,6 +48,42 @@
 
 <script>
 export default {
+  data () {
+    return {
+      actData: ''
+    }
+  },
+  methods: {
+    getActDetailData: function (code) {
+      this.$axios.get('api/wxpub/user/getDetail.html?s_id=' + code)
+        .then((res) => {
+          console.log(res)
+          if (res.data.code === 200) {
+            this.actData = res.data.data
+            console.log(this.actData)
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    let s_id = this.$route.query.code
+    this.getActDetailData(s_id)
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+
+  },
+  deactivated: function () {
+
+  }
 
 }
 </script>

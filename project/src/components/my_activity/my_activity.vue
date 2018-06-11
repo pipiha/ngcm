@@ -19,13 +19,13 @@
             </li>
             <!-- 进行中 -->
             <li v-else  v-for="(item,index) in actData">
-                <img :src="item.s_thumb" alt="">
+                <img :src="item.s_thumb" alt="" @click="getActDetils(item.s_id)">
                 <p>{{ item.s_title }}</p>
                 <span>{{ item.create_time }}</span>
                 <span>{{ item.s_address }}</span>
             </li>
             <li>
-                <img src="./img/Group 2.png" alt="">
+                <img src="./img/Group 2.png" alt="" @click="getActDetils(1)">
                 <p>品牌厨具，买4送一</p>
                 <span>2018-09-09 10:00:00</span>
                 <span>晋州市马于镇人人乐超市</span>
@@ -70,8 +70,7 @@ export default {
       isShowAdd: false,
       addBtn: true,
       actData: '',
-      isKong: false,
-      actType: ''
+      isKong: false
     }
   },
   methods: {
@@ -134,28 +133,19 @@ export default {
           console.err(err)
         })
     },
-    // 获取我的广告列表
-    getMyAdv: function () {
-      this.$axios.get('api/wxpub/show_adv_detail/allAdv')
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+    getActDetils: function (code) {
+      this.$router.push({
+        path: 'actDetail',
+        query: {
+          code: code
+        }
+      })
     }
   },
   beforeCreate: function () {
 
   },
   created: function () {
-    this.actType = this.$route.query.type
-    console.log(this.actType)
-    // if (this.actType === '0') { // 我的广告列表
-    //   console.log('if')
-    //   this.getMyAdv()
-    // } else { // 我的活动列表
-    //   console.log('else')
     this.getAdvData(1)
     // }
     // this.getAdvData(1)
