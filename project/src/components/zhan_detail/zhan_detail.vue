@@ -90,34 +90,35 @@ export default {
       ctx.arc(170, 100, 60, -90 * Math.PI / 180, (x * 3.6 - 90) * Math.PI / 180)
       ctx.stroke()
     },
-    checkSiteAll: function(){
-        this.$router.push({
-            path: '/PlayTime'
-        })
+    checkSiteAll: function () {
+      this.$router.push({
+        path: '/PlayTime'
+      })
     },
     // 获取详情数据
-    getSiteData: function(advId){
-        this.$axios.get ('api/wxpub/show_adv_detail/allAdv?adv_id=' + advId)
+    getSiteData: function (advId, advType) {
+      this.$axios.get('api/wxpub/create_adv/oneAdvStatus?list_id=' + advId + '&o_status=' + advType)
         .then((res) => {
-            // console.log(res)
+          console.log(res)
         })
         .catch((err) => {
-            console.log(err)
+          console.log(err)
         })
     },
     // 点击播放视频
-    lookVideo: function(){
-        this.showVideo = false
-        this._dom = document.getElementById('myvideo')
-        this._dom.play()
+    lookVideo: function () {
+      this.showVideo = false
+      this._dom = document.getElementById('myvideo')
+      this._dom.play()
     }
   },
   beforeCreate: function () {
 
   },
   created: function () {
-      let advId = this.$route.query.advID
-      this.getSiteData(advId)
+    let advId = this.$route.query.advID
+    let advType = this.$route.query.advType
+    this.getSiteData(advId, advType)
   },
   beforeMount: function () {
 

@@ -43,7 +43,7 @@
     </ul>
 
     <ul class="order_wrap" v-else>
-         <li style="height: 4.2rem;" v-for="(item,index) in orderList1" :code="item.o_id">  
+         <li style="height: 4.2rem;" v-for="(item,index) in orderList1" :code="item.o_id">
             <div class="order_up">
                 <p v-if="item.o_status === 3">待付款</p>
                 <p v-else>已上刊</p>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { MessageBox,Indicator } from 'mint-ui'
+import { MessageBox, Indicator } from 'mint-ui'
 export default {
   components: {
     MessageBox,
@@ -93,12 +93,12 @@ export default {
       show_cancel: false,
       current: 0,
       typeList: ['展示广告', '数字传单'],
-      orderList: [],  // 所有数据的数组
-      showType: 1, //默认是展示型广告
+      orderList: [], // 所有数据的数组
+      showType: 1, // 默认是展示型广告
       orderList1: [],
-      cancelIdZ: -1, //删除的订单id 展示型
-      cancelIdS: -1, //数字型
-      cancelType: -1, // 判断删除的是数字型 还是展示型
+      cancelIdZ: -1, // 删除的订单id 展示型
+      cancelIdS: -1, // 数字型
+      cancelType: -1 // 判断删除的是数字型 还是展示型
     }
   },
   methods: {
@@ -112,94 +112,94 @@ export default {
     },
     advList: function (typevalue) {
       this.$axios.get('api/wxpub/orders_controller/orderIndex')
-      .then((res) => {
+        .then((res) => {
         //   console.log(res.data.data)
           Indicator.close()
-        //   if(res.data.data.length === 0){
-        //       console.log('为空')
-        //   }else {
-        //       this.orderList = res.data.data
-        //   }
-        let obj = [
-    [
-      {
-        "or_id": 34,
-        "or_number": "152490726317937",
-        "adv_title": "自然堂助听器（藁城）",
-        "or_total_money": 30,
-        "or_status": 2,
-        "adv_type": 1,
-        "month": 1
-      },
-      {
-        "or_id": 68,
-        "or_number": "152698891761742",
-        "adv_title": "寒蝉凄切",
-        "or_total_money": 744,
-        "or_status": 0,
-        "adv_type": 1,
-        "month": 6
-      }
-    ],
-    [
-      {
-        "h5_src_title": "来买地",
-        "o_number": "152186214750676",
-        "o_status": 3,
-        "o_id": 8,
-        "adv_type": 2
-      },
-      {
-        "h5_src_title": "来买地2",
-        "o_number": "152186214750676",
-        "o_status": 3,
-        "o_id": 8,
-        "adv_type": 2
-      }
-    ]
-  ]
-        if(typevalue === 1){
+          //   if(res.data.data.length === 0){
+          //       console.log('为空')
+          //   }else {
+          //       this.orderList = res.data.data
+          //   }
+          let obj = [
+            [
+              {
+                'or_id': 34,
+                'or_number': '152490726317937',
+                'adv_title': '自然堂助听器（藁城）',
+                'or_total_money': 30,
+                'or_status': 2,
+                'adv_type': 1,
+                'month': 1
+              },
+              {
+                'or_id': 68,
+                'or_number': '152698891761742',
+                'adv_title': '寒蝉凄切',
+                'or_total_money': 744,
+                'or_status': 0,
+                'adv_type': 1,
+                'month': 6
+              }
+            ],
+            [
+              {
+                'h5_src_title': '来买地',
+                'o_number': '152186214750676',
+                'o_status': 3,
+                'o_id': 8,
+                'adv_type': 2
+              },
+              {
+                'h5_src_title': '来买地2',
+                'o_number': '152186214750676',
+                'o_status': 3,
+                'o_id': 8,
+                'adv_type': 2
+              }
+            ]
+          ]
+          if (typevalue === 1) {
             // 展示型
             this.orderList = obj[0]
-        }else {
+          } else {
             // 数字传单列表
             this.orderList1 = obj[1]
-        }
-      })
-      .catch((err) => {
+          }
+        })
+        .catch((err) => {
           console.log(err)
-      })
+        })
     },
-    cancalAdv: function (orderId,type) {
+    cancalAdv: function (orderId, type) {
       this.show_cancel = true
-      if(type === 1){
-          this.cancelIdZ = orderId
-          this.cancelType = 1
-      }else{
-          this.cancelIdS = orderId
-          this.cancelType = 2
+      if (type === 1) {
+        this.cancelIdZ = orderId
+        this.cancelType = 1
+      } else {
+        this.cancelIdS = orderId
+        this.cancelType = 2
       }
     },
     cancelCancel: function () { // 取消 取消
       this.show_cancel = false
     },
     sureCancel: function () { // 确认取消
-      if(this.cancelType === 1){ // 展示型
-         this.orderList.splice(this.orderList.findIndex(item => item.or_id === this.cancelIdZ), 1)
-      }else{
-          this.orderList1.splice(this.orderList1.findIndex(item => item.o_id === this.cancelIdS), 1)
+      if (this.cancelType === 1) { // 展示型
+        this.orderList.splice(this.orderList.findIndex(item => item.or_id === this.cancelIdZ), 1)
+      } else {
+        this.orderList1.splice(this.orderList1.findIndex(item => item.o_id === this.cancelIdS), 1)
       }
       this.show_cancel = false
     },
     selectStyle (item, index) {
       this.current = index
       Indicator.open()
-      if(index === 0){
-          this.showType = 1
-          this.advList(1)
-      }else{
-          this.showType = 2
-          this.advList(2)
+      if (index === 0) {
+        this.showType = 1
+        this.advList(1)
+      } else {
+        this.showType = 2
+        this.advList(2)
       }
     }
   },
@@ -209,7 +209,7 @@ export default {
   created: function () {
     // console.log('-----------------组件创建了-----------------')
     Indicator.open()
-    this.advList(this.showType)  //默认 展示 展示型广告 1  数字传单 2
+    this.advList(this.showType) // 默认 展示 展示型广告 1  数字传单 2
   },
   beforeMount: function () {
     // console.log(this.$route.query.type)
@@ -217,6 +217,9 @@ export default {
   mounted: function () {
     // this.timeDown()
     // console.log(this.$route.query.type)/
+  },
+  deactivated () {
+    Indicator.close()
   }
 }
 </script>
