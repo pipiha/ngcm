@@ -156,10 +156,10 @@ export default {
       // this.$axios.get('api')
     }
   },
-  beforeCreate: function () {
+  beforeCreate: function (){
 
   },
-  created: function () {
+  created: function (){
     this.getuserInfo()
   },
   beforeMount: function () {
@@ -188,7 +188,7 @@ export default {
 }
 .swiper-slide{
   float: left;
-  width: 100%;
   height:4rem;
+  overflow: hidden;
 }
 </style>

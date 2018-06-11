@@ -8,7 +8,7 @@
         </div>
         <div class="bill_up_right">
             <p class="bill_on">收入</p>
-            <p>支出</p>
+            <p @click="bill_up">支出</p>
         </div>
     </div>
 
@@ -94,6 +94,17 @@ export default {
         .catch(error => { //  请求失败后的函数
           console.log(error)
         })
+    },
+    bill_up(){
+      axios.get('api/wxpub/user_wallet/adverExtensionRecord.html?io=1')  // 这里是支出的接口  要接口  要图表的接口  QQ
+      .then( reponse => {   //  请求成功后的函数
+                console.log(reponse.data.data.last_page)
+                // this.text = reponse.data.data.last_page
+                // this.money = reponse.data.data.per_page
+            })
+            .catch( error=> {	  //  请求失败后的函数
+                console.log(error)
+            })
     },
     openPicker () { // 显示选择时间日期
       this.$refs.picker.open()
