@@ -29,24 +29,6 @@
         </ul>
     </div>
 
-    <!-- 提现 -->
-    <!-- <div class="tx_wrap">
-        <div class="tx_up">
-            <i @click="wallet2()">?</i>
-        </div>
-        <p>{{ moneyText.total_pocket_money }}</p>
-        <p>可提现金额(元)</p>
-<<<<<<< HEAD
-        <p @click="userTixian(parseInt(moneyText.total_pocket_money))">我要提现</p>
-=======
-<<<<<<< HEAD
-        <p><router-link to="./withdrawal.html">我要提现</router-link></p>
-=======
-        <p @click="userTixian()">我要提现</p>
->>>>>>> fac612f4ca44295fd79e3ca81ae6d53f8eda3769
-    </div> -->
-
-    <!-- </div> -->
 </div>
 </template>
 

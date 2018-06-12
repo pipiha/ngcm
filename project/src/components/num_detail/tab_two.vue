@@ -174,10 +174,10 @@ export default {
       // Indicator.open()
       if (index === 0) { // 昨天
         Indicator.open()
-        this.getAreaData(this.oid, this.yesterdayTime, this.todayTime)
+        this.getSearchData(this.yesterdayTime, this.todayTime)
       } else if (index === 1) { // 近7天
         Indicator.open()
-        this.getAreaData(this.oid, this.sevenTime, this.todayTime)
+        this.getSearchData(this.sevenTime, this.todayTime)
       } else { // 根据日期搜索
         // Indicator.close()
         this.startAndEnd = true

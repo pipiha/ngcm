@@ -87,7 +87,15 @@ export default {
           console.log(err)
         })
     //   return result
+    },
+    pushHistory: function () {
+      let state = {
+        title: '我的广告',
+        url: 'myAdv?type=2'
+      }
+      window.history.pushState(state, state.title, state.url)
     }
+
   },
   beforeCreate: function () {
 
@@ -95,7 +103,7 @@ export default {
   created: function () {
     this.id = this.$route.query.o_id // list id
     this.status = this.$route.query.o_status
-    this.oid = this.$route.query.oid
+    this.oid = this.$route.query.num
     Indicator.open()
     this.getMineData(this.id, this.status, this.oid)
   },

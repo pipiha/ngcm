@@ -213,8 +213,8 @@ export default {
               this.xData.push(item.create_time.substring(0, 10))
               this.yData.push(parseInt(item.daySum))
             })
-            console.log(this.xData)
-            console.log(this.yData)
+            // console.log(this.xData)
+            // console.log(this.yData)
           }
         })
         .catch((err) => {

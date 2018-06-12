@@ -261,7 +261,7 @@ export default {
         query: {
           o_id: advID,
           o_status: advType,
-          oid: num // 订单号
+          num: num // 订单号
         }
       })
     }
