@@ -13,7 +13,7 @@
        </li> -->
        <li>
            <span>广告名称</span>
-           <span>{}</span>
+           <span>{{huangjin.adv_id}}</span>
        </li>
        <li>
            <span>预计播放日期</span>
