@@ -11,7 +11,7 @@
     <input type="" placeholder="0.00">
     <div class="keti">
         <div class="jine">可提现金额￥3000.00</div>
-        <div class="quanbu">全部提现</div>
+        <div class="quanbu" @click="mention">全部提现</div>
     </div>
     <div class="queding" @click="true">确定</div>
 </div>

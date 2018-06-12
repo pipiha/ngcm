@@ -3,7 +3,7 @@
     <div v-wechat-title="$route.meta.title"></div>
     <div class="month_bill_up">
         <div class="bill_up_left" @click="openPicker()">
-            <p>2018年5月</p>
+            <p>{{timeText}}</p>
             <img src="./img/down.png" alt="">
         </div>
         <div class="bill_up_right">
@@ -32,10 +32,8 @@
       year-format="{value}"
       month-format="{value}">
     </mt-datetime-picker>
-
 </div>
 </template>
-
 <script>
 import echarts from 'echarts'
 import { DatetimePicker } from 'mint-ui'
@@ -60,7 +58,7 @@ export default {
   },
   data () {
     return {
-      // timeText: this.formatDate(new Date()),
+      timeText: this.formatDate(new Date()),
       pickerVisible: '',
       pickerValue: '',
       startDate: new Date('2018-1-1'),
@@ -70,13 +68,10 @@ export default {
     }
   },
   beforeCreate: function () {
-
   },
   created: function () {
-
   },
   beforeMount: function () {
-
   },
   mounted: function () {
     this.creatEchart() // 图表统计
@@ -110,14 +105,13 @@ export default {
       this.$refs.picker.open()
     },
     handleConfirm: function () { // 日期确认之后
-      // let timeTag = this.pickerValue
-      // console.log(this.formatDate(timeTag, 1))
-      // this.timeText = this.formatDate(timeTag, 1)
+      let timeTag = this.pickerValue
+      console.log(this.formatDate(timeTag, 1))
+      this.timeText = this.formatDate(timeTag, 1)
     },
     // 创建图表
     creatEchart: function () {
       this.chart = echarts.init(this.$refs.myEchart)
-
       // var myChart = echarts.init(document.getElementById('main'));
       let dataAxis = ['点', '击', '柱', '子', '或']
       let data = [220, 182, 191, 234, 290]

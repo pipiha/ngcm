@@ -56,7 +56,6 @@
       </div>
       <div class="queding" @click="true">确定</div>
     </div>
-
 </div>
 </template>
 
