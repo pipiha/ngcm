@@ -1,5 +1,5 @@
 <template>
-    <div>
+<div>
     <div class="header">提现</div>
     <div class="img">
         <img src="./img/text.png" alt=""/>
@@ -14,21 +14,20 @@
         <div class="quanbu" @click="mention">全部提现</div>
     </div>
     <div class="queding" @click="true">确定</div>
-    </div>
+</div>
 </template>
 <script>
 export default {
-    data () {
-        return {
-            true:""
-        }
-    },
-    methods: {
-        true:function(){
-            console.log(123)
-            
-        }
+  data () {
+    return {
+      true: ''
     }
+  },
+  methods: {
+    true: function () {
+      console.log(123)
+    }
+  }
 }
 
 </script>
@@ -82,7 +81,7 @@ export default {
         font-weight: bold;
         background: url(./img/￥.png)no-repeat left;
         background-size:0.3rem 0.31rem;
-        background-position: 38% ; 
+        background-position: 38% ;
 
     }
     .keti{
@@ -115,4 +114,3 @@ export default {
     }
 
 </style>
-
