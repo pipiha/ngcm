@@ -17,19 +17,19 @@
        </li>
        <li>
            <span>预计播放日期</span>
-           <span>2017-06-03</span>
+           <span>{}</span>
        </li>
        <li>
            <span>广告持续时长(月)</span>
-           <span>4</span>
+           <span>{}</span>
        </li>
        <li>
            <span>视频时长</span>
-           <span>15秒</span>
+           <span>{}</span>
        </li>
        <li>
            <span>播放点位</span>
-           <span>32个</span>
+           <span>{}</span>
        </li>
    </ul>
 
@@ -72,7 +72,6 @@ export default {
     return {
         f_id:0,
         huangjin:{},
-        
     }
   },
   mounted () {
@@ -92,7 +91,7 @@ export default {
             .catch((err) => {
             console.log(err)
             })
-    },
+        },
     }
 }
 </script>

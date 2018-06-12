@@ -30,31 +30,23 @@
     </div>
 
     <!-- 提现 -->
-    <div class="tx_wrap">
+    <!-- <div class="tx_wrap">
         <div class="tx_up">
             <i @click="wallet2()">?</i>
         </div>
         <p>{{ moneyText.total_pocket_money }}</p>
         <p>可提现金额(元)</p>
+<<<<<<< HEAD
         <p @click="userTixian(parseInt(moneyText.total_pocket_money))">我要提现</p>
-    </div>
-
-    <!-- 提现页面 -->
-    <!-- <div class="tixian_page" v-show="isTixian">
-      <div class="img">
-          <img src="./img/text.png" alt=""/>
-      </div>
-      <div class="qianbao">
-        <img src="./img/qianbao.png" alt="">
-        <h1>提现到微信钱包</h1>
-      </div>
-      <input type="" placeholder="0.00">
-      <div class="keti">
-        <div class="jine">可提现金额￥3000.00</div>
-        <div class="quanbu">全部提现</div>
-      </div>
-      <div class="queding" @click="true">确定</div>
+=======
+<<<<<<< HEAD
+        <p><router-link to="./withdrawal.html">我要提现</router-link></p>
+=======
+        <p @click="userTixian()">我要提现</p>
+>>>>>>> fac612f4ca44295fd79e3ca81ae6d53f8eda3769
     </div> -->
+
+    <!-- </div> -->
 </div>
 </template>
 
