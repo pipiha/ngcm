@@ -7,52 +7,48 @@
        <img style="width:1.5rem;" src="./img/wait.png" alt="">
    </div>
    <ul class="pay_center_box">
-       <!-- <li v-for="item in dataObj ">
-           <span>{{ item.dataTitle}}</span>
-           <span>{{ item.dataMsg}}</span>
-       </li> -->
        <li>
            <span>广告名称</span>
-           <span>{}</span>
+           <span>{{ shuData.h5_src_title }}</span>
        </li>
        <li>
            <span>预计播放日期</span>
-           <span>{}</span>
+           <span>{{ shuData.h5_src_title }}</span>
        </li>
        <li>
            <span>广告持续时长(月)</span>
-           <span>{}</span>
+           <span>{{ shuData.h5_src_title }}</span>
        </li>
        <li>
            <span>视频时长</span>
-           <span>{}</span>
+           <span>{{ shuData.h5_src_title }}</span>
        </li>
        <li>
            <span>播放点位</span>
-           <span>{}</span>
+           <span>{{ shuData.countSite }}</span>
        </li>
    </ul>
 
    <ul class="pay_center_box">
        <li>
            <span>订单编号</span>
-           <span>1232509386038</span>
+           <span>{{ shuData.o_number }}</span>
        </li>
        <li>
            <span>订单金额</span>
-           <span style="color: #5286EC;">￥31.00</span>
+           <span style="color: #5286EC;">￥{{ shuData.money }}</span>
        </li>
        <li>
            <span>活动优惠</span>
-           <span>暂无优惠</span>
+           <span>{{ shuData.countSite }}</span>
        </li>
        <li>
            <span>提交时间</span>
-           <span>2018-05-09</span>
+           <span>{{ shuData.create_time.substring(0,10) }}</span>
        </li>
        <li>
            <span>支付方式</span>
-           <span>微信支付</span>
+           <span>{{ shuData.pay_method}}</span>
        </li>
        <li>
            <span>支付金额</span>
@@ -70,29 +66,60 @@
 export default {
   data () {
     return {
-        f_id:0,
-        huangjin:{},
+      type: 0,
+      status: 0,
+      id: 0,
+      shuData: '',
+      zhanData: ''
     }
-  },
-  mounted () {
-      this.getMoney( this.$route.query.f_id )
-      this.f_id = this.$route.query.f_id
   },
   methods: {
-        getMoney: function ( id ) {
-        this.$axios.get('api//wxpub/show_adv_detail/showAdv?adv_id='+id)
-            .then((res) => {
-                console.log(res.data.data)
-            if (res.data.code === 200) {
-                this.huangjin = res.data.data
-                console.log(this.huangjin)
-            }
-            })
-            .catch((err) => {
-            console.log(err)
-            })
-        },
+    shuDetail: function (oid, status) {
+      this.$axios.get('api/wxpub/orders_controller/mathOrderDetail?o_id=' + oid + '&o_status=' + status)
+        .then((res) => {
+        //   console.log(res)
+          if (res.data.code === 200) {
+            this.shuData = res.data.data
+            console.log(this.shuData)
+          } else {
+
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    zhanDetail: function (oid, status) {
+      this.$axios.get('api/wxpub/orders_controller/showOrderDetail?o_id=' + oid + '&o_status=' + status)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    this.type = this.$route.query.type
+    this.status = this.$route.query.status
+    this.id = this.$route.query.id
+    if (this.type === 0) {
+      console.log('展示')
+      this.zhanDetail(this.id, this.status)
+    } else {
+      console.log('数字')
+      this.shuDetail(this.id, this.status)
+    }
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+
+  }
 }
 </script>
 

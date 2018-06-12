@@ -20,8 +20,10 @@
                     <p>{{ mineData.o_number }}</p>
                 </li>
                 <li>
-                    <p>创建时间</p>
-                    <p>{{ mineData.create_time.substring(0,10) }}</p>
+                    <p v-if="mineData.create_time != null">创建时间</p>
+                    <p v-else>截止时间</p>
+                    <p v-if="mineData.create_time != null">{{ mineData.create_time.substring(0,10) }}</p>
+                    <p v-else>{{ mineData.o_stoped_at }}</p>
                 </li>
                 <li>
                     <p>投放点位</p>

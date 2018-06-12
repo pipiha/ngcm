@@ -2,9 +2,9 @@
     <div class="detail_wrap">
         <div v-wechat-title="$route.meta.title"></div>
         <div class="detail_img">
-            <img v-if="showVideo" src="./img/advimg.png" alt="">
+            <img v-if="showVideo" :src="advData.video_link + '?vframe/jpg/offset/0/imageView2/1/w/750/h/600/q/75|imageslim'" alt="">
             <img @click="lookVideo()" v-if="showVideo" src="./img/play.png" alt="">
-            <video id="myvideo" v-else src="http://img.agrimedia.cn/09ef3694b670904efe5b0a8e01c56586.mp4" style="width:92%;position: absolute;top: 0;left: 0;"></video>
+            <video id="myvideo" v-else :src="advData.video_link" style="width:100%;position: absolute;top: 0;left: 0;"></video>
         </div>
 
         <ul class="detail_time">
@@ -13,14 +13,14 @@
                 <p>累计播放时长</p>
             </li>
             <li>
-                <p>112235245秒</p>
+                <p>{{ advData.sumTime }}秒</p>
             </li>
         </ul>
 
         <div class="detail_bili">
             <div class="site_numer_box">
                 <p>播放点位总计</p>
-                <p>152</p>
+                <p>{{ advData.countSite }}</p>
                 <p @click="checkSiteAll()">查看详情</p>
             </div>
         </div>
@@ -28,15 +28,15 @@
         <ul class="detail_list">
             <li>
                 <span>开始时间</span>
-                <span style="margin-left: -1.5rem;">2017-12-15</span>
+                <span style="margin-left: -1.5rem;">{{ advData.play_start_time }}</span>
             </li>
             <li>
                 <span>到期时间</span>
-                <span  style="margin-left: -1.5rem;">2017-12-15</span>
+                <span  style="margin-left: -1.5rem;">{{ advData.play_end_time }}</span>
             </li>
             <li>
                 <span>剩余时间</span>
-                <span>195天</span>
+                <span>{{ advData.lastDay }}</span>
                 <span style="color: #5286EC;">我要续期</span>
             </li>
         </ul>
@@ -92,14 +92,18 @@ export default {
       ctx.stroke()
     },
     checkSiteAll: function () {
+      let advId = this.$route.query.advID
+      console.log(advId)
       this.$router.push({
-        path: '/PlayTime'
+        path: '/SiteMap',
+        query: {
+          advID: advId
+        }
       })
     },
     // 获取详情数据
-    getSiteData: function (advId, advType) {
-      console.log('获取广告详情')
-      this.$axios.get('api/wxpub/show_adv_detail/oneAdvStatus?list_id=' + advId + '&o_status=' + advType)
+    getSiteData: function (advId, orid) {
+      this.$axios.get('api/wxpub/show_adv_detail/showAdv?adv_id=' + advId + '&or_id=' + orid)
         .then((res) => {
           console.log(res)
           if (res.data.code === 200) {
@@ -122,8 +126,15 @@ export default {
   },
   created: function () {
     let advId = this.$route.query.advID
-    let advType = this.$route.query.advType
-    this.getSiteData(advId, advType)
+    let orid = this.$route.query.id
+    console.log(orid)
+    if (orid === undefined) {
+      console.log('if')
+      this.getSiteData(advId, '')
+    } else {
+      console.log('else')
+      this.getSiteData(advId, orid)
+    }
   },
   beforeMount: function () {
 

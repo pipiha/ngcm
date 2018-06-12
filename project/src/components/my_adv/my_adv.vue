@@ -27,7 +27,7 @@
         <ul v-else>
           <!-- 展示型 -->
           <li v-for="(item,index) in advData"  :code="item.adv_id">
-                <img @click="goZhanDetail(item.adv_id,item.or_status)" :src="item.video_myself + '?vframe/jpg/offset/0/imageView2/1/w/690/h/390/q/75|imageslim'" alt="">
+                <img @click="goZhanDetail(item.adv_id,item.or_id)" :src="item.video_myself + '?vframe/jpg/offset/0/imageView2/1/w/690/h/390/q/75|imageslim'" alt="">
                 <div class="adv_title">
                     <span v-if="item.or_status == '2'">剩余{{ item.resTime }}天</span>
                     <span v-else>剩余0天</span>
@@ -245,13 +245,12 @@ export default {
           console.log(err)
         })
     },
-    goZhanDetail: function (advID, advType) { // 展示型广告详情
-      console.log(advID + '' + advType)
+    goZhanDetail: function (advID, id) { // 展示型广告详情
       this.$router.push({
         path: '/zhanDetail',
         query: {
           advID: advID, // 广告id
-          advType: advType // 广告状态码
+          id: id
         }
       })
     },

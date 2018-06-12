@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="order_down">
-                <p class="order_check_detail" @click="advDetail(item.or_status,item.or_id)">查看详情</p>
+                <p class="order_check_detail" @click="advDetail(item.or_status,item.or_id,0)">查看详情</p>
             </div>
         </li>
         <!-- 数字传单 v-for="(item,index) in orderList1"  ="showType === 2"-->
@@ -61,7 +61,7 @@
 
             </div>
             <div class="order_down">
-                <p  @click="advDetail(item.o_status,item.o_id)" class="order_check_detail">查看详情</p>
+                <p  @click="advDetail(item.o_status,item.o_id,1)" class="order_check_detail">查看详情</p>
             </div>
         </li>
     </ul>
@@ -101,12 +101,13 @@ export default {
     }
   },
   methods: {
-    advDetail: function (status, id) {
+    advDetail: function (status, id, type) {
       this.$router.push({
         path: '/waitPay',
         query: {
-          status: 0,
-          code: id
+          status: status,
+          id: id,
+          type: type
         }
       })
     },

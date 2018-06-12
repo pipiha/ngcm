@@ -5,21 +5,21 @@
     <!-- <baidu-map class="bm-view" :center="center" @ready="handler" ak="V22GZGIsf9gR6G7d3L1KoZq4OVDAbsx2">
     </baidu-map> -->
     </div>
-    <div class="site_details_wrap">
-        <p>共有5个镇，126个村</p>
+    <div class="site_details_wrap" v-show="show_map_msg">
+        <p>共有{{ siteData.num_town }}个镇，{{ siteData.num_village }}个村</p>
         <ul>
             <li>
-                <p style="line-height: 0.2rem;font-size: 0.55rem;color: #5286EC;">153</p>
+                <p style="line-height: 0.2rem;font-size: 0.55rem;color: #5286EC;">{{ siteData.num_play }}</p>
                 <span style="display: block;margin-top: -0.4rem;padding-left: 0.3rem;color: #999999;font-size: 0.3rem;">播放总次数（次）</span>
             </li>
             <li>
-                <p style="line-height: 0.2rem;font-size: 0.55rem;color: #5286EC;">62</p>
+                <p style="line-height: 0.2rem;font-size: 0.55rem;color: #5286EC;">{{ siteData.num_play }}</p>
                 <span style="display: block;margin-top: -0.4rem;padding-left: 0.3rem;color: #999999;font-size: 0.3rem;">点位总数（个）</span>
             </li>
         </ul>
     </div>
 
-    <div class="call_us_wrap" v-show="call_us">
+    <!-- <div class="call_us_wrap" v-show="call_us">
         <div class="call_us_up">
             <p>农广传媒科技有限公司</p>
             <span>AGRI MEDIA</span>
@@ -38,7 +38,7 @@
                 <img src="./img/address.png" alt="">
             </li>
         </ul>
-    </div>
+    </div> -->
 
 </div>
 </template>
@@ -56,7 +56,8 @@ export default {
   },
   data () {
     return {
-      show_map_msg: false,
+      siteData: '',
+      show_map_msg: true,
       call_us: true,
       center: {lng: 0, lat: 0},
       autoLocationPoint: {lng: 0, lat: 0},
@@ -79,19 +80,21 @@ export default {
     creatMap: function () {
 
     },
-    getSite: function () { // 获取分公司经纬度
+    getSite: function (advId) { // 获取分公司经纬度
       let _this = this
-      this.$axios.get('api/wxpub/contact_us/index')
+      this.$axios.get('api/wxpub/show_adv_detail/showSiteAll?adv_id=' + advId)
         .then(function (res) {
           if (res.data.code === 200) {
             let siteObj = res.data.data
-            siteObj.forEach(item => {
-              item.point = item.Lng + ',' + item.Lat
-              item.title = item.detail_area
-              item.tel = item.phone
-            })
-            // console.log(siteObj)
-            _this.markerArr = siteObj
+            console.log(siteObj)
+            _this.siteData = res.data.data
+            // siteObj.forEach(item => {
+            //   item.point = item.Lng + ',' + item.Lat
+            //   item.title = item.detail_area
+            //   item.tel = item.phone
+            // })
+            // // console.log(siteObj)
+            // _this.markerArr = siteObj
             // _this.getMap()
           }
         })
@@ -155,7 +158,8 @@ export default {
 
   },
   created: function () {
-    this.getSite()
+    let advId = this.$route.query.advID
+    this.getSite(advId)
   },
   beforeMount: function () {
 

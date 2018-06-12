@@ -36,6 +36,7 @@ import JoinApply from '@/components/join_apply/join_apply' // 加盟申请
 import ReadJoin from '@/components/join_apply/read_join' // 加盟须知
 import UserCenter from '@/components/user_center/user_center' // 用户中心
 import DoorOrder from '@/components/door_order/door_order' // 展示型广告
+import SiteMap from '@/components/zhan_detail/siteMap' // 点位详情 地图
 
 Vue.use(Router)
 Vue.use(require('vue-wechat-title'))
@@ -331,6 +332,13 @@ export default new Router({
       component: DoorOrder,
       meta: {
         title: '我要下单'
+      }
+    },
+    {
+      path: '/SiteMap',
+      component: SiteMap,
+      meta: {
+        title: '点位详情'
       }
     }
   ]
