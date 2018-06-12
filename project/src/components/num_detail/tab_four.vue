@@ -104,13 +104,14 @@ export default {
     // 创建图表
     creatEchart: function () {
       this.chart = echarts.init(this.$refs.myEchart_tab4)
-      // let dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '点', '击', '柱', '子', '或', '者', '两22222']
-      let data = [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330, 310]
+      // let dataAxis = ['点efienfiuehuf', '击rgrgrg', 'rgfrgfre柱', '子', '或', '者', '两', '点', '击', '柱', '子', '或', '者', '两22222']
+      // let data = [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330, 310]
       // console.log(dataAxis)
       // console.log(this.xData)
+      // console.log(this.yData)
       let dataAxis = this.xData
       // let data = this.xData
-      // let dataAxis = this.yData
+      let data = this.yData
       // let yMax = 1400
       // let dataShadow = []
 
@@ -203,6 +204,8 @@ export default {
               this.xData.push(item.create_time.substring(0, 10))
               this.yData.push(parseInt(item.daySum))
             })
+            console.log(this.xData)
+            console.log(this.yData)
           }
         })
         .catch((err) => {

@@ -63,7 +63,6 @@
 import { MessageBox, DatetimePicker } from 'mint-ui'
 export default {
   components: {
-    // Popup
     DatetimePicker
   },
   data () {
@@ -105,7 +104,6 @@ export default {
 
   },
   created: function () {
-    console.log('-----------------组件创建了-----------------')
     this.getMoney()
   },
   beforeMount: function () {
