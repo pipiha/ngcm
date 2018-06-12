@@ -29,7 +29,7 @@ import ConsumptionDetails from '@/components/consumption_details/consumption_det
 import MouthBill from '@/components/month_bill/month_bill' // 月账单
 import MyWallet from '@/components/my_wallet/my_wallet' // 我的零钱
 import MyParse from '@/components/my_purse/my_purse' // 我的钱包
-import Myparse from '@/components/my_purse/withdrawal' // 提现
+import Tixian from '@/components/my_purse/withdrawal' // 提现
 import QuestionResult from '@/components/question_result/question_result' // 问题反馈
 import QuestionHistory from '@/components/question_result/question_history' // 申请历史
 import JoinApply from '@/components/join_apply/join_apply' // 加盟申请
@@ -275,6 +275,14 @@ export default new Router({
       component: MyParse,
       meta: {
         title: '我的钱包'
+      }
+    },
+    { // 提现
+      path: '/tixian',
+      name: 'Tixian',
+      component: Tixian,
+      meta: {
+        title: '提现'
       }
     },
     { // 问题反馈

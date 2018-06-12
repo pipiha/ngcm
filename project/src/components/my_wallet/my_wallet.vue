@@ -150,13 +150,12 @@ export default {
   methods: {
     setzhichu (type, time, io, page) {
       this.$axios.get('api/wxpub/user_wallet/adverExtensionRecord.html?type=' + type + '&start_time=' + time + '&io=' + io + '&page=' + page) // 问号后面是要传送的参数
-        .then(res => { //  请求成功后的函数
+        .then(res => { //  请求成功后的函
           if (this.pageNum === res.data.data.last_page) {
             this.allLoaded = true// 模拟数据加载完毕 禁用上拉加载
             this.handleBottomChange('loadingEnd')// 数据加载完毕 修改状态码
             this.$refs.loadmore.onBottomLoaded()
           }
-
           console.log(this.pageNum + '页')
           if (this.pageNum === 1) { // 第一页直接展示
             if (res.data.data.length === 0) { // 如果为空
@@ -216,6 +215,10 @@ export default {
             Indicator.close()
             this.handleBottomChange('loadingEnd')// 数据加载完毕 修改状态码
             this.$refs.loadmore.onBottomLoaded()
+          }
+
+          if (res.data.code !== 200) {
+            MessageBox.alert(res.data.msg)
           }
         })
         .catch(err => { //  请求失败后的函数
@@ -316,17 +319,7 @@ export default {
       this.handleBottomChange('loading')// 上拉时 改变状态码
       this.pageNum += 1
       let startTime = this.formatDate(this.pickerValue, 0)
-      console.log(startTime + '开始时间')
       this.setzhichu(3, startTime, '', this.pageNum)
-      // setTimeout(() => { // 上拉加载更多 模拟数据请求这里为了方便使用一次性定时器
-      //   if (this.pageNum <= 3) { // 最多下拉三次
-      //     this.list += 12// 上拉加载 每次数值加12
-      //   } else {
-      //     this.allLoaded = true// 模拟数据加载完毕 禁用上拉加载
-      //   }
-      //   this.handleBottomChange('loadingEnd')// 数据加载完毕 修改状态码
-      //   this.$refs.loadmore.onBottomLoaded()
-      // }, 1500)
     },
     handleTopChange (status) {
       this.moveTranslate = 1
@@ -343,11 +336,6 @@ export default {
       this.allLoaded = false// 下拉刷新时解除上拉加载的禁用
       let startTime = this.formatDate(this.pickerValue, 0)
       this.setzhichu(3, startTime, '', 1)
-      // setTimeout(() => {
-      //   this.list = 12// 下拉刷新 数据初始化
-      //   this.handleTopChange('loadingEnd')// 数据加载完毕 修改状态码
-      //   this.$refs.loadmore.onTopLoaded()
-      // }, 1500)
     }
 
   },

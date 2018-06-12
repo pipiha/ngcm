@@ -2,7 +2,7 @@
     <div class="adv_wrap" >
         <div v-wechat-title="$route.meta.title"></div>
         <!-- 我感兴趣部分 -->
-        <ul v-if="advType === 0">
+        <ul v-if="advType == 0">
             <li v-for="(item,index) in footData"  :code="item.h5_id" >
                 <img @click="getAdvDetail(0,item.h5_id)"  :src="'http://img.agrimedia.cn/' + item.h5_thumbnail" alt="">
                 <div class="adv_title">
@@ -15,7 +15,7 @@
         <!-- 我的足迹 -->
         <ul v-else-if="advType == 1">
           <li @click="getAdvDetail(1,item.h5_id)"   v-for="(item,index) in footData"  :code="item.h5_id">
-                <img :src="'http://img.agrimedia.cn/' + item.h5_thumbnail" alt="">
+                <img @click="getAdvDetail(1,item.h5_id)" :src="'http://img.agrimedia.cn/' + item.h5_thumbnail" alt="">
                 <div class="adv_title">
                     <span>{{ item.create_time }}</span>
                     <span @click="cancalFoot(item.h5_id,index)" style="color: #999999;">取消足迹</span>
@@ -139,7 +139,6 @@ export default {
     myFoot: function (url) { // 我的足迹数据 我的收藏数据
       this.$axios.get('api' + url)
         .then((res) => {
-          console.log(res)
           if (res.data.code === 200) {
             let obj = res.data.data.data
             Indicator.close()
@@ -151,7 +150,6 @@ export default {
               })
               this.footData = obj
             }
-            console.log(this.footData)
           }
         })
         .catch((err) => {

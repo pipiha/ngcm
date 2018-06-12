@@ -7,15 +7,15 @@
             <img src="./img/down.png" alt="">
         </div>
         <div class="bill_up_right">
-            <p class="bill_on">收入</p>
-            <p @click="bill_up">支出</p>
+            <p v-for="(item,index) in titleLi" :class="{bill_on:index == isClick}" @click="selectStyle(item,index)">{{ item }}</p>
+            <!-- <p>支出</p> -->
         </div>
     </div>
 
     <div class="bill_title">
-        <p style="margin-bottom: 0.3rem;">共收入<span>{{text}}</span>笔，合计</p>
+        <p style="margin-bottom: 0.3rem;">共收入<span>{{monthBillData.total}}</span>笔，合计</p>
         <span>￥</span>
-        <span>{{money}}</span>
+        <span>1</span>
     </div>
     <div class="bill_title">
         <p  style="margin-top: 0.8rem;margin-bottom: 0.3rem;">收入对比</p>
@@ -36,11 +36,12 @@
 </template>
 <script>
 import echarts from 'echarts'
-import { DatetimePicker } from 'mint-ui'
+import { DatetimePicker, Indicator } from 'mint-ui'
 import axios from 'axios'
 export default {
   components: {
-    DatetimePicker
+    DatetimePicker,
+    Indicator
   },
   props: {
     id: {
@@ -64,42 +65,81 @@ export default {
       startDate: new Date('2018-1-1'),
       endDate: new Date(),
       text: 0,
-      money: 0
+      money: 0,
+      titleLi: ['收入', '支出'],
+      isClick: 0,
+      monthBillData: [],
+      xData: [],
+      yData: []
     }
   },
   beforeCreate: function () {
   },
   created: function () {
+    // this.creatEchart() // 图表统计
+    Indicator.open()
+    this.setMoney('2018-06', 0)
   },
   beforeMount: function () {
   },
   mounted: function () {
     this.creatEchart() // 图表统计
-    this.setMoney()
   },
   methods: {
-    setMoney () {
-      console.log(0)
-      axios.get('api/wxpub/user_wallet/adverExtensionRecord.html') // 问号后面是要传送的参数
-        .then(reponse => { //  请求成功后的函数
-          console.log(reponse.data.data.last_page)
-          this.text = reponse.data.data.last_page
-          this.money = reponse.data.data.per_page
+    selectStyle (item, index) {
+      this.isClick = index
+    },
+    setMoney (startTime, io) {
+      this.$axios.get('api/wxpub/user_wallet/getSumByMonth.html?start_time=' + startTime + '&io=' + io) // 问号后面是要传送的参数
+        .then(res => { //  请求成功后的函数
+          console.log(res)
+          Indicator.close()
+          if (res.data.code === 200) {
+            let a = {
+              'total': 58,
+              'per_page': 5,
+              'current_page': 1,
+              'last_page': 12,
+              'data': [{
+                'money': '2.50'
+              }, {
+                'money': '0.50'
+              }, {
+                'money': '13.50'
+              }, {
+                'money': '1.00'
+              }, {
+                'money': '0.50'
+              }]
+            }
+            // this.monthBillData = a
+            // console.log(this.monthBillData)
+            // this.monthBillData.data.forEach((item) => {
+            //   console.log(item)
+            // })
+          } else {
+
+          }
         })
         .catch(error => { //  请求失败后的函数
           console.log(error)
         })
     },
-    bill_up(){
-      axios.get('api/wxpub/user_wallet/adverExtensionRecord.html?io=1')  // 这里是支出的接口  要接口  要图表的接口  QQ
-      .then( reponse => {   //  请求成功后的函数
-                console.log(reponse.data.data.last_page)
-                // this.text = reponse.data.data.last_page
-                // this.money = reponse.data.data.per_page
-            })
-            .catch( error=> {	  //  请求失败后的函数
-                console.log(error)
-            })
+    formatDate: function (date, type) { // 标准日期转  type为0: '2018-1-1'  1 年月日
+      date = new Date(date)
+      let y = date.getFullYear()
+      let m = date.getMonth() + 1
+      //   let d = date.getDate()
+      //   let h = date.getHours()
+      //   let m1 = date.getMinutes()
+      //   let s = date.getSeconds()
+      m = m < 10 ? ('0' + m) : m
+      //   d = d < 10 ? ('0' + d) : d
+      if (type === 0) {
+        return y + '-' + m
+      } else {
+        return y + '年' + m + '月'
+      }
     },
     openPicker () { // 显示选择时间日期
       this.$refs.picker.open()
@@ -113,14 +153,14 @@ export default {
     creatEchart: function () {
       this.chart = echarts.init(this.$refs.myEchart)
       // var myChart = echarts.init(document.getElementById('main'));
-      let dataAxis = ['点', '击', '柱', '子', '或']
-      let data = [220, 182, 191, 234, 290]
-      let yMax = 400
-      let dataShadow = []
+      let dataAxis = ['06-10', '06-11', '06-12', '06-13', '06-14', '06-10', '06-11', '06-12', '06-13', '06-14']
+      let data = [2.50, 1.50, 1.0, 0.50, 2.50, 2.50, 1.50, 1.0, 0.50, 2.50]
+      // let yMax = 400
+      // let dataShadow = []
 
-      for (var i = 0; i < data.length; i++) {
-        dataShadow.push(yMax)
-      }
+      // for (var i = 0; i < data.length; i++) {
+      //   dataShadow.push(yMax)
+      // }
 
       this.chart.setOption({
         // title: {

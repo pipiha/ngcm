@@ -502,3 +502,67 @@ html.body{
     cursor: pointer;
     line-height: 0.75rem;
 }
+
+/* 根据时间筛选 */
+.check_time_wrap{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.3)
+}
+.check_time_wrap ul{
+    width: 90%;
+    height: 33%;
+    background-color: #fff;
+    bottom: 1.8rem;
+    left: 5%;
+    position: absolute;
+    border-radius: 0.2rem; 
+}
+.check_time_wrap div{
+    width: 90%;
+    height: 8%;
+    background-color: #fff;
+    bottom: 0.2rem;
+    left: 5%;
+    position: absolute;
+    border-radius: 0.2rem; 
+    font-size: 0.45rem;
+    line-height: 1.5rem;
+    color: #5186EB;
+}
+.check_time_wrap ul li{
+    width: 100%;
+    height: 37%;
+    border-bottom: 0.01rem solid #EBEBEB; 
+}
+.check_time_wrap ul li p{
+    width: 100%;
+    height: 45%;
+    line-height: 1.3rem;
+    font-size: 0.4rem;
+    text-align: left;
+    padding-left: 0.5rem;
+    color: #999999;
+}
+.check_time_wrap ul li p:nth-of-type(1){
+    color: #3877E9;
+}
+.check_time_wrap ul li:nth-of-type(1) p{
+    font-size: 0.45rem;
+    line-height: 1.5rem;
+    text-align: center;
+    padding-left: 0;
+    color: #333333;
+}
+.check_time_wrap ul li:nth-of-type(1) img{
+    width: 0.6rem;
+    height: 0.6rem;
+    float: right;
+    transform: rotate(135deg);
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+}

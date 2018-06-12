@@ -36,12 +36,11 @@
         </div>
         <p>{{ moneyText.total_pocket_money }}</p>
         <p>可提现金额(元)</p>
-        <p @click="userTixian()">我要提现</p>
+        <p @click="userTixian(parseInt(moneyText.total_pocket_money))">我要提现</p>
     </div>
 
     <!-- 提现页面 -->
-    <div class="tixian_page" v-show="isTixian">
-      <!-- <div class="header">提现</div> -->
+    <!-- <div class="tixian_page" v-show="isTixian">
       <div class="img">
           <img src="./img/text.png" alt=""/>
       </div>
@@ -55,21 +54,22 @@
         <div class="quanbu">全部提现</div>
       </div>
       <div class="queding" @click="true">确定</div>
-    </div>
+    </div> -->
 </div>
 </template>
 
 <script>
-import { MessageBox, DatetimePicker } from 'mint-ui'
+import { MessageBox, DatetimePicker, Indicator } from 'mint-ui'
 export default {
   components: {
-    DatetimePicker
+    DatetimePicker,
+    Indicator
   },
   data () {
     return {
       moneyText: '',
-      popupVisible: true,
-      isTixian: false // 默认隐藏
+      popupVisible: true
+    //   isTixian: false // 默认隐藏
     }
   },
   methods: {
@@ -78,6 +78,7 @@ export default {
         .then((res) => {
           if (res.data.code === 200) {
             this.moneyText = res.data.data
+            Indicator.close()
           }
         })
         .catch((err) => {
@@ -95,8 +96,15 @@ export default {
         path: '/myWallet'
       })
     },
-    userTixian: function () {
-      this.isTixian = true
+    userTixian: function (money) {
+    //   this.isTixian = true
+      console.log(money)
+      this.$router.push({
+        path: '/tixian',
+        query: {
+          text: money
+        }
+      })
     }
 
   },
@@ -104,6 +112,7 @@ export default {
 
   },
   created: function () {
+    Indicator.open()
     this.getMoney()
   },
   beforeMount: function () {

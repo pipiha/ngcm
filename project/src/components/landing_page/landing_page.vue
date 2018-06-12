@@ -1,7 +1,7 @@
 <template>
 <div>
       <div v-wechat-title="$route.meta.title"></div>
-      <div v-if="type === '0'" class="page_wrap">
+      <div v-if="type == 0" class="page_wrap">
           <h3>{{ dataTag.s_title }}</h3>
           <ul>
             <li>
@@ -65,7 +65,8 @@
     </div>
     <div class="page_btn">
         <div @click="goLianxi()">一键咨询</div>
-        <div>{{ textTag }}</div>
+        <div v-if="isRead" style="color:#999999!important;border:0.02rem solid #999999!important;">{{ textTag + count + 's' }}</div>
+        <div v-else @click="goRed()">{{ textTag }}</div>
     </div>
 </div>
 </template>
@@ -73,6 +74,7 @@
 <script>
 import { Indicator, MessageBox } from 'mint-ui'
 import { mapState } from 'vuex'
+const TIME_COUNT = 5
 export default {
   data () {
     return {
@@ -82,19 +84,22 @@ export default {
       advID: '',
       textTag: '我已阅读',
       dataTag: '',
-      lookData: ''
+      lookData: '',
+      count: 5,
+      isRead: true
     }
   },
   methods: {
     getAdvDetail: function (advId) { // 获取附近的活动详情
       this.$axios.get('api/wxpub/user/getDetail.html?s_id=' + this.advID)
         .then((res) => {
-          // console.log(res)
-          console.log('进入请求数据')
           Indicator.close()
           if (res.data.code === 200) {
             // console.log(res.data.data)
             this.dataTag = res.data.data
+            this.getCode() // 阅读倒计时5s
+          } else {
+
           }
         })
         .catch((err) => {
@@ -104,6 +109,23 @@ export default {
     goLianxi: function () {
       this.$router.push({
         path: '/siteDetails'
+      })
+    },
+    getCode: function () {
+      this.count = TIME_COUNT
+      this.timer = setInterval(() => {
+        if (this.count > 0 && this.count <= TIME_COUNT) {
+          this.count--
+        } else {
+          this.isRead = false
+        }
+      }, 1000)
+      return this.count
+    },
+    goRed: function () {
+      // console.log('可以领取红包')
+      this.$router.push({
+        path: '/red'
       })
     }
   },
@@ -117,22 +139,17 @@ export default {
   },
   created: function () {
     Indicator.open()
-    // console.log(this.userInfo)
-    // this.advID = this.$route.query.code
-    // bus.$on('LOOKDATA', (data) => {
-    //   console.log(data)
-    // })
-    // console.log(this.lookData)
     this.advID = this.$route.query.code
     this.type = this.$route.query.type
     console.log(this.type)
-    if (this.type === '0') { // 感兴趣详情
+    if (this.type == 0) { // 感兴趣详情
       console.log('if')
       this.show_like = true
       this.show_share = false
       this.$route.meta.title = '我感兴趣'
-
       this.getAdvDetail(this.advId)
+    } else if (this.type === '1') { // 我的足迹
+
     } else {
       this.lookData = this.userInfo // 创建好广告预览的数据
       Indicator.close()

@@ -1,28 +1,29 @@
 <template>
 <div class="tab liulan_wrap">
     <div class="time_check">
-        <span class="time_check_on">昨天</span>
+      <span :class="{time_check_on:index==current}" v-for="(item,index) in timeCheck"  @click="selectStyle(item,index)">{{ item}}</span>
+        <!-- <span class="time_check_on">昨天</span>
         <span>近7天</span>
-        <span>根据日期搜索</span>
+        <span>根据日期搜索</span> -->
     </div>
     <ul class="num_msg_tongji">
         <li>
-            <p>678</p>
+            <p>{{ tongjiData.count_play}}</p>
             <span>播放总次数</span>
         </li>
         <li>
-            <p>2000</p>
+            <p>{{ tongjiData.count_lottery}}</p>
             <span>扫码人数</span>
         </li>
         <li>
-            <p>3467</p>
+            <p>{{ tongjiData.count_lottery}}</p>
             <span>浏览次数</span>
         </li>
     </ul>
     <div class="play_up_wrap" style="width: 97%;box-shadow: 0 0.01rem 0.1rem 0.1rem rgba(234,234,234,0.50);">
         <div class="site_numer_box" style="margin-left: 31%;margin-top: 11%;">
             <p>播放点位总计</p>
-            <p>152</p>
+            <p>{{ tongjiData.count_browser.sum }}</p>
         </div>
     </div>
     <img class="num_img" src="../play_time//img/times.png" alt="">
@@ -34,6 +35,36 @@
         </div>
         <div :id="id" :style="{height:height,width:width}" style="margin-top:-1rem;" ref="myEchart1"></div>
     </div>
+
+     <!-- 根据时间选择 -->
+            <div class="check_time_wrap" v-show="startAndEnd">
+              <ul>
+                <li style="height:25%;">
+                  <p>根据日期搜索</p>
+                  <img @click="closeTimecheck()" src="./img/icon_jia.png" alt="">
+                </li>
+                <li>
+                  <p>开始日期</p>
+                  <p @click="openPicker(0)">{{ startTime }}</p>
+                </li>
+                <li>
+                  <p>结束日期</p>
+                  <p  @click="openPicker(1)">{{ endTime }}</p>
+                </li>
+              </ul>
+              <div @click="searchTime()"> 确定</div>
+            </div>
+
+             <mt-datetime-picker
+      @confirm="handleConfirm"
+      v-model="pickerValue"
+      type="date"
+      ref="picker"
+      :startDate="startDate"
+      :endDate="endDate"
+      year-format="{value}"
+      month-format="{value}">
+    </mt-datetime-picker>
 
     <!-- <canvas id="canvas1" style="position: absolute;top:4.5rem;width: 9rem;height: 4.5rem;"></canvas>
     <canvas id="canvas2" style="position: absolute;top:4.5rem;width: 9rem;height: 4.5rem;"></canvas> -->
@@ -64,12 +95,15 @@
 </template>
 
 <script>
+import { MessageBox, Indicator, DatetimePicker } from 'mint-ui'
 import echarts from 'echarts'
 // import {Circle} from 'iview';
 // console.log(Circle);
 export default {
   component: {
     // Circle
+    MessageBox,
+    Indicator
   },
   props: {
     id: {
@@ -95,7 +129,21 @@ export default {
       oid: 0,
       yesterdayTime: 0,
       sevenTime: 0,
-      todayTime: 0
+      todayTime: 0,
+      tongjiData: '',
+      timeCheck: ['昨天', '近7天', '根据日期搜索'],
+      current: 0,
+      startAndEnd: false,
+      startTime: '请选择开始时间',
+      endTime: '请选择结束时间',
+      // picker
+      pickerVisible: '',
+      pickerValue: '',
+      startDate: new Date('2018-1-1'),
+      endDate: new Date(),
+      timeType: -1,
+      startTemp: 0,
+      endTemp: 0
     }
   },
   beforeCreate: function () {
@@ -109,23 +157,87 @@ export default {
     this.sevenTime = this.getTadyTime(this.getBeforeTime1(1)) // 前7天的时间戳
     this.todayTime = this.getTadyTime(this.getBeforeTime1(2)) // 今天的时间戳 + 8640 就是下一天
     // console.log(this.todayTime + 86400)
+    Indicator.open()
     this.getSearchData(this.todayTime, this.todayTime + 86400) // 默认展示今天0点 - 24点
   },
   beforeMount: function () {
 
   },
   mounted: function () {
+    Indicator.open()
     this.creatCanvas() // 创建canvas
     this.creatEchart() // 图表统计
   },
   methods: {
+    selectStyle (item, index) {
+      this.current = index
+      // Indicator.open()
+      if (index === 0) { // 昨天
+        Indicator.open()
+        this.getAreaData(this.oid, this.yesterdayTime, this.todayTime)
+      } else if (index === 1) { // 近7天
+        Indicator.open()
+        this.getAreaData(this.oid, this.sevenTime, this.todayTime)
+      } else { // 根据日期搜索
+        // Indicator.close()
+        this.startAndEnd = true
+      }
+    },
+    closeTimecheck: function () {
+      this.startAndEnd = false
+    },
+    openPicker (num) { // 显示选择时间日期
+      this.timeType = num
+      this.$refs.picker.open()
+    },
+    handleConfirm: function (num) { // 日期确认之后
+      if (this.timeType === 0) {
+        this.startTime = this.formatDate(num, 1)
+        this.startTemp = this.formatDate(num, 0)
+      } else {
+        this.endTime = this.formatDate(num, 1)
+        this.endTemp = this.formatDate(num, 0)
+      }
+    },
+    searchTime: function () {
+      if (this.startTime === '请选择开始时间') {
+        MessageBox.alert('请选择开始时间')
+      } else if (this.endTime === '请选择结束时间') {
+        MessageBox.alert('请选择结束时间')
+      } else {
+        // console.log(this.endTemp)
+        // console.log(this.getTadyTime(this.startTemp))
+        // console.log(this.getTadyTime(this.endTemp))
+        this.startAndEnd = false
+        Indicator.open()
+        this.getSearchData(this.getTadyTime(this.startTemp), this.getTadyTime(this.endTemp))
+      }
+    },
+    formatDate: function (date, type) { // 标准日期转  type为0: '2018-1-1'  1 年月日
+      date = new Date(date)
+      let y = date.getFullYear()
+      let m = date.getMonth() + 1
+      let d = date.getDate()
+      //   let h = date.getHours()
+      //   let m1 = date.getMinutes()
+      //   let s = date.getSeconds()
+      m = m < 10 ? ('0' + m) : m
+      //   d = d < 10 ? ('0' + d) : d
+      if (type === 0) {
+        return y + '-' + m + '-' + d
+      } else {
+        return y + '年' + m + '月' + d + '日'
+      }
+    },
     getSearchData: function (starTime, endTime) {
       this.$axios.get('api/wxpub/count_controller/getBrowseTimes.html?o_id=' + this.oid + '&period_start=' + starTime + '&period_end=' + endTime)
         .then((res) => {
-          console.log(res)
+          Indicator.close()
+          this.tongjiData = res.data.data
+          // console.log(this.tongjiData.count_browser.data)
         })
-        .cathc((err) => {
-          console.log(err)
+        .catch((err) => {
+          MessageBox.alert('请稍后再试')
         })
     },
     getBeforeTime1: function (type) {
@@ -187,6 +299,7 @@ export default {
       let data = [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330, 310]
       let yMax = 400
       let dataShadow = []
+      Indicator.close()
 
       for (var i = 0; i < data.length; i++) {
         dataShadow.push(yMax)

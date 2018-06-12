@@ -106,12 +106,21 @@ export default {
       this.chart = echarts.init(this.$refs.myEchart_tab4)
       // let dataAxis = ['点efienfiuehuf', '击rgrgrg', 'rgfrgfre柱', '子', '或', '者', '两', '点', '击', '柱', '子', '或', '者', '两22222']
       // let data = [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330, 310]
-      // console.log(dataAxis)
-      // console.log(this.xData)
-      // console.log(this.yData)
-      let dataAxis = this.xData
+      let data, dataAxis
+      if (this.xData.length === 0) {
+        dataAxis = ['1日', '2日', '3日', '4日', '5日', '6日', '7日']
+      } else {
+        dataAxis = this.xData
+      }
+
+      if (this.yData.length === 0) {
+        data = [0, 0, 0, 0, 0, 0, 0]
+      } else {
+        data = this.yData
+      }
+
       // let data = this.xData
-      let data = this.yData
+      // let data = this.yData
       // let yMax = 1400
       // let dataShadow = []
 

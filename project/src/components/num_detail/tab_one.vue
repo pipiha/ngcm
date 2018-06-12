@@ -40,7 +40,12 @@
 </template>
 
 <script>
+import { MessageBox, Indicator } from 'mint-ui'
 export default {
+  components: {
+    MessageBox,
+    Indicator
+  },
   data () {
     return {
       mineData: '', //  我的展示数据
@@ -56,6 +61,7 @@ export default {
       this.$axios.get('api/wxpub/show_adv_detail/mathAdvOneDetail?list_id=' + id + '&o_status=' + status + '&o_id=' + oid)
         .then((res) => {
           console.log(res)
+          Indicator.close()
           if (res.data.code === 200) {
             this.mineData = res.data.data
           }
@@ -65,9 +71,11 @@ export default {
         })
     },
     statrOrEnd: function () {
+      Indicator.open()
       this.$axios.get('api/wxpub/adver_controller/orderStopOrStart.html?o_id=' + this.oid + '&o_status=' + this.status)
         .then((res) => {
           console.log(res)
+          Indicator.close()
           if (res.data.code === 200) {
             this.result = 1
             this.isClick = true
@@ -88,6 +96,7 @@ export default {
     this.id = this.$route.query.o_id // list id
     this.status = this.$route.query.o_status
     this.oid = this.$route.query.oid
+    Indicator.open()
     this.getMineData(this.id, this.status, this.oid)
   },
   beforeMount: function () {
@@ -97,7 +106,7 @@ export default {
 
   },
   deactivated: function () {
-
+    Indicator.close()
   }
 }
 </script>

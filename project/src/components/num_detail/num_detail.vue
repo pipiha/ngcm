@@ -20,19 +20,23 @@ export default {
       titleLi: [
         {
           title: '我的',
-          url: '/numDetail/tab1'
+          url: '/numDetail/tab1',
+          num: this.num
         },
         {
           title: '浏览统计',
-          url: '/numDetail/tab2'
+          url: '/numDetail/tab2',
+          num: this.num
         },
         {
           title: '区域统计',
-          url: '/numDetail/tab3'
+          url: '/numDetail/tab3',
+          num: this.num
         },
         {
           title: '金额明细',
-          url: '/numDetail/tab4'
+          url: '/numDetail/tab4',
+          num: this.num
         }
       ],
       o_id: -1,
@@ -62,7 +66,6 @@ export default {
     this.o_id = this.$route.query.o_id
     this.o_status = this.$route.query.o_status
     this.num = this.$route.query.oid
-    console.log(this.num)
   },
   beforeMount: function () {
 
