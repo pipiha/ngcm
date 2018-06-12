@@ -72,14 +72,11 @@ export default {
     return {
         f_id:0,
         huangjin:{},
-        
     }
   },
   mounted () {
       this.getMoney( this.$route.query.f_id )
       this.f_id = this.$route.query.f_id
-      this.getMoney( this.$route.query.o_id )
-      this.o_id = this.$route.query.o_id
   },
   methods: {
         getMoney: function ( id ) {
