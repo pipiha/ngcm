@@ -43,6 +43,7 @@ export default {
   methods: {
     // 子路由切换、li样式添加
     selectStyle (item, index, num) {
+      console.log(this.num)
       this.current = index
       this.$router.push({
         path: item.url,
@@ -52,12 +53,7 @@ export default {
           num: this.num
         }
       })
-    },
-    // 获取我的 页面 的数据
-    getMine: function () {
-
     }
-
   },
   beforeCreate: function () {
 
@@ -66,6 +62,7 @@ export default {
     this.o_id = this.$route.query.o_id
     this.o_status = this.$route.query.o_status
     this.num = this.$route.query.oid
+    console.log(this.num)
   },
   beforeMount: function () {
 

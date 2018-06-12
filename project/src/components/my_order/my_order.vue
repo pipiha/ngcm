@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="order_down">
-                <p class="order_check_detail" @click="advDetail(item.or_id)">查看详情</p>
+                <p class="order_check_detail" @click="advDetail(item.or_status,item.or_id)">查看详情</p>
             </div>
         </li>
         <!-- 数字传单 v-for="(item,index) in orderList1"  ="showType === 2"-->
@@ -61,7 +61,7 @@
 
             </div>
             <div class="order_down">
-                <p class="order_check_detail">查看详情</p>
+                <p  @click="advDetail(item.o_status,item.o_id)" class="order_check_detail">查看详情</p>
             </div>
         </li>
     </ul>
@@ -101,12 +101,12 @@ export default {
     }
   },
   methods: {
-    advDetail: function (id) {
+    advDetail: function (status, id) {
       this.$router.push({
         path: '/waitPay',
         query: {
-          type: 0,
-          f_id:id
+          status: 0,
+          code: id
         }
       })
     },
@@ -184,6 +184,8 @@ export default {
       this.show_cancel = false
     },
     sureCancel: function () { // 确认取消
+      this.show_cancel = false
+      this.dianji = false
       if (this.cancelType === 1) { // 展示型
         this.orderList.splice(this.orderList.findIndex(item => item.or_id === this.cancelIdZ), 1)
       } else {
@@ -191,11 +193,7 @@ export default {
       }
       this.show_cancel = false
     },
-    sureCancel: function (){
-      this.show_cancel = false
-      this.dianji = false
-    },
-    selectStyle (item, index){
+    selectStyle (item, index) {
       this.current = index
       Indicator.open()
       if (index === 0) {

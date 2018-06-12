@@ -104,7 +104,7 @@ export default {
   created: function () {
     this.hid = this.$route.query.o_id // list id
     this.status = this.$route.query.o_status
-    this.oid = this.$route.query.oid
+    this.oid = this.$route.query.num
     this.yesterdayTime = this.getTadyTime(this.getBeforeTime1(0)) // 昨天的时间戳
     this.sevenTime = this.getTadyTime(this.getBeforeTime1(1)) // 前7天的时间戳
     this.todayTime = this.getTadyTime(this.getBeforeTime1(2)) // 今天的时间戳 + 8640 就是下一天

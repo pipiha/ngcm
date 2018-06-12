@@ -2,8 +2,8 @@
     <div class="adv_wrap" >
         <div v-wechat-title="$route.meta.title"></div>
         <!-- 我感兴趣部分 -->
-        <ul v-show="advType === 0">
-            <li v-if="advType == 1" v-for="(item,index) in footData"  :code="item.h5_id" >
+        <ul v-if="advType === 0">
+            <li v-for="(item,index) in footData"  :code="item.h5_id" >
                 <img @click="getAdvDetail(0,item.h5_id)"  :src="'http://img.agrimedia.cn/' + item.h5_thumbnail" alt="">
                 <div class="adv_title">
                     <span>{{ item.create_time }}</span>
@@ -13,7 +13,7 @@
             </li>
         </ul>
         <!-- 我的足迹 -->
-        <ul v-show="advType == 1">
+        <ul v-else-if="advType == 1">
           <li @click="getAdvDetail(1,item.h5_id)"   v-for="(item,index) in footData"  :code="item.h5_id">
                 <img :src="'http://img.agrimedia.cn/' + item.h5_thumbnail" alt="">
                 <div class="adv_title">
@@ -23,8 +23,8 @@
                 </div>
             </li>
         </ul>
-        <!-- 我的广告 -->
-        <ul v-show="advType == 2">
+        <!-- 我的广告 ="advType == 2" -->
+        <ul v-else>
           <!-- 展示型 -->
           <li v-for="(item,index) in advData"  :code="item.adv_id">
                 <img @click="goZhanDetail(item.adv_id,item.or_status)" :src="item.video_myself + '?vframe/jpg/offset/0/imageView2/1/w/690/h/390/q/75|imageslim'" alt="">
@@ -142,33 +142,6 @@ export default {
           console.log(res)
           if (res.data.code === 200) {
             let obj = res.data.data.data
-            // let obj = [{
-            //   'h5_id': 13,
-            //   'h5_title': '来买地（最新）',
-            //   'h5_desc': '',
-            //   'h5_thumbnail': 'o_1capq2jls142ifk67c15h41o8sa.jpg',
-            //   'h5_app_pic': 'o_1capq2jls142ifk67c15h41o8sa.jpg',
-            //   'h5_content': '{"page1":{"page1_desc1_ctn":"盘活农村资产","page1_desc1_size":"56px","page1_desc2_ctn":"服务资本下乡","page1_desc2_size":"56px"},"page2":{"page2_head_ctn":"来买地网诚邀加盟","page2_head_size":"80px","page2_ctn_ctn":"来买地网（www.laimaidi.com）是国内最大的农村不动产大数据、交易与金融服务平台，致力于盘活农村资产，服务资本下乡、助力乡村振兴。现面向全国诚邀区域加盟，国家级平台支持，共享农村土地改革红利。加盟热线：133-0129-3921 秦经理","page2_ctn_size":"26px"},"page3":{"page3_img1":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprk7dpuirm7osli1npr1kaba.png","page3_img2":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprkecse2v1hhd1vbh6855ksf.png","page3_img3":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprkjb71ibl7r3skc18st2lik.png"},"page4":{"page4_img1":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprkuun65a9p061c1c4o11n0p.png","page4_img2":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprl47319ts1itnoni14pk5oiu.png","page4_img3":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprl8rj1toh7cfon9j73rvc13.png","page4_img4":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprlf8v19nbvo41d2517r312it18.png","page4_img5":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprll051o3674i1fvfkqb18jm1d.png","page4_img6":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprlq8i12v511uus5sjo21ggc1i.png"},"page6":{"page6_desc1_ctn":"联系电话：400-089-8802","page6_desc1_size":"38px","page6_desc2_ctn":"地址:北京朝阳区京辰大厦A座1层","page6_desc2_size":"38px","page6_erweima":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprmnkfibd1da61oi6s1k1she1n.png"},"music_desc":"video1.mp4","template_arr":[1,1,1,1,0,1]}',
-            //   'h5_status': 0,
-            //   'h5_type': 0,
-            //   'create_time': '2018-04-11 16:05:31',
-            //   'update_time': '2018-04-11 18:32:23',
-            //   'delete_time': null
-            // },
-            // {
-            //   'h5_id': 14,
-            //   'h5_title': '11111',
-            //   'h5_desc': '',
-            //   'h5_thumbnail': 'o_1capq2jls142ifk67c15h41o8sa.jpg',
-            //   'h5_app_pic': 'o_1capq2jls142ifk67c15h41o8sa.jpg',
-            //   'h5_content': '{"page1":{"page1_desc1_ctn":"盘活农村资产","page1_desc1_size":"56px","page1_desc2_ctn":"服务资本下乡","page1_desc2_size":"56px"},"page2":{"page2_head_ctn":"来买地网诚邀加盟","page2_head_size":"80px","page2_ctn_ctn":"来买地网（www.laimaidi.com）是国内最大的农村不动产大数据、交易与金融服务平台，致力于盘活农村资产，服务资本下乡、助力乡村振兴。现面向全国诚邀区域加盟，国家级平台支持，共享农村土地改革红利。加盟热线：133-0129-3921 秦经理","page2_ctn_size":"26px"},"page3":{"page3_img1":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprk7dpuirm7osli1npr1kaba.png","page3_img2":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprkecse2v1hhd1vbh6855ksf.png","page3_img3":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprkjb71ibl7r3skc18st2lik.png"},"page4":{"page4_img1":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprkuun65a9p061c1c4o11n0p.png","page4_img2":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprl47319ts1itnoni14pk5oiu.png","page4_img3":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprl8rj1toh7cfon9j73rvc13.png","page4_img4":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprlf8v19nbvo41d2517r312it18.png","page4_img5":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprll051o3674i1fvfkqb18jm1d.png","page4_img6":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprlq8i12v511uus5sjo21ggc1i.png"},"page6":{"page6_desc1_ctn":"联系电话：400-089-8802","page6_desc1_size":"38px","page6_desc2_ctn":"地址:北京朝阳区京辰大厦A座1层","page6_desc2_size":"38px","page6_erweima":"http:\/\/oxk4ui39b.bkt.clouddn.com\/o_1caprmnkfibd1da61oi6s1k1she1n.png"},"music_desc":"video1.mp4","template_arr":[1,1,1,1,0,1]}',
-            //   'h5_status': 0,
-            //   'h5_type': 0,
-            //   'create_time': '2018-04-11 16:05:31',
-            //   'update_time': '2018-04-11 18:32:23',
-            //   'delete_time': null
-            // }
-            // ]
             Indicator.close()
             if (obj.length === 0) {
               this.isKong = true
