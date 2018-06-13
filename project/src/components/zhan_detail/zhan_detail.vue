@@ -2,9 +2,9 @@
     <div class="detail_wrap">
         <div v-wechat-title="$route.meta.title"></div>
         <div class="detail_img">
-            <img v-if="showVideo" :src="advData.video_link + '?vframe/jpg/offset/0/imageView2/1/w/750/h/600/q/75|imageslim'" alt="">
-            <img @click="lookVideo()" v-if="showVideo" src="./img/play.png" alt="">
-            <video id="myvideo" v-else :src="advData.video_link" style="width:100%;position: absolute;top: 0;left: 0;"></video>
+            <!-- <img v-if="showVideo" :src="advData.video_link + '?vframe/jpg/offset/0/imageView2/1/w/750/h/600/q/75|imageslim'" alt="">
+            <img @click="lookVideo()" v-if="showVideo" src="./img/play.png" alt=""> -->
+            <video id="myvideo" :src="advData.video_link" controls="controls" style="width:100%;position: absolute;top: 0;left: 0;"></video>
         </div>
 
         <ul class="detail_time">

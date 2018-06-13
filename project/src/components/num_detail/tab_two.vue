@@ -103,7 +103,8 @@ export default {
   component: {
     // Circle
     MessageBox,
-    Indicator
+    Indicator,
+    DatetimePicker
   },
   props: {
     id: {
@@ -143,30 +144,10 @@ export default {
       endDate: new Date(),
       timeType: -1,
       startTemp: 0,
-      endTemp: 0
+      endTemp: 0,
+      arr1: [],
+      arr2: []
     }
-  },
-  beforeCreate: function () {
-
-  },
-  created: function () {
-    this.hid = this.$route.query.o_id // list id
-    this.status = this.$route.query.o_status
-    this.oid = this.$route.query.num
-    this.yesterdayTime = this.getTadyTime(this.getBeforeTime1(0)) // 昨天的时间戳
-    this.sevenTime = this.getTadyTime(this.getBeforeTime1(1)) // 前7天的时间戳
-    this.todayTime = this.getTadyTime(this.getBeforeTime1(2)) // 今天的时间戳 + 8640 就是下一天
-    // console.log(this.todayTime + 86400)
-    Indicator.open()
-    this.getSearchData(this.todayTime, this.todayTime + 86400) // 默认展示今天0点 - 24点
-  },
-  beforeMount: function () {
-
-  },
-  mounted: function () {
-    Indicator.open()
-    this.creatCanvas() // 创建canvas
-    this.creatEchart() // 图表统计
   },
   methods: {
     selectStyle (item, index) {
@@ -234,11 +215,25 @@ export default {
         .then((res) => {
           Indicator.close()
           this.tongjiData = res.data.data
-          // console.log(this.tongjiData.count_browser.data)
+
+          let _data = res.data.data.count_browser.data
+          // let arr1 = []
+          // let arr2 = []
+          this.arr1 = []
+          this.arr2 = []
+          for (var key of Object.keys(_data)) {
+            // 使用Object.keys()方法获取对象key的数组
+            // console.log(key+": "+_data[key]);
+            this.arr1.push(key)
+            this.arr2.push(_data[key])
+          }
+          this.creatEchart() // 图表统计
+          // this.creatCanvas() // 创建canvas
         })
-        .catch((err) => {
-          MessageBox.alert('请稍后再试')
-        })
+        // .catch((err) => {
+        //   MessageBox.alert(err.msg)
+        //   Indicator.close()
+        // })
     },
     getBeforeTime1: function (type) {
       let curDate = new Date()
@@ -263,7 +258,7 @@ export default {
     creatCanvas: function () {
       let c1 = document.createElement('canvas')
       // document.body.appendChild(c1);
-      document.querySelector('.play_up_wrap').appendChild(c1)
+      // document.querySelector('.play_up_wrap').appendChild(c1)
       let ctx1 = c1.getContext('2d')
       c1.setAttribute('style', 'position: absolute;top:4.5rem;width: 9rem;height: 4.5rem;left: 0rem;')
       ctx1.beginPath()
@@ -295,15 +290,19 @@ export default {
       this.chart = echarts.init(this.$refs.myEchart1)
 
       // var myChart = echarts.init(document.getElementById('main'));
-      let dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '点', '击', '柱', '子', '或', '者', '两']
-      let data = [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330, 310]
-      let yMax = 400
-      let dataShadow = []
+      // let dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '点', '击', '柱', '子', '或', '者', '两']
+      // let data = [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290, 330, 310]
+      // let yMax = 400
+      console.log(this.arr1)
+      console.log(this.arr2)
+      let data = this.arr2
+      let dataAxis = this.arr1
+      // let dataShadow = []
       Indicator.close()
 
-      for (var i = 0; i < data.length; i++) {
-        dataShadow.push(yMax)
-      }
+      // for (var i = 0; i < data.length; i++) {
+      //   dataShadow.push(yMax)
+      // }
 
       this.chart.setOption({
         // title: {
@@ -394,11 +393,33 @@ export default {
       // myChart.setOption(option);
     }
 
+  },
+  beforeCreate: function () {
+
+  },
+  created: function () {
+    this.hid = this.$route.query.o_id // list id
+    this.status = this.$route.query.o_status
+    this.oid = this.$route.query.num
+    this.yesterdayTime = this.getTadyTime(this.getBeforeTime1(0)) // 昨天的时间戳
+    this.sevenTime = this.getTadyTime(this.getBeforeTime1(1)) // 前7天的时间戳
+    this.todayTime = this.getTadyTime(this.getBeforeTime1(2)) // 今天的时间戳 + 8640 就是下一天
+    // console.log(this.todayTime + 86400)
+    Indicator.open()
+    this.getSearchData(this.todayTime, this.todayTime + 86400) // 默认展示今天0点 - 24点
+  },
+  beforeMount: function () {
+
+  },
+  mounted: function () {
+    Indicator.open()
+    this.creatCanvas() // 创建canvas
+    // this.creatEchart() // 图表统计
   }
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 @import './css/num_detail.css';
 @import '../play_time/css/play_time.css';
    .demo-Circle-custom{

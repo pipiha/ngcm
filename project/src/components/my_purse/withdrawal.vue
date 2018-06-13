@@ -93,6 +93,7 @@ export default {
         float: right;
         margin-right: 0.5rem;
         margin-top: 0.6rem;
+        cursor: pointer;
     }
     .qianbao{
         width: 100%;
@@ -142,6 +143,7 @@ export default {
         float: right;
         color: #5286EC;
         font-size: 15px;
+        cursor: pointer;
     }
     .queding{
         width: 90%;
@@ -154,6 +156,7 @@ export default {
         color: #fff;
         font-size: 16px;
         border-radius: 20px 20px 20px 20px;
+        cursor: pointer;
     }
 
 </style>

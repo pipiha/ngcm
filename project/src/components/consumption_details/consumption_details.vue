@@ -7,11 +7,13 @@
         <img v-else src="./img/xiaofei.png" alt="">
         <p>到账金额</p>
         <span>￥</span>
-        <p>{{ moneyList.total_money }}</p>
+        <p v-if="moneyList.total_money == ''">{{ moneyList.total_money }}</p>
+        <p v-else>0</p>
     </div>
-
+    <!-- 列表数据 -->
     <ul class="ad_money_wrap">
-        <li v-for="(item,inex) in moneyList.data.data">
+        <p v-if="moneyList.data.data == ''" style="font-size: 0.45rem;color: rgb(153, 153, 153);width: 92%;margin: 0 auto;padding-top: 0.55rem;opacity: 0.5;">暂无详情</p>
+        <li v-else v-for="(item,inex) in moneyList.data.data">
            <div class="adv_title">
                 <span>{{ item.f_tips }}</span>
                 <span v-if="isChong">+{{ item.money }}</span>
@@ -20,7 +22,7 @@
             </div>
        </li>
     </ul>
-
+    <!-- 展示数据 -->
     <ul class="pay_center_box" v-show="show_ul">
        <li>
            <span>当前状态</span>
@@ -63,81 +65,55 @@
 </template>
 
 <script>
+import { Indicator, MessageBox } from 'mint-ui'
 export default {
+  components: {
+    Indicator,
+    MessageBox
+  },
   data () {
     return {
       show_ul: false,
       moneyList: '',
-      isChong: true
+      isChong: true,
+      detailData: ''
     }
   },
   methods: {
-      getMoneyMsg: function(time,type){
-          this.$axios.get('api/wxpub/user_wallet/showDetailByDay.html?time=' + time + '&io=' + type)
-          .then((res) => {
-            //   console.log(res.data.data)
-            //   this.moneyList = res.data.data
-            this.moneyList = {
-		        "total_money": 78,
-		        "data": {
-			        "total": 39,
-			        "per_page": 10,
-			        "current_page": 1,
-			        "last_page": 4,
-			        "data": [{
-				        "money": "2.00",
-				        "create_time": "2018-05-12 18:35:31",
-                        "f_io_type": 0,
-                        "f_tips": '哈哈哈'
-                    },
-                    {
-				        "money": "2.00",
-				        "create_time": "2018-05-12 17:31:24",
-                        "f_io_type": 0,
-                        "f_tips": '哈哈哈'
-                    },
-                    {
-				        "money": "2.00",
-				        "create_time": "2018-05-12 17:17:56",
-                        "f_io_type": 0,
-                        "f_tips": '哈哈哈'
-                    },
-                    {
-				        "money": "2.00",
-				        "create_time": "2018-05-12 15:30:23",
-                        "f_io_type": 0,
-                        "f_tips": '哈哈哈'
-                    }
-                    ]
-		        }
-	        }
-          })
-          .catch((err) => {
-              console.log(err)
-          })
-      }
+    getMoneyMsg: function (time, type) {
+      this.$axios.get('api/wxpub/user_wallet/showDetailByDay.html?time=' + time + '&io=' + type)
+        .then((res) => {
+          Indicator.close()
+          this.moneyList = res.data.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   },
-  beforeCreate: function(){
+  beforeCreate: function () {
 
   },
-  created: function(){
-      let time = this.$route.query.code
-      let type = this.$route.query.f_io
-      if(type === '0'){
-          console.log('if')
-      }else{
-          console.log('else')
-          this.isChong = false
-      }
-      this.getMoneyMsg(time,type)
+  created: function () {
+    let time = this.$route.query.code
+    let type = this.$route.query.f_io
+    console.log(type)
+    if (type == 0) { // chong
+      console.log('if')
+      this.isChong = false
+    } else {
+      console.log('else')
+    }
+    Indicator.open()
+    this.getMoneyMsg(time, type)
   },
-  beforeMount: function(){
+  beforeMount: function () {
 
   },
-  mounted: function(){
+  mounted: function () {
 
   },
-  destroyed: function(){
+  destroyed: function () {
 
   }
 }

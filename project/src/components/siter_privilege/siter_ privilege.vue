@@ -7,7 +7,7 @@
             <img :src="siteInfoText.user_thumbnail" alt="">
             <div class="siter_name_wrap">
                 <p>{{ siteInfoText.user_nickname}}</p>
-                <img src="../../../static/siter_privilege/img/queen.png" alt="">
+                <img src="./img/queen.png" alt="">
                 <span>{{ siteInfoText.owner_phone }}</span>
                 <p class="jue_se">点位主</p>
             </div>
@@ -21,27 +21,27 @@
     <!-- 选择列表 -->
     <ul class="siter_ul">
         <li  @click="toNextPage(0)">
-            <img src="../../../static/siter_privilege/img/my_buser.png" alt="">
+            <img src="./img/my_buser.png" alt="">
             <p>我的顾客</p>
-            <img src="../../../static/siter_privilege/img/left.png" alt="">
+            <img src="./img/left.png" alt="">
         </li>
         <li @click="toNextPage(1)">
-            <img src="../../../static/siter_privilege/img/my_active.png" alt="">
+            <img src="./img/my_active.png" alt="">
             <p>我发布的活动</p>
-            <img src="../../../static/siter_privilege/img/left.png" alt="">
+            <img src="./img/left.png" alt="">
         </li>
     </ul>
 
     <!-- 活动展示 -->
     <ul class="siter_active" style="height: 4rem;overflow: hidden;">
         <li v-for="(item,index) in advList" @click="advDetails()">
-            <img src="../../../static/siter_privilege/img/317630780744939915.png" alt="">
+            <img src="./img/317630780744939915.png" alt="">
         </li>
         <li>
-            <img src="../../../static/siter_privilege/img/317630780744939915.png" alt="">
+            <img src="./img/317630780744939915.png" alt="">
         </li>
         <li>
-            <img src="../../../static/siter_privilege/img/317630780744939915.png" alt="">
+            <img src="./img/317630780744939915.png" alt="">
         </li>
     </ul>
     <!-- 查看更多 -->
@@ -137,7 +137,7 @@ export default {
 </script>
 
 <style scoped>
-@import '../../../static/siter_privilege/css/siter_privilege.css';
+@import './css/siter_privilege.css';
 .siter_big_wrap{
   position: fixed;
   width: 100%;

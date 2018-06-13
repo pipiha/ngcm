@@ -37,7 +37,7 @@
         <p>可提现金额(元)</p >
         <!-- <p @click="userTixian(parseInt(moneyText.total_pocket_money))">我要提现</p >
         <p><router-link to="./withdrawal.html">我要提现</router-link></p > -->
-        <p @click="userTixian()">我要提现</p >
+        <p @click="userTixian(parseInt(moneyText.total_pocket_money))">我要提现</p >
     </div>
 
 </div>

@@ -282,7 +282,7 @@ export default {
   beforeMount: function () {
     // console.log(this.$route.query.type)  0 我感兴趣 1 我的足迹
     this.advType = this.$route.query.type
-    if (this.advType === 0) {
+    if (this.advType == 0) {
       console.log('我感兴趣')
       this.$route.meta.title = '我感兴趣'
       Indicator.open()

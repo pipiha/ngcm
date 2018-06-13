@@ -36,12 +36,13 @@
 </template>
 <script>
 import echarts from 'echarts'
-import { DatetimePicker, Indicator } from 'mint-ui'
+import { DatetimePicker, Indicator, MessageBox } from 'mint-ui'
 import axios from 'axios'
 export default {
   components: {
     DatetimePicker,
-    Indicator
+    Indicator,
+    MessageBox
   },
   props: {
     id: {
@@ -77,17 +78,25 @@ export default {
   },
   created: function () {
     // this.creatEchart() // 图表统计
+    this.timeText = this.$route.query.time
+
     Indicator.open()
-    this.setMoney('2018-06', 0)
+    this.setMoney(this.timeText, 0)
   },
   beforeMount: function () {
   },
   mounted: function () {
-    this.creatEchart() // 图表统计
+    // this.creatEchart() // 图表统计
   },
   methods: {
     selectStyle (item, index) {
       this.isClick = index
+      Indicator.open()
+      if (index == 0) { // 收入
+        this.setMoney(this.timeText, 0)
+      } else { // 支出
+        this.setMoney(this.timeText, 1)
+      }
     },
     setMoney (startTime, io) {
       this.$axios.get('api/wxpub/user_wallet/getSumByMonth.html?start_time=' + startTime + '&io=' + io) // 问号后面是要传送的参数
@@ -95,34 +104,44 @@ export default {
           console.log(res)
           Indicator.close()
           if (res.data.code === 200) {
-            let a = {
-              'total': 58,
-              'per_page': 5,
-              'current_page': 1,
-              'last_page': 12,
-              'data': [{
-                'money': '2.50'
-              }, {
-                'money': '0.50'
-              }, {
-                'money': '13.50'
-              }, {
-                'money': '1.00'
-              }, {
-                'money': '0.50'
-              }]
+            // let a = {
+            //   'total': 58,
+            //   'per_page': 5,
+            //   'current_page': 1,
+            //   'last_page': 12,
+            //   'data': [{
+            //     'money': '2.50'
+            //   }, {
+            //     'money': '0.50'
+            //   }, {
+            //     'money': '13.50'
+            //   }, {
+            //     'money': '1.00'
+            //   }, {
+            //     'money': '0.50'
+            //   }]
+            // }
+            this.monthBillData = res.data.data
+            if (this.monthBillData.data.length == 0) {
+              this.xData = [0, 0, 0, 0, 0]
+              this.yData = [1, 2, 3, 4, 5]
+            } else {
+              this.monthBillData.data.forEach((item) => {
+                this.xData.push(item.key)
+                this.yData.push(item.money)
+              })
             }
-            // this.monthBillData = a
-            // console.log(this.monthBillData)
-            // this.monthBillData.data.forEach((item) => {
-            //   console.log(item)
-            // })
+            this.creatEchart()
+            console.log(this.xData)
+            console.log(this.yData)
           } else {
-
+            MessageBox.alert(res.data.data.msg)
           }
         })
         .catch(error => { //  请求失败后的函数
           console.log(error)
+          MessageBox.alert('请稍后重试')
+          Indicator.close()
         })
     },
     formatDate: function (date, type) { // 标准日期转  type为0: '2018-1-1'  1 年月日
@@ -146,21 +165,17 @@ export default {
     },
     handleConfirm: function () { // 日期确认之后
       let timeTag = this.pickerValue
-      console.log(this.formatDate(timeTag, 1))
       this.timeText = this.formatDate(timeTag, 1)
+      Indicator.open()
+      this.setMoney(this.timeText, this.isClick)
     },
     // 创建图表
     creatEchart: function () {
       this.chart = echarts.init(this.$refs.myEchart)
       // var myChart = echarts.init(document.getElementById('main'));
-      let dataAxis = ['06-10', '06-11', '06-12', '06-13', '06-14', '06-10', '06-11', '06-12', '06-13', '06-14']
-      let data = [2.50, 1.50, 1.0, 0.50, 2.50, 2.50, 1.50, 1.0, 0.50, 2.50]
-      // let yMax = 400
-      // let dataShadow = []
-
-      // for (var i = 0; i < data.length; i++) {
-      //   dataShadow.push(yMax)
-      // }
+      let dataAxis = ['06-10', '06-11', '06-12', '06-13', '06-14']
+      // let data = [2.50, 1.50, 1.0, 0.50, 2.50, 2.50, 1.50, 1.0, 0.50, 2.50]
+      let data = this.yData
 
       this.chart.setOption({
         // title: {

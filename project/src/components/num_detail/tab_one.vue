@@ -27,7 +27,7 @@
                 </li>
                 <li>
                     <p>投放点位</p>
-                    <p>{{ mineData.o_sites_id.split(',').length }}个</p>
+                    <p>{{ mineData.countSite }}个</p>
                     <p>编辑点位</p>
                 </li>
                 <li>

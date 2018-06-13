@@ -6,7 +6,7 @@
         <div class="uploadImg" style="position: relative;">
             <input @change="upLoading($event)" style="z-index:10;" class="upload_file" id='uploadCompress' type="file" name="picture" accept="image/*">
             <div class="up_text_wrap">
-                <img src="../../static/release_activity/img/upload.png" alt="">
+                <img src="./img/upload.png" alt="">
             </div>
             <p>添加活动照片</p>
             <img :src="imageUrl" style="cursor:pointer;" class="upload_ctn_img">
@@ -24,14 +24,14 @@
         <!-- 活动描述 -->
         <div class="act_describe_wrap" @click="showMore()">
             <p style="line-height: 1.5rem;height:1.5rem;">更多</p>
-            <img :class="{'release_rotate': isRotate}" class="more_img" src="../../static/release_activity/img/up.png" alt="">
+            <img :class="{'release_rotate': isRotate}" class="more_img" src="./img/up.png" alt="">
         </div>
         <ul v-show="show_more">
             <li>
                 <p>活动地址</p>
                 <div class="li_right">
                     <p style="width:86%;letter-spacing: 0.02rem;text-overflow:ellipsis;white-space: nowrap;overflow: hidden;">{{ actAddress }}</p>
-                    <img src="../../static/release_activity/img/address.png" alt="">
+                    <img src="./img/address.png" alt="">
                 </div>
             </li>
             <li>
@@ -57,9 +57,9 @@
     <div class="alert_collect_wrap" v-show="isSuccess">
         <div class="alert_box">
             <div>
-                <img src="../../static/release_activity/img/close.png" alt="">
+                <img src="./img/close.png" alt="">
             </div>
-            <img src="../../static/release_activity/img/tj_success.png" alt="">
+            <img src="./img/tj_success.png" alt="">
         </div>
     </div>
 
@@ -136,7 +136,7 @@ export default {
       show_more: true,
       dayTag: ['1天', '3天', '5天', '7天'],
       imgToken: '', // 上传七牛token
-      imageUrl: require('../../static/release_activity/img/111.png'),
+      imageUrl: require('./img/111.png'),
       actDes: '', //  活动描述
       actAddress: '石家庄晋州市马宇镇人人乐超市',
       actTel: ''
@@ -216,8 +216,7 @@ export default {
         MessageBox.alert('请填写您的联系方式')
       } else {
         MessageBox.alert('填写完毕')
-        this.axiosSub()
-        axiosSub(this.imageUrl, this.actDes, this.isDayOn, this.actTel, this.actAddress)
+        this.axiosSub(this.imageUrl, this.actDes, this.isDayOn, this.actTel, this.actAddress)
       }
     },
     // 提交请求
@@ -238,6 +237,6 @@ export default {
 }
 </script>;
 
-<style>
+<style scoped>
 @import './css/release_activity.css';
 </style>

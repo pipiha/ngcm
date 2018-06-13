@@ -47,7 +47,7 @@
               <div class="bill_up_right">
                   <p @click="filter()">筛选</p>
                   <!-- style="float: right;margin-right: 13%;" -->
-                  <p @click="checkMonth()">月账单</p>
+                  <p @click="checkMonth(item.timeAxis.current_time)">月账单</p>
               </div>
           </div>
           <div style="width:92%;margin:0 auto;height: 2rem;border-bottom: 0.02rem solid #ECECEC;"  @click="consumptionDetails(item.create_time,item.f_io_type)">
@@ -257,9 +257,12 @@ export default {
         return y + '年' + m + '月'
       }
     },
-    checkMonth: function () { // 月账单
+    checkMonth: function (time) { // 月账单
       this.$router.push({
-        path: '/mouthBill'
+        path: '/mouthBill',
+        query: {
+          time: time
+        }
       })
     },
     filter: function () { // 筛选

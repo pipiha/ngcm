@@ -156,10 +156,10 @@ export default {
       // this.$axios.get('api')
     }
   },
-  beforeCreate: function (){
+  beforeCreate: function () {
 
   },
-  created: function (){
+  created: function () {
     this.getuserInfo()
   },
   beforeMount: function () {
