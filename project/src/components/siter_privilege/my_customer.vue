@@ -20,8 +20,6 @@
                 <p>2018年5月</p>
                 <img src="./img/down.png" alt="">
             </div>
-            <!-- <p>2018年5月</p>
-            <img src="./img/down.png" alt=""> -->
             <div class="money_title">
                 <span style="margin-left: 0.2rem;">互动人数</span>
                 <span>￥235.00</span>
@@ -29,14 +27,14 @@
                 <span>￥35.70</span>
             </div>
         </div>
-        <!-- <div class="bill_up_right">
-            <p>筛选</p>
-            <p>月账单</p>
-        </div> -->
     </div>
 
         <!--  -->
     <!-- <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore"> -->
+    <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px'}">
+    <mt-loadmore :top-method="loadTop" @translate-change="translateChange" @top-status-change="handleTopChange"
+        :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded"
+        :auto-fill="false" ref="loadmore">
     <ul class="wallet_list">
         <li v-for="(item,index) in customerData">
             <div class="wallet_list_left">
@@ -49,8 +47,20 @@
                 <img v-else src="./img/boy.png" alt="">
             </div>
         </li>
-
+        <div slot="top" class="mint-loadmore-top" style="text-align:center">
+          <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }"></span>
+          <!-- <mt-spinner v-show="topStatus == 'loading'" color="#26a2ff"></mt-spinner> -->
+        </div>
+        <div v-if="allLoaded" style="width:100%;height:100%;text-align:center;">没有更多数据了</div>
+        <div slot="bottom" class="mint-loadmore-bottom">
+          <span v-show="bottomStatus !== 'loading'" :class="{ 'is-rotate': bottomStatus === 'drop' }"></span>
+          <span v-show="bottomStatus === 'loading'">
+            <!-- <mt-spinner v-show="bottomStatus == 'loading'" color="#26a2ff"></mt-spinner> -->
+          </span>
+        </div>
     </ul>
+    </mt-loadmore>
+    </div>
     <!-- </mt-loadmore> -->
 
         <mt-datetime-picker
@@ -73,12 +83,15 @@
 </template>
 
 <script>
-import { Indicator, Loadmore, DatetimePicker } from 'mint-ui'
+import { MessageBox, DatetimePicker, Picker, Indicator, Loadmore, Spinner } from 'mint-ui'
 export default {
   components: {
+    DatetimePicker,
+    MessageBox,
+    Picker,
     Indicator,
     Loadmore,
-    DatetimePicker
+    Spinner
   },
   data () {
     return {
@@ -89,23 +102,42 @@ export default {
       },
       pickerVisible: '',
       customerData: [],
-      allLoaded: false // 是否可以上拉属性，false可以上拉，true为禁止上拉，就是不让往上划加载数据了
-    //   scrollMode: 'auto' // 移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
-
+      // 上拉加载
+      pageNum: 1, // 页码
+      InitialLoading: true, // 初始加载
+      list: 0, // 数据
+      allLoaded: false, // 数据是否加载完毕
+      bottomStatus: '', // 底部上拉加载状态
+      wrapperHeight: 0, // 容器高度
+      topStatus: '', // 顶部下拉加载状态
+      translate: 0, //
+      moveTranslate: 0,
+      itemItem: '' // 保存要选择时间的item数据
     }
   },
   methods: {
-    customerList: function () {
-      this.$axios.get('api/wxpub/siter/getUserList.html')
+    customerList: function (pageNum) {
+      this.$axios.get('api/wxpub/siter/getUserList.html?page=' + pageNum)
         .then((res) => {
           if (res.data.code === 200) {
+            if (this.pageNum === res.data.data.last_page) {
+              this.allLoaded = true// 模拟数据加载完毕 禁用上拉加载
+              this.handleBottomChange('loadingEnd')// 数据加载完毕 修改状态码
+              this.$refs.loadmore.onBottomLoaded()
+            }
+            console.log(this.pageNum + '页')
             // console.log(res.data.data.data)
             this.customerData = res.data.data.data
             Indicator.close()
+            this.handleBottomChange('loadingEnd')// 数据加载完毕 修改状态码
+            this.$refs.loadmore.onBottomLoaded()
           }
         })
         .catch((err) => {
           console.log(err)
+          this.handleBottomChange('loadingEnd')
+          Indicator.close()
+          MessageBox.alert('请稍后重试')
         })
     },
     // loadBottom () {
@@ -131,6 +163,35 @@ export default {
     },
     handleConfirm: function () {
       console.log(this.pickerValue)
+    },
+    // 上拉加载
+    handleBottomChange (status) {
+      console.log(1)
+      this.moveTranslate = 1
+      this.bottomStatus = status
+    },
+    loadBottom () {
+      console.log(2)
+      this.handleBottomChange('loading')// 上拉时 改变状态码
+      this.pageNum += 1
+      this.customerList(this.pageNum)
+    },
+    handleTopChange (status) {
+      console.log(3)
+      this.moveTranslate = 1
+      this.topStatus = status
+    },
+    translateChange (translate) {
+      const translateNum = +translate
+      this.translate = translateNum.toFixed(2)
+      this.moveTranslate = (1 + translateNum / 70).toFixed(2)
+    //   console.log(this.translateNum)
+    },
+    loadTop () { // 下拉刷新 模拟数据请求这里为了方便使用一次性定时器
+      this.handleTopChange('loading')// 下拉时 改变状态码
+      this.pageNum = 1
+      this.allLoaded = false// 下拉刷新时解除上拉加载的禁用
+      this.customerList(1)
     }
 
   },
@@ -139,14 +200,28 @@ export default {
   },
   created: function () {
     // this.imgUrl =
-    Indicator.open()
-    this.customerList()
+    // Indicator.open()
+    // this.customerList(1)
   },
   beforeMount: function () {
 
   },
   mounted: function () {
     // this.timeDown()
+    let windowWidth = document.documentElement.clientWidth// 获取屏幕高度
+    console.log(windowWidth)
+    // console.log(windowWidth) ==375   代码之前设置的是768
+    if (windowWidth > 768) { // 这里根据自己的实际情况设置容器的高度
+      this.wrapperHeight = document.documentElement.clientHeight - 130
+    } else {
+      this.wrapperHeight = document.documentElement.clientHeight - 10
+    }
+    // let intiTime = this.formatDate(new Date(), 0)
+    // let initTimeText = this.formatDate(new Date(), 1)
+    // this.timeText = initTimeText
+    // this.pickerValue = intiTime
+    Indicator.open()
+    this.customerList(1)
   }
 
 }

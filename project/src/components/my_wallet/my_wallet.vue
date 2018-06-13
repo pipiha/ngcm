@@ -331,7 +331,7 @@ export default {
     translateChange (translate) {
       const translateNum = +translate
       this.translate = translateNum.toFixed(2)
-      this.moveTranslate = (1 + translateNum / 70).toFixed(2)
+      this.moveTranslate = (1 + translateNum / 80).toFixed(2)
     },
     loadTop () { // 下拉刷新 模拟数据请求这里为了方便使用一次性定时器
       this.handleTopChange('loading')// 下拉时 改变状态码
