@@ -56,7 +56,7 @@
         <img src="./img/siter_t.png" alt="">
         <p>附近活动</p>
       </div>
-      <ul class="siter_active">
+      <ul v-show="kongAct" class="siter_active">
         <template>
           <swiper :options="swiperOption" ref="mySwiper">
             <!-- slides -->
@@ -76,7 +76,8 @@
         </template>
       </ul>
       <!-- <imgsrc="./img/show.png" alt=""> -->
-      <p class="check_more_submit" @click="toMore()">查看更多</p>
+      <p v-show="kongAct" class="check_more_submit" @click="toMore()">查看更多</p>
+      <p v-show="!kongAct" class="check_more_submit" >暂无活动</p>
     </div>
 </div>
 </template>
@@ -93,6 +94,7 @@ export default {
   },
   data () {
     return {
+      kongAct: true,
       userInfo: '',
       promotion: '',
       swiperOption: {// swiper官网看api，链接http://www.swiper.com.cn/api/
@@ -132,7 +134,11 @@ export default {
             // 在这里不要比对code值 有些接口报错 但code值还是200
             // console.log(res.data.data.userInfo)
             this.userInfo = res.data.data.userInfo
-            this.promotion = res.data.data.promotion.data // 活动信息
+            if (this.promotion.length == 0) {
+              this.kongAct = false
+            } else {
+              this.promotion = res.data.data.promotion.data // 活动信息
+            }
           }
         })
         .catch((err) => {
