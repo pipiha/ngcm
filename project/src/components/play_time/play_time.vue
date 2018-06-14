@@ -192,6 +192,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/play_time.css';
 </style>

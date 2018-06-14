@@ -23,7 +23,7 @@
     <div class="play_up_wrap" style="width: 97%;box-shadow: 0 0.01rem 0.1rem 0.1rem rgba(234,234,234,0.50);">
         <div class="site_numer_box" style="margin-left: 31%;margin-top: 11%;">
             <p>播放点位总计</p>
-            <p>{{ tongjiData.count_browser.sum }}</p>
+            <p>{{ s1 }}</p>
         </div>
     </div>
     <img class="num_img" src="../play_time//img/times.png" alt="">
@@ -146,7 +146,8 @@ export default {
       startTemp: 0,
       endTemp: 0,
       arr1: [],
-      arr2: []
+      arr2: [],
+      s1: -1
     }
   },
   methods: {
@@ -215,7 +216,7 @@ export default {
         .then((res) => {
           Indicator.close()
           this.tongjiData = res.data.data
-
+          this.s1 = res.data.data.count_browser.s1
           let _data = res.data.data.count_browser.data
           // let arr1 = []
           // let arr2 = []
@@ -258,7 +259,7 @@ export default {
     creatCanvas: function () {
       let c1 = document.createElement('canvas')
       // document.body.appendChild(c1);
-      // document.querySelector('.play_up_wrap').appendChild(c1)
+      document.querySelector('.play_up_wrap').appendChild(c1)
       let ctx1 = c1.getContext('2d')
       c1.setAttribute('style', 'position: absolute;top:4.5rem;width: 9rem;height: 4.5rem;left: 0rem;')
       ctx1.beginPath()
@@ -272,7 +273,7 @@ export default {
       // document.body.appendChild(c);
       let ctx = c.getContext('2d')
       c.setAttribute('style', 'position: absolute;top:4.5rem;width: 9rem;height: 4.5rem;left: 0rem;')
-      const x = 70 // x为百分比值(0-100)
+      const x = 0 // x为百分比值(0-100)
       ctx.beginPath()
       ctx.lineCap = 'round'
       ctx.lineWidth = 5
@@ -400,7 +401,7 @@ export default {
   created: function () {
     this.hid = this.$route.query.o_id // list id
     this.status = this.$route.query.o_status
-    this.oid = this.$route.query.num
+    this.oid = this.$route.query.oid
     this.yesterdayTime = this.getTadyTime(this.getBeforeTime1(0)) // 昨天的时间戳
     this.sevenTime = this.getTadyTime(this.getBeforeTime1(1)) // 前7天的时间戳
     this.todayTime = this.getTadyTime(this.getBeforeTime1(2)) // 今天的时间戳 + 8640 就是下一天

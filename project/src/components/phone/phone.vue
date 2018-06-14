@@ -157,7 +157,7 @@ export default {
 <style scoped>
 @import './css/phone.css';
 .phone_wrap{
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   background-color:#F3F6F5;

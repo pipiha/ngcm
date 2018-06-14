@@ -92,7 +92,7 @@ export default {
             })
             // console.log(siteObj)
             _this.markerArr = siteObj
-            // _this.getMap()
+            _this.getMap()
           }
         })
         .catch(function (err) {
@@ -101,7 +101,7 @@ export default {
     },
     getMap: function () { // 绘制地图
       var map = new BMap.Map('map') // 创建Map实例
-      var point = new BMap.Point(116.385685, 40.006454) // 地图中心点，广州市
+      var point = new BMap.Point(116.385685, 40.006454) // 地图中心点，北京京辰大厦
       map.centerAndZoom(point, 7) // 初始化地图,设置中心点坐标和地图级别。
       map.enableScrollWheelZoom(true) // 启用滚轮放大缩小
       // 向地图中添加缩放控件
@@ -137,6 +137,7 @@ export default {
         marker[i].setAnimation(BMAP_ANIMATION_BOUNCE) // 跳动的动画
         var label = new window.BMap.Label(['名称：' + markerArr[i].title + '</br>', '电话：' + markerArr[i].tel], { offset: new window.BMap.Size(20, -10) })
         marker[i].setLabel(label)
+        console.log(label)
         info[i] = new window.BMap.InfoWindow('<p style=’font-size:12px;lineheight:1.8em;’>' + markerArr[i].title + '</br>地址：' + markerArr[i].address + '</br> 电话：' + markerArr[i].tel + '</br></p>') // 创建信息窗口对象
       }
 

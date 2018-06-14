@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .read_join_bg{
     width: 100%;
     height: 1.95rem;

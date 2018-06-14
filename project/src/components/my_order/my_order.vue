@@ -230,7 +230,7 @@ export default {
 <style lang="css" scoped>
 @import './css/my_order.css';
 .my_order_box{
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     background-color: #F3F6F5;

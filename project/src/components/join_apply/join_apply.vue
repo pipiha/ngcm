@@ -203,7 +203,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/join_apply.css';
 html,body{
   background-color: #fff;

@@ -33,7 +33,7 @@
     </ul>
 
     <!-- 活动展示 -->
-    <ul class="siter_active" style="height: 4rem;overflow: hidden;">
+    <ul v-show="kongAct" class="siter_active" style="height: 4rem;overflow: hidden;">
         <li v-for="(item,index) in advList" @click="advDetails()">
             <img src="./img/317630780744939915.png" alt="">
         </li>
@@ -45,8 +45,12 @@
         </li>
     </ul>
     <!-- 查看更多 -->
-    <div class="check_more" @click="goMore()">
+    <div v-show="kongAct" class="check_more" @click="goMore()">
         查看更多
+    </div>
+
+    <div v-show="!kongAct" class="check_more">
+        暂无更多活动
     </div>
 
 </div>
@@ -58,7 +62,8 @@ export default {
     return {
       siteInfoText: '',
       customerNum: 0,
-      advList: ''
+      advList: '',
+      kongAct: true
     }
   },
   methods: {
@@ -80,6 +85,12 @@ export default {
           if (res.data.code === 200) {
             this.siteInfoText = res.data.data.siterInfo // 点位主信息
             this.advList = res.data.data.siterPromotion // 发布的活动列表
+            // console.log(this.advList)
+            if (this.advList.data.length == 0) {
+              this.kongAct = false
+            } else {
+              this.advList = res.data.data.siterPromotion.data // 活动信息
+            }
           }
         })
         .catch((err) => {
@@ -139,7 +150,7 @@ export default {
 <style scoped>
 @import './css/siter_privilege.css';
 .siter_big_wrap{
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   background-color: #F3F6F5;

@@ -60,6 +60,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/check_more.css';
 </style>

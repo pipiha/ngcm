@@ -7,6 +7,7 @@ import utils from './assets/common/js/common.js' // 公共js 例如:主域名等
 import BaiduMap from 'vue-baidu-map'
 import VueBus from 'vue-bus'
 import VueScroller from 'vue-scroller'
+import store from './store'
 
 // import iView from 'iview';
 // import 'iview/dist/styles/iview.css';
@@ -35,6 +36,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

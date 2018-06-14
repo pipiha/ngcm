@@ -13,7 +13,7 @@
                 <span style="display: block;margin-top: -0.4rem;padding-left: 0.3rem;color: #999999;font-size: 0.3rem;">播放总次数（次）</span>
             </li>
             <li>
-                <p style="line-height: 0.2rem;font-size: 0.55rem;color: #5286EC;">{{ siteData.num_play }}</p>
+                <p style="line-height: 0.2rem;font-size: 0.55rem;color: #5286EC;">{{ siteData.num_village }}</p>
                 <span style="display: block;margin-top: -0.4rem;padding-left: 0.3rem;color: #999999;font-size: 0.3rem;">点位总数（个）</span>
             </li>
         </ul>
@@ -85,17 +85,44 @@ export default {
       this.$axios.get('api/wxpub/show_adv_detail/showSiteAll?adv_id=' + advId)
         .then(function (res) {
           if (res.data.code === 200) {
-            let siteObj = res.data.data
-            console.log(siteObj)
-            _this.siteData = res.data.data
-            // siteObj.forEach(item => {
-            //   item.point = item.Lng + ',' + item.Lat
-            //   item.title = item.detail_area
-            //   item.tel = item.phone
-            // })
-            // // console.log(siteObj)
-            // _this.markerArr = siteObj
-            // _this.getMap()
+            let siteObj = {
+              'num_village': 95,
+              'num_town': 6,
+              'num_play': 0,
+              'area': [
+                {
+                  'lat': '115.20162',
+                  'lng': '37.911106',
+                  'name': '辛集镇',
+                  'areacode': '130181100000',
+                  'count': 19
+                },
+                {
+                  'lat': '115.3913',
+                  'lng': '38.00947',
+                  'name': '旧城镇',
+                  'areacode': '130181101000',
+                  'count': 23
+                },
+                {
+                  'lat': '115.2158',
+                  'lng': '38.00865',
+                  'name': '位伯镇',
+                  'areacode': '130181103000',
+                  'count': 17
+                }
+              ]
+            }
+            _this.siteData = siteObj
+            siteObj.area.forEach(item => {
+              item.point = item.lat + ',' + item.lng
+              item.title = item.count
+              item.tel = item.areacode
+            })
+
+            _this.markerArr = siteObj.area
+            console.log(_this.markerArr)
+            _this.getMap()
           }
         })
         .catch(function (err) {
@@ -104,8 +131,8 @@ export default {
     },
     getMap: function () { // 绘制地图
       var map = new BMap.Map('map') // 创建Map实例
-      var point = new BMap.Point(116.385685, 40.006454) // 地图中心点，广州市
-      map.centerAndZoom(point, 7) // 初始化地图,设置中心点坐标和地图级别。
+      var point = new BMap.Point(116.385685, 40.006454) // 地图中心点，北京京辰大厦
+      map.centerAndZoom(point, 9) // 初始化地图,设置中心点坐标和地图级别。
       map.enableScrollWheelZoom(true) // 启用滚轮放大缩小
       // 向地图中添加缩放控件
       var ctrlNav = new window.BMap.NavigationControl({
@@ -138,9 +165,9 @@ export default {
         marker[i] = new window.BMap.Marker(point[i]) // 按照地图点坐标生成标记
         map.addOverlay(marker[i])
         marker[i].setAnimation(BMAP_ANIMATION_BOUNCE) // 跳动的动画
-        var label = new window.BMap.Label(['名称：' + markerArr[i].title + '</br>', '电话：' + markerArr[i].tel], { offset: new window.BMap.Size(20, -10) })
+        var label = new window.BMap.Label(['点位：' + markerArr[i].name + '</br>'], { offset: new window.BMap.Size(20, -10) })
         marker[i].setLabel(label)
-        info[i] = new window.BMap.InfoWindow('<p style=’font-size:12px;lineheight:1.8em;’>' + markerArr[i].title + '</br>地址：' + markerArr[i].address + '</br> 电话：' + markerArr[i].tel + '</br></p>') // 创建信息窗口对象
+        info[i] = new window.BMap.InfoWindow('<p style=’font-size:12px;lineheight:1.8em;’>' + markerArr[i].name + '</br>地址：' + markerArr[i].name + '</br> 电话：' + markerArr[i].name + '</br></p>') // 创建信息窗口对象
       }
 
       marker.forEach((item, index) => {

@@ -112,7 +112,7 @@ export default {
 <style scoped>
 @import './css/my_purse.css';
 .tixian_page{
-  position: fixed;
+  position: absolute;
     width: 100%;
     height: 100%;
     bottom: 0;

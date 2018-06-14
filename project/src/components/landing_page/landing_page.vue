@@ -151,7 +151,7 @@ export default {
     } else if (this.type === '1') { // 我的足迹
 
     } else {
-      this.lookData = this.userInfo // 创建好广告预览的数据
+      this.lookData = this.userInfo // 创建好广告预览的数
       Indicator.close()
     }
   },

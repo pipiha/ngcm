@@ -257,7 +257,7 @@ export default {
     },
     goShuDeatil: function (advID, advType, num) { // 数字传单广告详情
       this.$router.push({
-        path: '/numDetail',
+        path: '/numDetail/tab1',
         query: {
           o_id: advID,
           o_status: advType,
