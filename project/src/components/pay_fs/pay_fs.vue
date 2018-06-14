@@ -16,13 +16,11 @@
 
 <script>
 export default {
-    
+
 }
 </script>
 
-<style>
+<style scoped>
 @import './css/pay_type.css';
 
 </style>
-
-
