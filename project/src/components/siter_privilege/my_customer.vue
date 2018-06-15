@@ -29,8 +29,7 @@
         </div>
     </div>
 
-        <!--  -->
-    <!-- <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore"> -->
+    <!-- 顾客数据 -->
     <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px'}">
     <mt-loadmore :top-method="loadTop" @translate-change="translateChange" @top-status-change="handleTopChange"
         :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded"
@@ -61,7 +60,6 @@
     </ul>
     </mt-loadmore>
     </div>
-    <!-- </mt-loadmore> -->
 
         <mt-datetime-picker
         @confirm="handleConfirm"
@@ -102,7 +100,7 @@ export default {
       },
       pickerVisible: '',
       customerData: [],
-      timeData: '2018年6月',
+      timeData: this.formatDate(new Date(), 1),
       // 上拉加载
       pageNum: 1, // 页码
       InitialLoading: true, // 初始加载

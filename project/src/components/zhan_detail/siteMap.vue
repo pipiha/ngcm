@@ -85,7 +85,7 @@ export default {
     creatMap: function () {
 
     },
-    getSite: function (advId,code) { // 获取分公司经纬度
+    getSite: function (advId, code) { // 获取分公司经纬度
       let _this = this
       this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/showSiteAll?adv_id=' + advId + '&city_code=' + code)
         .then(function (res) {
@@ -182,7 +182,7 @@ export default {
           'border-radius': '0.8rem',
           'color': 'rgb(82, 134, 236)',
           left: '30px'
-        }); 
+        }) 
         marker[i].setLabel(label)
         info[i] = new window.BMap.InfoWindow('<p style=’font-size:12px;lineheight:1.8em;’>' + markerArr[i].name + '</br>地址：' + markerArr[i].name + '</br> 电话：' + markerArr[i].name + '</br></p>') // 创建信息窗口对象
       }
@@ -193,7 +193,7 @@ export default {
           this.siteData = this.markerArr[arrindex]
           let advId = this.$route.query.advID
           // areacode
-          _this.getMap(advId ,this.markerArr[arrindex].areacode)
+          _this.getMap(advId,this.markerArr[arrindex].areacode)
         })
       })
     }
@@ -203,7 +203,7 @@ export default {
   },
   created: function () {
     let advId = this.$route.query.advID
-    this.getSite(advId,'')
+    this.getSite(advId, '')
   },
   beforeMount: function () {
 
@@ -217,6 +217,6 @@ export default {
 <style scoped>
 @import './css/site_details.css';
 label{
-  border: 1px solid #ffffff!important; 
+  border: 1px solid #ffffff!important;
 }
 </style>

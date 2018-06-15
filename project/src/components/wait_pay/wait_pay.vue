@@ -20,19 +20,19 @@
    <ul  v-if="type == 0"  class="pay_center_box">
        <li>
            <span>广告名称</span>
-           <span>{{ zhanData.h5_src_title }}</span>
+           <span>{{ zhanData.adv_title }}</span>
        </li>
        <li>
            <span>预计播放日期</span>
-           <span>{{ zhanData.h5_src_title }}</span>
+           <span>{{ this.timestmptotime(zhanData.or_play_start_time) }}</span>
        </li>
        <li>
            <span>广告持续时长(月)</span>
-           <span>{{ zhanData.h5_src_title }}</span>
+           <span>{{ zhanData.month }}</span>
        </li>
        <li>
            <span>视频时长</span>
-           <span>{{ zhanData.h5_src_title }}</span>
+           <span>{{ zhanData.or_video_length }}</span>
        </li>
        <li>
            <span>播放点位</span>
@@ -58,27 +58,30 @@
    <ul v-if="type == 0" class="pay_center_box">
        <li>
            <span>订单编号</span>
-           <span>{{ zhanData.o_number }}</span>
+           <span>{{ zhanData.or_number }}</span>
        </li>
        <li>
            <span>订单金额</span>
-           <span style="color: #5286EC;">￥{{ zhanData.money }}</span>
+           <span style="color: #5286EC;">￥{{ zhanData.or_total_money }}</span>
        </li>
        <li>
            <span>活动优惠</span>
-           <span>{{ zhanData.countSite }}</span>
+           <span v-if="zhanData.value == 0">暂无优惠</span>
+           <span v-else>{{ zhanData.value }}</span>
        </li>
        <li>
            <span>提交时间</span>
-           <!-- <span>{{ zhanData.create_time.substring(0,10) }}</span> -->
+           <span>{{ zhanData.create_time }}</span>
        </li>
        <li>
            <span>支付方式</span>
-           <span>{{ zhanData.pay_method}}</span>
+           <span v-if="zhanData.or_pay_method == 1">微信</span>
+           <span v-else-if="zhanData.or_pay_method == 2">支付宝</span>
+           <span v-else-if="zhanData.or_pay_method == 3">现金</span>
        </li>
        <li>
            <span>支付金额</span>
-           <span style="color: #5286EC;">￥31.00</span>
+           <span style="color: #5286EC;">￥{{ zhanData.or_total_money }}</span>
        </li>
    </ul>
 
@@ -134,16 +137,17 @@ export default {
     }
   },
   methods: {
-    shuDetail: function (oid, status) {
-      this.$axios.get(this.utils.api + '/wxpub/orders_controller/mathOrderDetail?o_id=' + oid + '&o_status=' + status)
+    shuDetail: function (oid) {
+      this.$axios.get(this.utils.api + '/wxpub/orders_controller/mathOrderDetail?o_id=' + oid)
         .then((res) => {
-        //   console.log(res)
+          console.log(res)
           if (res.data.code === 200) {
             this.shuData = res.data.data
             Indicator.close()
             console.log(this.shuData)
           } else {
-
+            MessageBox.alert(res.data.msg)
+            this.$router.go(-1)
           }
         })
         .catch((err) => {
@@ -155,8 +159,14 @@ export default {
       this.$axios.get(this.utils.api + '/wxpub/orders_controller/showOrderDetail?or_id=' + oid + '&or_status=' + status)
         .then((res) => {
           console.log(res)
-          this.zhanData = res.data.data
           Indicator.close()
+          if (res.data.code == 200) {
+            this.zhanData = res.data.data
+            console.log(this.zhanData)
+          } else {
+            MessageBox.alert(res.data.msg)
+            this.$router.go(-1)
+          }
         })
         .catch((err) => {
           MessageBox.alert(err.msg)
@@ -164,13 +174,24 @@ export default {
         })
     },
     lookAdv: function () {
-      this.$route.push({
+      this.$router.push({
         path: '/landingPage',
         query: {
           type: 0,
           code: this.id
         }
       })
+    },
+    timestmptotime: function (temp) {
+      let date = new Date(temp * 1000)
+      let Y = date.getFullYear() + '年'
+      let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月'
+      let D = date.getDate() + '日'
+      //   let h = date.getHours() + ':'
+      //   m = date.getMinutes() + ':'
+      //   s = date.getSeconds()
+      //   console.log(Y + M + D + h + m + s)
+      return Y + M + D
     }
   },
   beforeCreate: function () {
@@ -186,7 +207,7 @@ export default {
       this.zhanDetail(this.id, this.status)
     } else {
       console.log('数字')
-      this.shuDetail(this.id, this.status)
+      this.shuDetail(this.id)
     }
   },
   beforeMount: function () {
@@ -197,6 +218,7 @@ export default {
   },
   deactivated () {
     Indicator.close()
+    this.$destroy()
   }
 }
 </script>
