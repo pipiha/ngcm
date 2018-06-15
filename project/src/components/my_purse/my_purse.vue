@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     getMoney: function () {
-      this.$axios.get('api/wxpub/user_wallet/index.html')
+      this.$axios.get(this.utils.api + '/wxpub/user_wallet/index.html')
         .then((res) => {
           if (res.data.code === 200) {
             this.moneyText = res.data.data
@@ -105,6 +105,9 @@ export default {
   },
   mounted: function () {
     // this.timeDown()
+  },
+  destroyed: function () {
+    Indicator.close()
   }
 }
 </script>

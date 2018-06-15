@@ -137,7 +137,7 @@ export default {
       }
     },
     myFoot: function (url) { // 我的足迹数据 我的收藏数据
-      this.$axios.get('api' + url)
+      this.$axios.get(this.utils.api + url)
         .then((res) => {
           if (res.data.code === 200) {
             let obj = res.data.data.data
@@ -174,7 +174,7 @@ export default {
       } else {
 
       }
-      this.$axios.get('api' + url)
+      this.$axios.get(this.utils.api + url)
         .then((res) => {
           // console.log(res)
           if (res.data.code === 200) {
@@ -207,7 +207,7 @@ export default {
     },
     getActList: function () { // 我的广告列表
       Indicator.close()
-      this.$axios.get('api/wxpub/show_adv_detail/allAdv')
+      this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/allAdv')
         .then((res) => {
           // Indicator.close()
           if (res.data.code === 200) {

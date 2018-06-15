@@ -173,7 +173,7 @@ export default {
         manage_exp: this.isManageCheck,
         service_exp: this.isServiceCheck
       })
-      this.$axios.post('api/wxpub/consult/saveJoinInfo', postData)
+      this.$axios.post(this.utils.api + '/wxpub/consult/saveJoinInfo', postData)
         .then((res) => {
           // console.log(res)
           if (res.data.code === 200) {

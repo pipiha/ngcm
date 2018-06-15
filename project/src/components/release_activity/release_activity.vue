@@ -166,7 +166,7 @@ export default {
     // 获取七牛云uptoken
     getToken: function () {
     //   this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:sZ1C-vHB3zy63aUcVzNOqfYBg50=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODA4NDU2Nn0='
-      this.$axios.get('api/service/adv_api/getuptoken')
+      this.$axios.get(this.utils.api + '/service/adv_api/getuptoken')
         .then((res) => {
           console.log(res)
           this.imgToken = res.data.uptoken
@@ -221,7 +221,7 @@ export default {
     },
     // 提交请求
     axiosSub: function (thumb, content, duration, phone, address) {
-      this.$axios.get('api/wxpub/siter/send.html?s_thumb=' + thumb + '&s_content=' + content + '&duration=' + duration + '&s_phone=' + phone + '&s_address=' + address)
+      this.$axios.get(this.utils.api + '/wxpub/siter/send.html?s_thumb=' + thumb + '&s_content=' + content + '&duration=' + duration + '&s_phone=' + phone + '&s_address=' + address)
         .then((res) => {
           console.log(res)
           if (res.data.code === 200) {

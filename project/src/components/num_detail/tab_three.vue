@@ -111,7 +111,7 @@ export default {
       }
     },
     getAreaData: function (id, startTime, endTime) {
-      this.$axios.get('api/wxpub/show_adv_detail/getCountFromSites?o_id=' + id + '&period_start=' + startTime + '&period_end=' + endTime)
+      this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/getCountFromSites?o_id=' + id + '&period_start=' + startTime + '&period_end=' + endTime)
         .then((res) => {
           Indicator.close()
           if (res.data.code === 200) {

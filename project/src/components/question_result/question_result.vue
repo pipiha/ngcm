@@ -113,7 +113,7 @@ export default {
         bstatus: 0,
         btype: this.type
       })
-      this.$axios.post('api/wxpub/ask_back/saveAskBack', postData)
+      this.$axios.post(this.utils.api + '/wxpub/ask_back/saveAskBack', postData)
         .then((res) => {
           console.log(res)
           if (res.data.code === 200) {

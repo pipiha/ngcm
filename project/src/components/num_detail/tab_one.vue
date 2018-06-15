@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     getMineData: function (id, status, oid) {
-      this.$axios.get('api/wxpub/show_adv_detail/mathAdvOneDetail?list_id=' + id + '&o_status=' + status + '&o_id=' + oid)
+      this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/mathAdvOneDetail?list_id=' + id + '&o_status=' + status + '&o_id=' + oid)
         .then((res) => {
           console.log(res)
           Indicator.close()
@@ -76,7 +76,7 @@ export default {
     },
     statrOrEnd: function () {
       Indicator.open()
-      this.$axios.get('api/wxpub/adver_controller/orderStopOrStart.html?o_id=' + this.oid + '&o_status=' + this.status)
+      this.$axios.get(this.utils.api + '/wxpub/adver_controller/orderStopOrStart.html?o_id=' + this.oid + '&o_status=' + this.status)
         .then((res) => {
           console.log(res)
           Indicator.close()

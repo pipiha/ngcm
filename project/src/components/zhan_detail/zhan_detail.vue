@@ -103,7 +103,7 @@ export default {
     },
     // 获取详情数据
     getSiteData: function (advId, orid) {
-      this.$axios.get('api/wxpub/show_adv_detail/showAdv?adv_id=' + advId + '&or_id=' + orid)
+      this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/showAdv?adv_id=' + advId + '&or_id=' + orid)
         .then((res) => {
           console.log(res)
           if (res.data.code === 200) {

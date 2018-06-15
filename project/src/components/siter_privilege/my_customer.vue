@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     customerList: function (pageNum) {
-      this.$axios.get('api/wxpub/siter/getUserList.html?page=' + pageNum)
+      this.$axios.get(this.utils.api + '/wxpub/siter/getUserList.html?page=' + pageNum)
         .then((res) => {
           if (res.data.code === 200) {
             if (this.pageNum === res.data.data.last_page) {
@@ -143,7 +143,7 @@ export default {
     // loadBottom () {
     //   this.pageConfig.page += 1
     //   console.log(this.pageConfig.page)
-    //   //   this.$axios.get('api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page)
+    //   //   this.$axios.get('/api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page)
     //   //     .then((res) => {
     //   //       if (res.data.code === 200) {
     //   //       // console.log(res.data.data.data)

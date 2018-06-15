@@ -38,7 +38,7 @@ export default {
       } else if (this.tixianMoney != parseInt(this.tixianMoney)) {
         MessageBox.alert('只能提现整数金额')
       } else {
-        this.$axios.get('api/wxpub/user_wallet/transferWallet.html?amount=' + this.tixianMoney)
+        this.$axios.get(this.utils.api + '/wxpub/user_wallet/transferWallet.html?amount=' + this.tixianMoney)
           .then((res) => {
             console.log(res)
             if (res.data.code === 200) {

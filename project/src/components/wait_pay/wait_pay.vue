@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     shuDetail: function (oid, status) {
-      this.$axios.get('api/wxpub/orders_controller/mathOrderDetail?o_id=' + oid + '&o_status=' + status)
+      this.$axios.get(this.utils.api + '/wxpub/orders_controller/mathOrderDetail?o_id=' + oid + '&o_status=' + status)
         .then((res) => {
         //   console.log(res)
           if (res.data.code === 200) {
@@ -152,7 +152,7 @@ export default {
         })
     },
     zhanDetail: function (oid, status) {
-      this.$axios.get('api/wxpub/orders_controller/showOrderDetail?or_id=' + oid + '&or_status=' + status)
+      this.$axios.get(this.utils.api + '/wxpub/orders_controller/showOrderDetail?or_id=' + oid + '&or_status=' + status)
         .then((res) => {
           console.log(res)
           this.zhanData = res.data.data

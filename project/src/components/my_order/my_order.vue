@@ -112,7 +112,7 @@ export default {
       })
     },
     advList: function (typevalue) {
-      this.$axios.get('api/wxpub/orders_controller/orderIndex')
+      this.$axios.get(this.utils.api + '/wxpub/orders_controller/orderIndex')
         .then((res) => {
         //   console.log(res.data.data)
           Indicator.close()

@@ -99,7 +99,7 @@ export default {
       }
     },
     setMoney (startTime, io) {
-      this.$axios.get('api/wxpub/user_wallet/getSumByMonth.html?start_time=' + startTime + '&io=' + io) // 问号后面是要传送的参数
+      this.$axios.get(this.utils.api + '/wxpub/user_wallet/getSumByMonth.html?start_time=' + startTime + '&io=' + io) // 问号后面是要传送的参数
         .then(res => { //  请求成功后的函数
           console.log(res)
           Indicator.close()

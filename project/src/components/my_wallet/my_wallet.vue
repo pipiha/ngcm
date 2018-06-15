@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     setzhichu (type, time, io, page) {
-      this.$axios.get('api/wxpub/user_wallet/adverExtensionRecord.html?type=' + type + '&start_time=' + time + '&io=' + io + '&page=' + page) // 问号后面是要传送的参数
+      this.$axios.get(this.utils.api + '/wxpub/user_wallet/adverExtensionRecord.html?type=' + type + '&start_time=' + time + '&io=' + io + '&page=' + page) // 问号后面是要传送的参数
         .then(res => { //  请求成功后的函
           if (this.pageNum === res.data.data.last_page) {
             this.allLoaded = true// 模拟数据加载完毕 禁用上拉加载

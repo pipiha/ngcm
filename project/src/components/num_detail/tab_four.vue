@@ -204,7 +204,7 @@ export default {
     },
     // 获取金额明细数据
     getMoneyList: function (o_id, o_status, money) {
-      this.$axios.get('api/wxpub/show_adv_detail/mathAdvMoneyDetail?o_id=' + o_id + '&o_status=' + o_status + '&oneSrcMoney=' + money)
+      this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/mathAdvMoneyDetail?o_id=' + o_id + '&o_status=' + o_status + '&oneSrcMoney=' + money)
         .then((res) => {
           Indicator.close()
           if (res.data.code === 200) {

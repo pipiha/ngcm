@@ -80,7 +80,7 @@ export default {
     },
     // 获取点位主信息
     getSiterInfo: function () {
-      this.$axios.get('api/wxpub/siter/getSiterInfo.html')
+      this.$axios.get(this.utils.api + '/wxpub/siter/getSiterInfo.html')
         .then((res) => {
           if (res.data.code === 200) {
             this.siteInfoText = res.data.data.siterInfo // 点位主信息
@@ -99,7 +99,7 @@ export default {
     },
     // 获取顾客总数
     customerList: function () {
-      this.$axios.get('api/wxpub/siter/getUserList.html')
+      this.$axios.get(this.utils.api + '/wxpub/siter/getUserList.html')
         .then((res) => {
           if (res.data.code === 200) {
             this.customerNum = res.data.data.total

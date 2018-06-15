@@ -55,7 +55,8 @@ export default {
   },
   methods: {
     getActDetailData: function (code) {
-      this.$axios.get('api/wxpub/user/getDetail.html?s_id=' + code)
+    //   let api = ''
+      this.$axios.get(this.utils.api + '/wxpub/wxpub/user/getDetail.html?s_id=' + code)
         .then((res) => {
           console.log(res)
           if (res.data.code === 200) {

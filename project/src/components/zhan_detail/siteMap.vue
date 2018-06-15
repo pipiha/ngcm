@@ -82,7 +82,7 @@ export default {
     },
     getSite: function (advId) { // 获取分公司经纬度
       let _this = this
-      this.$axios.get('api/wxpub/show_adv_detail/showSiteAll?adv_id=' + advId)
+      this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/showSiteAll?adv_id=' + advId)
         .then(function (res) {
           if (res.data.code === 200) {
             let siteObj = {

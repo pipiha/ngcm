@@ -65,7 +65,7 @@ export default {
     // 获取七牛云uptoken
     getToken: function () {
       // this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:5gmDRQjMbqVD4bD7_ERYiQbDIF8=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODI2OTA3OH0='
-      this.$axios.get('api/service/adv_api/getuptoken')
+      this.$axios.get(this.utils.api + '/service/adv_api/getuptoken')
         .then((res) => {
           this.imgToken = res.data.uptoken
           // if (res.data === 200) {
@@ -181,7 +181,7 @@ export default {
       })
       this.$axios({
         method: 'post',
-        url: 'api/wxpub/create_adv/saveSecond',
+        url: this.utils.api + '/wxpub/wxpub/create_adv/saveSecond',
         data: postData
       })
         .then((res) => {
@@ -246,7 +246,7 @@ export default {
         })
         this.$axios({
           method: 'post',
-          url: 'api/wxpub/create_adv/saveSecond',
+          url: this.utils.api + '/wxpub/create_adv/saveSecond',
           data: postData
         })
           .then((res) => {

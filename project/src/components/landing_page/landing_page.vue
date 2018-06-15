@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     getAdvDetail: function (advId) { // 获取附近的活动详情
-      this.$axios.get('api/wxpub/user/getDetail.html?s_id=' + this.advID)
+      this.$axios.get(this.utils.api + '/wxpub/user/getDetail.html?s_id=' + this.advID)
         .then((res) => {
           Indicator.close()
           if (res.data.code === 200) {

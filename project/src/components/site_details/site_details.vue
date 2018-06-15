@@ -81,7 +81,7 @@ export default {
     },
     getSite: function () { // 获取分公司经纬度
       let _this = this
-      this.$axios.get('api/wxpub/contact_us/index')
+      this.$axios.get(this.utils.api + '/wxpub/contact_us/index')
         .then(function (res) {
           if (res.data.code === 200) {
             let siteObj = res.data.data

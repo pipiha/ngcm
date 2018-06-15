@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     getuserInfo: function () {
-      this.$axios.get('api/wxpub/user/getuserinfo')
+      this.$axios.get(this.utils.api + '/wxpub/user/getuserinfo')
         .then((res) => {
           // console.log(res.data)
           //   res为axios包装后的数据体 自己请求的数据 在res。data 里面
@@ -72,7 +72,7 @@ export default {
     getImg: function () {
       // let imgUrl = this.utils.BaseURL + '/captcha.html'
       let random = Math.random()
-      this.imgUrl = 'api/captcha.html?' + random
+      this.imgUrl = this.utils.api + '/captcha.html?' + random
     },
     // 提交数据
     submitData: function () {
@@ -96,7 +96,7 @@ export default {
       })
       this.$axios({
         method: 'post',
-        url: 'api/admin/base/sendcode.html',
+        url: this.utils.api + '/admin/base/sendcode.html',
         data: postData
       })
         .then(function (res) {
@@ -143,7 +143,7 @@ export default {
   created: function () {
     // console.log('-----------------组件创建了-----------------')
     // this.getuserInfo()  this.utils.BaseURL +
-    this.imgUrl = 'api/captcha.html'
+    this.imgUrl = this.utils.api + '/captcha.html'
   },
   beforeMount: function () {
 

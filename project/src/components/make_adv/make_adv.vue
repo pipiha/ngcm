@@ -82,7 +82,7 @@ export default {
     // 获取七牛云uptoken
     getToken: function () {
       // this.imgToken = '8RR89PskwpRkNF9qDp9n_mLkkQtrDa148VhwqKlr:yjX89mCrRrTttbMgTAXq3eJHAmw=:eyJzY29wZSI6Im5nY20iLCJkZWFkbGluZSI6MTUyODM4MzU2OX0='
-      this.$axios.get('api/service/adv_api/getuptoken')
+      this.$axios.get(this.utils.api + '/service/adv_api/getuptoken')
         .then((res) => {
         //   console.log(res)
           this.imgToken = res.data.uptoken

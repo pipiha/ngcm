@@ -126,7 +126,7 @@ export default {
   },
   methods: {
     getuserInfo: function () {
-      this.$axios.get('api/wxpub/user/getuserinfo')
+      this.$axios.get(this.utils.api + '/wxpub/user/getuserinfo')
         .then((res) => {
           // console.log(res.data)
           //   res为axios包装后的数据体 自己请求的数据 在res。data 里面
@@ -167,6 +167,7 @@ export default {
   },
   created: function () {
     this.getuserInfo()
+    // console.log(this.utils.BaseURL) // 公共域名
   },
   beforeMount: function () {
 

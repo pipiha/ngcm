@@ -89,7 +89,7 @@ export default {
       item.shou = !item.shou
     },
     getHistory: function () {
-      this.$axios.get('api/wxpub/ask_back/history')
+      this.$axios.get(this.utils.api + '/wxpub/ask_back/history')
         .then((res) => {
           if (res.data.code === 200) {
             let history = res.data.data.data

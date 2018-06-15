@@ -212,7 +212,7 @@ export default {
       }
     },
     getSearchData: function (starTime, endTime) {
-      this.$axios.get('api/wxpub/count_controller/getBrowseTimes.html?o_id=' + this.oid + '&period_start=' + starTime + '&period_end=' + endTime)
+      this.$axios.get(this.utils.api + '/wxpub/count_controller/getBrowseTimes.html?o_id=' + this.oid + '&period_start=' + starTime + '&period_end=' + endTime)
         .then((res) => {
           Indicator.close()
           this.tongjiData = res.data.data

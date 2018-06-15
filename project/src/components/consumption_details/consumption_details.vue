@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     getMoneyMsg: function (time, type) {
-      this.$axios.get('api/wxpub/user_wallet/showDetailByDay.html?time=' + time + '&io=' + type)
+      this.$axios.get(this.utils.api + '/wxpub/user_wallet/showDetailByDay.html?time=' + time + '&io=' + type)
         .then((res) => {
           Indicator.close()
           this.moneyList = res.data.data

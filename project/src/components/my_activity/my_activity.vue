@@ -111,7 +111,7 @@ export default {
     },
     // 获取活动数据
     getAdvData: function (type) { // 1 进行中 0 过期
-      let getData = 'api/wxpub/siter/getMySendList.html?is_show=' + type
+      let getData = this.utils.api + '/wxpub/siter/getMySendList.html?is_show=' + type
       this.$axios.get(getData)
         .then((res) => {
           if (res.data.code === 200) {
