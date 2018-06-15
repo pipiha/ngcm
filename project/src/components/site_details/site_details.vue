@@ -135,9 +135,20 @@ export default {
         marker[i] = new window.BMap.Marker(point[i]) // 按照地图点坐标生成标记
         map.addOverlay(marker[i])
         marker[i].setAnimation(BMAP_ANIMATION_BOUNCE) // 跳动的动画
-        var label = new window.BMap.Label(['名称：' + markerArr[i].title + '</br>', '电话：' + markerArr[i].tel], { offset: new window.BMap.Size(20, -10) })
+        var label = new window.BMap.Label(['名称：' + markerArr[i].title + '</br>电话：' + markerArr[i].tel], { offset: new window.BMap.Size(20, -10) })
+        label.setStyle({
+          // 'border': "none",
+          // 'width': '5rem',
+          'height': '1.2rem',
+          'line-height': '0.65rem',
+          'text-align': 'center',
+          'padding': '0.2rem',
+          'border': '0.035rem solid rgb(82, 134, 236)',
+          'border-radius': '0.8rem',
+          'color': 'rgb(82, 134, 236)',
+          left: '30px'
+        })
         marker[i].setLabel(label)
-        console.log(label)
         info[i] = new window.BMap.InfoWindow('<p style=’font-size:12px;lineheight:1.8em;’>' + markerArr[i].title + '</br>地址：' + markerArr[i].address + '</br> 电话：' + markerArr[i].tel + '</br></p>') // 创建信息窗口对象
       }
 

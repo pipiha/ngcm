@@ -17,7 +17,7 @@
     <div  class="month_bill_up">
         <div class="bill_up_left">
             <div class="check_time" @click="openPicker()">
-                <p>2018年5月</p>
+                <p>{{ timeData }}</p>
                 <img src="./img/down.png" alt="">
             </div>
             <div class="money_title">
@@ -65,7 +65,7 @@
 
         <mt-datetime-picker
         @confirm="handleConfirm"
-  v-model="pickerVisible"
+  v-model="pickerValue"
   type="date"
   ref="picker"
   :startDate="startDate"
@@ -102,6 +102,7 @@ export default {
       },
       pickerVisible: '',
       customerData: [],
+      timeData: '2018年6月',
       // 上拉加载
       pageNum: 1, // 页码
       InitialLoading: true, // 初始加载
@@ -140,38 +141,53 @@ export default {
           MessageBox.alert('请稍后重试')
         })
     },
-    // loadBottom () {
-    //   this.pageConfig.page += 1
-    //   console.log(this.pageConfig.page)
-    //   //   this.$axios.get('/api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page)
-    //   //     .then((res) => {
-    //   //       if (res.data.code === 200) {
-    //   //       // console.log(res.data.data.data)
-    //   //         this.customerData = res.data.data.data
-    //   //         if (parseInt(this.pageConfig.page) === res.data.data.last_page) {
-    //   //           this.allLoaded = true// 若数据已全部获取完毕
-    //   //         }
-    //   //       }
-    //   //     })
-    //   //     .catch((err) => {
-    //   //       console.log(err)
-    //   //     })
-    //   this.$refs.loadmore.onBottomLoaded()
-    // },
+    loadBottom () {
+      this.pageConfig.page += 1
+      console.log(this.pageConfig.page)
+      this.$axios.get('/api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page)
+        .then((res) => {
+          if (res.data.code === 200) {
+            // console.log(res.data.data.data)
+            this.customerData = res.data.data.data
+            if (parseInt(this.pageConfig.page) === res.data.data.last_page) {
+              this.allLoaded = true// 若数据已全部获取完毕
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      this.$refs.loadmore.onBottomLoaded()
+    },
     openPicker () {
       this.$refs.picker.open()
     },
     handleConfirm: function () {
       console.log(this.pickerValue)
+      this.timeData = this.formatDate(this.pickerValue, 1)
+    },
+    formatDate: function (date, type) { // 标准日期转  type为0: '2018-1-1'  1 年月日
+      date = new Date(date)
+      let y = date.getFullYear()
+      let m = date.getMonth() + 1
+      //   let d = date.getDate()
+      //   let h = date.getHours()
+      //   let m1 = date.getMinutes()
+      //   let s = date.getSeconds()
+      m = m < 10 ? ('0' + m) : m
+      //   d = d < 10 ? ('0' + d) : d
+      if (type === 0) {
+        return y + '-' + m
+      } else {
+        return y + '年' + m + '月'
+      }
     },
     // 上拉加载
     handleBottomChange (status) {
-      console.log(1)
       this.moveTranslate = 1
       this.bottomStatus = status
     },
     loadBottom () {
-      console.log(2)
       this.handleBottomChange('loading')// 上拉时 改变状态码
       this.pageNum += 1
       this.customerList(this.pageNum)

@@ -62,10 +62,15 @@ export default {
       center: {lng: 0, lat: 0},
       autoLocationPoint: {lng: 0, lat: 0},
       initLocation: false,
-      showComMsg: {
-        'title': '奥体中心京辰大厦',
-        'tel': '400-069-0088',
-        'detail_area': '奥体中心京辰大厦'
+      // showComMsg: {
+      //   'title': '奥体中心京辰大厦',
+      //   'tel': '400-069-0088',
+      //   'detail_area': '奥体中心京辰大厦'
+      // },
+      siteData: {
+        num_town: 0,
+        num_village: 0,
+        num_play: 0
       },
       markerArr: [
         // { title: '名称：广州火车站', point: '113.264531,23.157003', address: '广东省广州市广州火车站', tel: '12306' },
@@ -80,39 +85,40 @@ export default {
     creatMap: function () {
 
     },
-    getSite: function (advId) { // 获取分公司经纬度
+    getSite: function (advId,code) { // 获取分公司经纬度
       let _this = this
-      this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/showSiteAll?adv_id=' + advId)
+      this.$axios.get(this.utils.api + '/wxpub/show_adv_detail/showSiteAll?adv_id=' + advId + '&city_code=' + code)
         .then(function (res) {
           if (res.data.code === 200) {
-            let siteObj = {
-              'num_village': 95,
-              'num_town': 6,
-              'num_play': 0,
-              'area': [
-                {
-                  'lat': '115.20162',
-                  'lng': '37.911106',
-                  'name': '辛集镇',
-                  'areacode': '130181100000',
-                  'count': 19
-                },
-                {
-                  'lat': '115.3913',
-                  'lng': '38.00947',
-                  'name': '旧城镇',
-                  'areacode': '130181101000',
-                  'count': 23
-                },
-                {
-                  'lat': '115.2158',
-                  'lng': '38.00865',
-                  'name': '位伯镇',
-                  'areacode': '130181103000',
-                  'count': 17
-                }
-              ]
-            }
+            let siteObj = res.data.data
+            // let siteObj = {
+            //   'num_village': 95,
+            //   'num_town': 6,
+            //   'num_play': 0,
+            //   'area': [
+            //     {
+            //       'lat': '115.20162',
+            //       'lng': '37.911106',
+            //       'name': '辛集镇',
+            //       'areacode': '130181100000',
+            //       'count': 19
+            //     },
+            //     {
+            //       'lat': '115.3913',
+            //       'lng': '38.00947',
+            //       'name': '旧城镇',
+            //       'areacode': '130181101000',
+            //       'count': 23
+            //     },
+            //     {
+            //       'lat': '115.2158',
+            //       'lng': '38.00865',
+            //       'name': '位伯镇',
+            //       'areacode': '130181103000',
+            //       'count': 17
+            //     }
+            //   ]
+            // }
             _this.siteData = siteObj
             siteObj.area.forEach(item => {
               item.point = item.lat + ',' + item.lng
@@ -131,7 +137,7 @@ export default {
     },
     getMap: function () { // 绘制地图
       var map = new BMap.Map('map') // 创建Map实例
-      var point = new BMap.Point(116.385685, 40.006454) // 地图中心点，北京京辰大厦
+      var point = new BMap.Point(115.5, 38.03) // 地图中心点，石家庄市晋州附近
       map.centerAndZoom(point, 9) // 初始化地图,设置中心点坐标和地图级别。
       map.enableScrollWheelZoom(true) // 启用滚轮放大缩小
       // 向地图中添加缩放控件
@@ -165,7 +171,18 @@ export default {
         marker[i] = new window.BMap.Marker(point[i]) // 按照地图点坐标生成标记
         map.addOverlay(marker[i])
         marker[i].setAnimation(BMAP_ANIMATION_BOUNCE) // 跳动的动画
-        var label = new window.BMap.Label(['点位：' + markerArr[i].name + '</br>'], { offset: new window.BMap.Size(20, -10) })
+        var label = new window.BMap.Label([markerArr[i].name + '</br>' + markerArr[i].count + '村'], { offset: new window.BMap.Size(20, -10) })
+        label.setStyle({
+          // 'border': "none",
+          'width': '2.4rem',
+          'height': '1.2rem',
+          'line-height': '0.65rem',
+          'text-align': 'center',
+          'border': '0.035rem solid rgb(82, 134, 236)',
+          'border-radius': '0.8rem',
+          'color': 'rgb(82, 134, 236)',
+          left: '30px'
+        }); 
         marker[i].setLabel(label)
         info[i] = new window.BMap.InfoWindow('<p style=’font-size:12px;lineheight:1.8em;’>' + markerArr[i].name + '</br>地址：' + markerArr[i].name + '</br> 电话：' + markerArr[i].name + '</br></p>') // 创建信息窗口对象
       }
@@ -173,10 +190,10 @@ export default {
       marker.forEach((item, index) => {
         let arrindex = index
         item.addEventListener('click', () => {
-          // console.log(arrindex)
-          // console.log(item)
-          this.showComMsg = this.markerArr[arrindex]
-          // console.log(this.markerArr[arrindex])
+          this.siteData = this.markerArr[arrindex]
+          let advId = this.$route.query.advID
+          // areacode
+          _this.getMap(advId ,this.markerArr[arrindex].areacode)
         })
       })
     }
@@ -186,7 +203,7 @@ export default {
   },
   created: function () {
     let advId = this.$route.query.advID
-    this.getSite(advId)
+    this.getSite(advId,'')
   },
   beforeMount: function () {
 
@@ -199,7 +216,7 @@ export default {
 
 <style scoped>
 @import './css/site_details.css';
-.BMapLabel{
-  border:none!important;
+label{
+  border: 1px solid #ffffff!important; 
 }
 </style>
