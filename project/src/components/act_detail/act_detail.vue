@@ -12,11 +12,11 @@
             <ul>
                 <li>
                     <img src="./img/tiem.png" alt="">
-                    <span>活动时间：2017年8月1日-8月31日</span>
+                    <span>活动时间：{{ timestampToTime(actData.s_start_time) + '-' + timestampToTime2(actData.s_end_time) }}</span>
                 </li>
                 <li>
                     <img src="./img/address.png" alt="">
-                    <span>活动地点：晋州市马宇镇人人乐超市</span>
+                    <span>活动地点：{{ actData.s_address }}</span>
                 </li>
             </ul>
         </div>
@@ -66,6 +66,26 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    timestampToTime: function (timestamp) {
+      let date = new Date(timestamp * 1000)// 时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let Y = date.getFullYear() + '年'
+      let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月'
+      let D = date.getDate() + '日'
+      //   h = date.getHours() + ':'
+      //   m = date.getMinutes() + ':'
+      //   s = date.getSeconds()
+      return Y + M + D
+    },
+    timestampToTime2: function (timestamp) {
+      let date = new Date(timestamp * 1000)// 时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      //   let Y = date.getFullYear() + '年'
+      let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月'
+      let D = date.getDate() + '日'
+      //   h = date.getHours() + ':'
+      //   m = date.getMinutes() + ':'
+      //   s = date.getSeconds()
+      return M + D
     }
   },
   beforeCreate: function () {

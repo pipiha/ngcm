@@ -133,7 +133,7 @@ export default {
       isRotate: false,
       isDayOn: -1,
       isSuccess: false,
-      show_more: true,
+      show_more: false,
       dayTag: ['1天', '3天', '5天', '7天'],
       imgToken: '', // 上传七牛token
       imageUrl: require('./img/111.png'),
