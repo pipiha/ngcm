@@ -138,7 +138,7 @@ export default {
     })
   },
   created: function () {
-    Indicator.open()
+    // Indicator.open()
     this.advID = this.$route.query.code
     this.type = this.$route.query.type
     console.log(this.type)
@@ -152,7 +152,7 @@ export default {
 
     } else {
       this.lookData = this.userInfo // 创建好广告预览的数
-      Indicator.close()
+      // Indicator.close()
     }
   },
   beforeMount: function () {

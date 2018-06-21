@@ -235,6 +235,7 @@ export default {
     handleConfirm: function () { // 日期确认之后
       // console.log(this.pickerValue)
       // console.log(this.itemItem.timeAxis.)
+      
       let timeTag = this.pickerValue
       this.timeText = this.formatDate(timeTag, 1)
       let time = this.formatDate(timeTag, 0)

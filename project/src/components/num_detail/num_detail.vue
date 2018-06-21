@@ -85,6 +85,13 @@ export default {
   mounted: function () {
     console.log(this.$route.path)
   },
+  updated () {
+    this.current=this.$route.name.slice(3)-1;
+    console.log(this.current)
+  },
+  activated(){
+    this.current = 0
+  },
   deactivated: function () {
     console.log(this.$route.path)
   }

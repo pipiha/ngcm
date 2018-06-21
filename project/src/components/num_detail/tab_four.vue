@@ -28,7 +28,7 @@
       <p>设置单屏每日消费金额</p>
       <div class="num_set_input_box">
         <p>金额</p>
-        <input v-model="dayMoney" type="text" placeholder="请输入每日消费金额">
+        <input v-model="dayMoney" type="number" placeholder="请输入每日消费金额">
         <p @click="sureDayMoney()" class="setMoneyBtn">确定</p>
       </div>
     </div>
@@ -110,13 +110,15 @@ export default {
       if (this.xData.length === 0) {
         dataAxis = ['1日', '2日', '3日', '4日', '5日', '6日', '7日']
       } else {
-        dataAxis = this.xData
+        dataAxis = this.xData.map(item=>{
+          return item.slice(5)
+        }).slice(0,7)
       }
 
       if (this.yData.length === 0) {
         data = [0, 0, 0, 0, 0, 0, 0]
       } else {
-        data = this.yData
+        data = this.yData.slice(0,7)
       }
 
       // let data = this.xData
@@ -129,6 +131,12 @@ export default {
       // }
 
       this.chart.setOption({
+        grid:{
+          left:'1%',
+          right:'0',
+          bottom:'1%',
+          containLabel:true
+        },
         xAxis: {
           data: dataAxis,
           axisLabel: {
@@ -136,7 +144,8 @@ export default {
             color: '#999999',
             textStyle: {
               color: '#999999'
-            }
+            },
+            interval:0
           },
           axisTick: {
             show: false
@@ -213,9 +222,11 @@ export default {
               this.xData.push(item.create_time.substring(0, 10))
               this.yData.push(parseInt(item.daySum))
             })
+            this.dayMoney=this.moneyShow.oneSrcMoney
             // console.log(this.xData)
             // console.log(this.yData)
           }
+          this.creatEchart() // 图表统计
         })
         .catch((err) => {
           console.log(err)

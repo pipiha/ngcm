@@ -26,7 +26,7 @@
         <div class="make_adv_wrap">
             <img class="upload_img" :src="imageUrl" alt="">
             <img class="adv_bottom" src="./img/bottom.png" alt="">
-            <img class="saoma" src="./img/saoma.png" alt="">
+            <img class="saoma" v-show="showImg" src="./img/saoma.png" alt="">
             <div class="make_adv_left">
                 <div>
                     <img src="./img/clip.png" alt="">
@@ -40,7 +40,7 @@
             </div>
             <input  @change="upLoading($event)" class="upload_file" id='uploadCompress' type="file" name="picture" accept="image/*">
         </div>
-        <input class="input_bottom" v-model="advTitle" type="text" placeholder="请输入广告名称">
+        <input class="input_bottom" v-model="advTitle" type="text" placeholder="请输入广告地址">
         <input class="input_bottom" v-model="advTel" type="text" placeholder="请输入联系电话">
 
         <div class="sure_btn" @click="nextClick()">下一步</div>
@@ -62,8 +62,9 @@ export default {
       uploadImg: {
         'background-image': ''
       },
-      advTitle: '',
-      advTel: ''
+      advTitle: '',//广告地址(名称)
+      advTel: '',//联系电话
+      showImg:false,
     }
   },
   beforeCreate: function () {
@@ -98,29 +99,33 @@ export default {
     },
     // 上传图片
     upLoading: function (e) {
-      Indicator.open()
       let token = this.imgToken
       let file = e.target.files[0]
-      let param = new FormData() // 创建form对象
-      param.append('file', file, file.name)// 通过append向form对象添加数据
-      param.append('token', this.imgToken)
-      param.append('chunk', '0')// 添加form表单中其他数据
-      console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
-      let config = {
-        headers: {'Content-Type': 'multipart/form-data'}
-      } // 添加请求头 http://up-z1.qiniu.com  http://upload.qiniu.com/
-      this.$axios.post('http://upload-z1.qiniu.com/', param, config)
-        .then(response => {
-          console.log(response.data)
-          Indicator.close()
-          this.imageUrl = 'http://img.agrimedia.cn/' + response.data.key
-          console.log(this.imageUrl)
-        })
-        .catch((err) => {
-          upLoading(e)
-          MessageBox.alert('请稍后再试')
-          Indicator.close()
-        })
+      console.log(file)
+      if(file){
+        Indicator.open()
+        let param = new FormData() // 创建form对象
+        param.append('file', file, file.name)// 通过append向form对象添加数据
+        param.append('token', this.imgToken)
+        param.append('chunk', '0')// 添加form表单中其他数据
+        console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
+        let config = {
+          headers: {'Content-Type': 'multipart/form-data'}
+        } // 添加请求头 http://up-z1.qiniu.com  http://upload.qiniu.com/
+        this.$axios.post('http://upload-z1.qiniu.com/', param, config)
+          .then(response => {
+            console.log(response.data)
+            Indicator.close();
+            this.imageUrl = 'http://img.agrimedia.cn/' + response.data.key;
+            console.log(this.imageUrl)
+            this.showImg= true;
+          })
+          .catch((err) => {
+            upLoading(e)
+            MessageBox.alert('请稍后再试')
+            Indicator.close()
+          })
+      }
     },
     nextClick: function () {
       let myreg = /^[1][3,4,5,7,8][0-9]{9}$/ // 验证手机号
@@ -161,5 +166,8 @@ export default {
     position: relative;
     background-size: cover;
     overflow: hidden;
+}
+.upload_file{
+  opacity: 0;
 }
 </style>

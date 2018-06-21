@@ -72,7 +72,7 @@
     border: none;
     text-align: left;
     font-size: 0.38rem;
-    color: #CBCBCC;
+    color: #000;
     padding-top: 0.3rem;
 }
 .act_describe_wrap textarea::-webkit-input-placeholder{

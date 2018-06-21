@@ -5,9 +5,9 @@
         <ul>
            <li v-for="(item,index) in advData">
                <div class="adv_up">
-                   <img @click="deleteConent(item.advIndex)" src="./img/close.png" alt="">
-                   <img @click="moveConentDown(item,index)" src="./img/down.png" alt="">
-                   <img @click="moveConentUp(item,index)" src="./img/up2.png" alt="">
+                   <img @click="deleteConent(item.advIndex)" v-show="changeDit" src="./img/close.png" alt="">
+                   <img @click="moveConentDown(item,index)"  v-show="changeDit" src="./img/down.png" alt="">
+                   <img @click="moveConentUp(item,index)"  v-show="changeDit" src="./img/up2.png" alt="">
                </div>
                <!-- 上传图片 -->
                 <div class="uploadImg" style="position: relative;">
@@ -58,7 +58,8 @@ export default {
       srcTitle: '',
       advAdress: '',
       advTel: '',
-      lookData: []
+      lookData: [],
+      changeDit:false,
     }
   },
   methods: {
@@ -81,29 +82,31 @@ export default {
     },
     // 上传图片
     upLoading: function (e, item) {
-      Indicator.open()
       let token = this.imgToken
       let file = e.target.files[0]
-      let param = new FormData() // 创建form对象
-      param.append('file', file, file.name)// 通过append向form对象添加数据
-      param.append('token', this.imgToken)
-      param.append('chunk', '0')// 添加form表单中其他数据
-      // console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
-      let config = {
-        headers: {'Content-Type': 'multipart/form-data'}
-      } // 添加请求头 http://up-z1.qiniu.com  http://upload.qiniu.com/
-      this.$axios.post('http://upload-z1.qiniu.com/', param, config)
-        .then(response => {
-          console.log(response.data)
-          Indicator.close()
-          item.advImg = 'http://img.agrimedia.cn/' + response.data.key
-          //   console.log(this.imageUrl)
-          console.log(item.advImg)
-        })
-        .catch((err) => {
-          MessageBox.alert('请稍后再试')
-          Indicator.close()
-        })
+      if(file){
+        Indicator.open()
+        let param = new FormData() // 创建form对象
+        param.append('file', file, file.name)// 通过append向form对象添加数据
+        param.append('token', this.imgToken)
+        param.append('chunk', '0')// 添加form表单中其他数据
+        // console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
+        let config = {
+          headers: {'Content-Type': 'multipart/form-data'}
+        } // 添加请求头 http://up-z1.qiniu.com  http://upload.qiniu.com/
+        this.$axios.post('http://upload-z1.qiniu.com/', param, config)
+          .then(response => {
+            console.log(response.data)
+            Indicator.close()
+            item.advImg = 'http://img.agrimedia.cn/' + response.data.key
+            //   console.log(this.imageUrl)
+            console.log(item.advImg)
+          })
+          .catch((err) => {
+            MessageBox.alert('请稍后再试')
+            Indicator.close()
+          })
+      }
     },
     // 添加新的内容
     addNew: function () {
@@ -113,12 +116,14 @@ export default {
           advImg: require('./img/111.png'),
           advConent: ''
         }
-      )
+      );
+      this.changeDit= this.advData.length>1?true :false;
     },
     // 删除内容
     deleteConent: function (id) {
-      this.cancelId = id
-      this.advData.splice(this.advData.findIndex(item => item.advIndex === this.cancelId), 1)
+      this.cancelId = id;
+      this.advData.splice(this.advData.findIndex(item => item.advIndex === this.cancelId), 1);
+      this.changeDit= this.advData.length>1?true :false;
     },
     //  向上移动
     moveConentUp: function (item, index) {
@@ -255,7 +260,7 @@ export default {
               this.$router.push({
                 path: '/landingPage',
                 query: {
-                  type: 1
+                  type: 2
                 }
               })
             } else {

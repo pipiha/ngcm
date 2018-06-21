@@ -37,7 +37,7 @@
                     <span v-else="item.or_status === 4" style="color: #F1965A;">等待编辑</span>
                     <p>{{ item.adv_title }}</p>
                 </div>
-                <img src="./img/icon2.png" alt="">
+                <img src="./img/icon2-cg.png" alt="">
           </li>
           <!-- 数字传单 -->
           <li v-for="(item,index) in advData2"  :code="item.adv_id">

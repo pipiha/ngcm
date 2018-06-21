@@ -137,7 +137,7 @@ export default {
     }
   },
   methods: {
-    shuDetail: function (oid) {
+    shuDetail: function (oid) {//数字型传单详情
       this.$axios.get(this.utils.api + '/wxpub/orders_controller/mathOrderDetail?o_id=' + oid)
         .then((res) => {
           console.log(res)
@@ -155,7 +155,7 @@ export default {
           Indicator.close()
         })
     },
-    zhanDetail: function (oid, status) {
+    zhanDetail: function (oid, status) {//展示广告详情
       this.$axios.get(this.utils.api + '/wxpub/orders_controller/showOrderDetail?or_id=' + oid + '&or_status=' + status)
         .then((res) => {
           console.log(res)

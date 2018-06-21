@@ -16,7 +16,7 @@
         <div class="act_describe_wrap">
             <p>活动描述</p>
             <!-- <input type="text" placeholder="请输入活动描述"> -->
-            <textarea v-model="actDes" name="" id="" cols="30" rows="10" placeholder="请输入活动描述"></textarea>
+            <textarea v-model="actDes"  cols="30" rows="10" placeholder="请输入活动描述"></textarea>
         </div>
     </div>
 
@@ -30,7 +30,10 @@
             <li>
                 <p>活动地址</p>
                 <div class="li_right">
-                    <p style="width:86%;letter-spacing: 0.02rem;text-overflow:ellipsis;white-space: nowrap;overflow: hidden;">{{ actAddress }}</p>
+                    <p style="width:86%;letter-spacing: 0.02rem;text-overflow:ellipsis;white-space: nowrap;overflow: hidden;">
+                        <!--<input type="text" v-model="actAddresses" :placeholder="actAddress"> -->
+                        {{ actAddress }}
+                    </p>
                     <img src="./img/address.png" alt="">
                 </div>
             </li>
@@ -139,7 +142,8 @@ export default {
       imageUrl: require('./img/111.png'),
       actDes: '', //  活动描述
       actAddress: '石家庄晋州市马宇镇人人乐超市',
-      actTel: ''
+      actTel: '',
+      actAddresses:''
     }
   },
   beforeCreate: function () {
@@ -182,27 +186,30 @@ export default {
     },
     // 上传图片
     upLoading: function (e) {
-      Indicator.open()
       let token = this.imgToken
       let file = e.target.files[0]
-      let param = new FormData() // 创建form对象
-      param.append('file', file, file.name)// 通过append向form对象添加数据
-      param.append('token', this.imgToken)
-      param.append('chunk', '0')// 添加form表单中其他数据
-      console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
-      let config = {
-        headers: {'Content-Type': 'multipart/form-data'}
-      } // 添加请求头 http://up-z1.qiniu.com  http://upload.qiniu.com/
-      this.$axios.post('http://upload-z1.qiniu.com/', param, config)
-        .then(response => {
-          console.log(response.data)
-          Indicator.close()
-          this.imageUrl = 'http://img.agrimedia.cn/' + response.data.key
-        })
-        .catch((err) => {
-          MessageBox.alert('请稍后再试')
-          Indicator.close()
-        })
+      if(file){
+        Indicator.open()
+        let param = new FormData() // 创建form对象
+        param.append('file', file, file.name)// 通过append向form对象添加数据
+        param.append('token', this.imgToken)
+        param.append('chunk', '0')// 添加form表单中其他数据
+        console.log(param.get('file')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
+        let config = {
+            headers: {'Content-Type': 'multipart/form-data'}
+        } // 添加请求头 http://up-z1.qiniu.com  http://upload.qiniu.com/
+        this.$axios.post('http://upload-z1.qiniu.com/', param, config)
+            .then(response => {
+            console.log(response.data)
+            Indicator.close()
+            this.imageUrl = 'http://img.agrimedia.cn/' + response.data.key
+            })
+            .catch((err) => {
+            MessageBox.alert('请稍后再试')
+            Indicator.close()
+            })
+      }
+      
     },
     // 提交活动
     subAct: function () {
@@ -216,7 +223,8 @@ export default {
         MessageBox.alert('请填写您的联系方式')
       } else {
         MessageBox.alert('填写完毕')
-        this.axiosSub(this.imageUrl, this.actDes, this.isDayOn, this.actTel, this.actAddress)
+        this.actaddresses?this.actAddresses:this.actAddress;
+        this.axiosSub(this.imageUrl, this.actDes, this.isDayOn, this.actTel, this.actAddresses)
       }
     },
     // 提交请求

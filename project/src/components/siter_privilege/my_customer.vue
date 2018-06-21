@@ -111,7 +111,8 @@ export default {
       topStatus: '', // 顶部下拉加载状态
       translate: 0, //
       moveTranslate: 0,
-      itemItem: '' // 保存要选择时间的item数据
+      itemItem: '', // 保存要选择时间的item数据
+      pickerValue:''
     }
   },
   methods: {

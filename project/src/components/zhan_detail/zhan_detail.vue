@@ -141,7 +141,19 @@ export default {
   },
   mounted: function () {
     this.creatCanvas() // 创建canvas
-  }
+  },
+  activated: function () {
+    let advId = this.$route.query.advID
+    let orid = this.$route.query.id
+    console.log(orid)
+    if (orid === undefined) {
+      console.log('if')
+      this.getSiteData(advId, '')
+    } else {
+      console.log('else')
+      this.getSiteData(advId, orid)
+    }
+  },
 }
 </script>
 

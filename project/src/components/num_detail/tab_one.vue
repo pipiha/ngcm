@@ -113,11 +113,12 @@ export default {
     Indicator.open()
     this.getMineData(this.id, this.status, this.oid)
   },
-  beforeMount: function () {
-
-  },
-  mounted: function () {
-
+  activated () {
+    this.id = this.$route.query.o_id // list id
+    this.status = this.$route.query.o_status
+    this.oid = this.$route.query.oid
+    Indicator.open()
+    this.getMineData(this.id, this.status, this.oid)
   },
   deactivated: function () {
     Indicator.close()

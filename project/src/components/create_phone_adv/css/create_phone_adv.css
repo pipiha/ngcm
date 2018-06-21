@@ -18,7 +18,7 @@
     border-radius: 0.2rem;
     padding-left: 0.3rem;
     box-sizing: border-box;
-    color: #999999;
+    color: #000;
     font-size: 0.35rem;
 }
 .create_phone_wrap input::-webkit-input-placeholder{
@@ -155,7 +155,7 @@
     border: none;
     font-size: 0.35rem;
     line-height: 0.35rem;
-    color: #999999;
+    color: #000;
     padding-left: 0.3rem;
     padding-top: 0.3rem;
 }

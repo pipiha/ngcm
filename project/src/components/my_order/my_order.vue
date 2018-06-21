@@ -111,7 +111,7 @@ export default {
         }
       })
     },
-    advList: function (typevalue) {
+    advList: function (typevalue) { //获取全部订单列表
       this.$axios.get(this.utils.api + '/wxpub/orders_controller/orderIndex')
         .then((res) => {
         //   console.log(res.data.data)
@@ -123,7 +123,7 @@ export default {
           //   }
           let obj = [
             [
-              {
+              {//展示广告
                 'or_id': 34,
                 'or_number': '152490726317937',
                 'adv_title': '自然堂助听器（藁城）',
@@ -142,19 +142,19 @@ export default {
                 'month': 6
               }
             ],
-            [
+            [//数字传单
               {
                 'h5_src_title': '来买地',
                 'o_number': '152186214750676',
                 'o_status': 3,
-                'o_id': 8,
+                'o_id': 12,
                 'adv_type': 2
               },
               {
                 'h5_src_title': '来买地2',
                 'o_number': '152186214750676',
                 'o_status': 3,
-                'o_id': 8,
+                'o_id': 15,
                 'adv_type': 2
               }
             ]

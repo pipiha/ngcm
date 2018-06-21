@@ -310,6 +310,12 @@ export default {
         //     text: '特性示例：渐变色 阴影 点击缩放',
         //     subtext: 'Feature Sample: Gradient Color, Shadow, Click Zoom'
         // },
+        grid:{
+          left:'1%',
+          right:'0',
+          bottom:'1%',
+          containLabel:true
+        },
         xAxis: {
           data: dataAxis,
           axisLabel: {
