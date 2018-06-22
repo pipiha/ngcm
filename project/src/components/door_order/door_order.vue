@@ -151,8 +151,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { init } from './order.js' // 注意路径
 // import { init } from './order.js'
+// Vue.use(init)
 export default {
   data () {
     return {
@@ -166,7 +168,7 @@ export default {
 
   },
   created: function () {
-    this.init()
+    // init()
     // this.__startTime
   }
 

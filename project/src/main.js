@@ -8,7 +8,7 @@ import BaiduMap from 'vue-baidu-map'
 import VueBus from 'vue-bus'
 import VueScroller from 'vue-scroller'
 import store from './store'
-
+import $ from 'jquery'
 // import iView from 'iview';
 // import 'iview/dist/styles/iview.css';
 import VueWechatTitle from 'vue-wechat-title'

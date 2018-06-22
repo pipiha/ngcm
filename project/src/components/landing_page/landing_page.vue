@@ -63,10 +63,15 @@
             </div>
           </div>
     </div>
-    <div class="page_btn">
+    <div class="page_btn" v-show="type!=2">
         <div @click="goLianxi()">一键咨询</div>
         <div v-if="isRead" style="color:#999999!important;border:0.02rem solid #999999!important;">{{ textTag + count + 's' }}</div>
         <div v-else @click="goRed()">{{ textTag }}</div>
+    </div>
+    <div class="page_btn" v-show="type==2">
+        <div @click="goBack()">取消</div>
+
+        <div @click="doSubmit()">提交</div>
     </div>
 </div>
 </template>
@@ -83,7 +88,14 @@ export default {
       type: '',
       advID: '',
       textTag: '我已阅读',
-      dataTag: '',
+      dataTag: {
+        s_title:'',
+        s_thumb:'',
+        s_content:'',
+        s_content:'',
+        s_address:'',
+        s_phone:''
+      },
       lookData: '',
       count: 5,
       isRead: true
@@ -95,8 +107,10 @@ export default {
         .then((res) => {
           Indicator.close()
           if (res.data.code === 200) {
-            // console.log(res.data.data)
-            this.dataTag = res.data.data
+            console.log(res.data.data)
+            if(res.data.data != null){
+              this.dataTag = res.data.data
+            }
             this.getCode() // 阅读倒计时5s
           } else {
 
@@ -127,6 +141,32 @@ export default {
       this.$router.push({
         path: '/red'
       })
+    },
+    goBack(){//预览  界面取消
+      this.$router.go(-1);
+    },
+    doSubmit(){//预览后提交
+      Indicator.open()
+      this.$axios({
+        method: 'post',
+        url: this.utils.api + '/wxpub/create_adv/saveSecond',
+        data: this.submitStr
+      })
+        .then((res) => {
+          // console.log(res)
+          if (res.data.code == 200) { 
+            Indicator.close()
+            MessageBox.alert('提交成功 审核中...')
+          }
+          else{
+            MessageBox.alert(res.data.msg)
+            Indicator.close()
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    
     }
   },
   beforeCreate: function () {
@@ -134,7 +174,8 @@ export default {
   },
   computed: {
     ...mapState({
-      userInfo: state => state.userInfo
+      userInfo: state => state.userInfo,
+      submitStr: state => state.submitStr,      
     })
   },
   created: function () {
@@ -148,11 +189,11 @@ export default {
       this.show_share = false
       this.$route.meta.title = '我感兴趣'
       this.getAdvDetail(this.advId)
-    } else if (this.type === '1') { // 我的足迹
+    } else if (this.type == 1) { // 我的足迹
 
-    } else {
-      this.lookData = this.userInfo // 创建好广告预览的数
+    } else if(this.type == 2){//预览界面
       // Indicator.close()
+      this.lookData = this.userInfo // 创建好广告预览的数
     }
   },
   beforeMount: function () {

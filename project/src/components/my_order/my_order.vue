@@ -265,7 +265,14 @@ export default {
 .alert_bottom {
     width: 100%;
     height: 1rem;
-    display: flex;
+    
+  /* 兼容微信弹性盒写法---vue不进行旧版本flex兼容 */
+  display: -webkit-box; 
+  display: -moz-box; 
+  display: -ms-flexbox; 
+  display: -webkit-flex;
+  display: flex;
+  
     align-items: center;
     justify-content: space-around;
     text-align: center;

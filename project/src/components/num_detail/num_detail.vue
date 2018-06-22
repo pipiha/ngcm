@@ -86,12 +86,13 @@ export default {
     console.log(this.$route.path)
   },
   updated () {
-    this.current=this.$route.name.slice(3)-1;
-    console.log(this.current)
+    if(this.current){
+      this.current=this.$route.name.slice(3)-1;
+    }
   },
-  activated(){
-    this.current = 0
-  },
+  // activated(){
+  //   this.current = 0
+  // },
   deactivated: function () {
     console.log(this.$route.path)
   }

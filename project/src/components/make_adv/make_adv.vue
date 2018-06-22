@@ -121,7 +121,7 @@ export default {
             this.showImg= true;
           })
           .catch((err) => {
-            upLoading(e)
+            // upLoading(e)
             MessageBox.alert('请稍后再试')
             Indicator.close()
           })

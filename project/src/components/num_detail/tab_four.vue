@@ -59,7 +59,7 @@
       <div class="up_title_box">
         <img src="./img/tab4.png" alt="">
         <p>消费明细</p>
-        <p style="color: #999999;font-size；0.3rem;margin-left:0.2rem;">5月</p>
+        <p style="color: #999999;font-size；0.3rem;margin-left:0.2rem;">近 7 次</p>
       </div>
        <div :id="id" :style="{height:height,width:width}" style="margin-top:-1rem;" ref="myEchart_tab4"></div>
     </div>
@@ -92,7 +92,8 @@ export default {
   },
   data () {
     return {
-      o_id: 0,
+      o_id: 0,//广告编号
+      oid:0,//订单编号
       o_status: 0,
       moneyShow: '',
       xData: [],
@@ -233,8 +234,13 @@ export default {
         })
     },
     sureDayMoney: function () {
-      this.getMoneyList(this.o_id, this.o_status, this.dayMoney)
-      Indicator.open()
+      console.log(this.dayMoney )
+      if(this.dayMoney != null){
+        this.getMoneyList(this.oid, this.o_status, this.dayMoney)
+        Indicator.open()
+      }else{
+         MessageBox.alert('请输入每日消费金额')
+      }
     }
   },
   beforeCreate: function () {
@@ -242,8 +248,9 @@ export default {
   },
   created: function () {
     this.o_id = this.$route.query.o_id
+    this.oid = this.$route.query.oid
     this.o_status = this.$route.query.o_status
-    this.getMoneyList(this.o_id, this.o_status, 0)
+    this.getMoneyList(this.oid, this.o_status, 0)
   },
   beforeMount: function () {
 

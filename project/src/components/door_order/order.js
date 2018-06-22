@@ -8,7 +8,7 @@
 // var BaseUrl = 'http://'+ window.location.host + '/m'; //请求数据路径
 // var BaseUrl2 = 'http://'+ window.location.host + '';
 function init () {
-  alert('引入js')
+  // alert('引入js')
   // 初始化元素
   var _couponBtn = $('#coupon')
   var _submitBtn = $('.submit_btn')

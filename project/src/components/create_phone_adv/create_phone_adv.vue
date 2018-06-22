@@ -25,7 +25,7 @@
            </li>
         </ul>
         <!-- 创建新的内容 -->
-        <div class="create_new_content">
+        <div class="create_new_content" v-show="addenter">
             <img @click="addNew()" src="./img/addadv.png" alt="">
         </div>
         <input v-model="srcTitle" type="text" placeholder="请输入广告名称（必填）">
@@ -60,6 +60,7 @@ export default {
       advTel: '',
       lookData: [],
       changeDit:false,
+      addenter:true,
     }
   },
   methods: {
@@ -113,17 +114,20 @@ export default {
       this.advData.push(
         {
           advIndex: this.advData.length,
-          advImg: require('./img/111.png'),
-          advConent: ''
-        }
-      );
+            advImg: require('./img/111.png'),
+            advConent: ''
+          }
+        );
+      console.log($('body').scrollTop())
+      this.addenter=this.advData.length==6?false:true;//最多添加6项
       this.changeDit= this.advData.length>1?true :false;
     },
     // 删除内容
     deleteConent: function (id) {
       this.cancelId = id;
       this.advData.splice(this.advData.findIndex(item => item.advIndex === this.cancelId), 1);
-      this.changeDit= this.advData.length>1?true :false;
+      this.addenter=this.advData.length==6?false:true;//最多添加6项
+      this.changeDit= this.advData.length>1?true :false;//是否显示删除等功能
     },
     //  向上移动
     moveConentUp: function (item, index) {
@@ -154,7 +158,7 @@ export default {
         this.advData.splice(index, 1) // 删除前一项
       }
     },
-    advSubmit: function () {
+    advSubmit: function () {//直接提交
       let myreg = /^[1][3,4,5,7,8][0-9]{9}$/ // 验证手机号
       if (this.advConentTitle === '') {
         MessageBox.alert('请填写广告内容标题')
@@ -183,43 +187,46 @@ export default {
         h5_src_title: this.srcTitle,
         h5_address: this.advAdress,
         h5_app_pic: this.appPic
-      })
+      });
+      this.$store.dispatch('subStr', postData)
       this.$axios({
         method: 'post',
-        url: this.utils.api + '/wxpub/wxpub/create_adv/saveSecond',
+        url: this.utils.api + '/wxpub/create_adv/saveSecond',
         data: postData
       })
         .then((res) => {
-          console.log(res)
-          if (res.data.code === 200) {
-            MessageBox.alert('提交成功')
+          // console.log(res)
+          if (res.data.code == 200) { 
+            MessageBox.alert('提交成功 审核中...')
+          }
+          else{
+            MessageBox.alert(res.data.msg)
           }
         })
         .catch((err) => {
           console.log(err)
         })
     },
-    lookAdv: function (e) {
-      this.lookData.push(
-        {
-          type: 1
-        },
-        {
-          h5_title: this.advConentTitle
-        },
-        {
-          h5_content: this.advData
-        },
-        {
-          h5_phone: this.advTel
-        },
-        {
-          h5_src_title: this.srcTitle
-        },
-        {
-          h5_address: this.advAdress
-        }
-      )
+    lookAdv: function (e) {//预览功能
+      this.lookData = [
+        { type: 1},
+        { h5_title: this.advConentTitle},
+        { h5_content: this.advData },
+        { h5_phone: this.advTel},
+        { h5_src_title: this.srcTitle},
+        {h5_address: this.advAdress },
+        { h5_app_pic: this.appPic}
+      ];
+      let postData = this.$qs.stringify({
+        h5_title: this.advConentTitle,
+        h5_content: this.advData,
+        h5_phone: this.advTel,
+        h5_src_title: this.srcTitle,
+        h5_address: this.advAdress,
+        h5_app_pic: this.appPic
+      });
+      console.log(postData)
+      this.$store.dispatch('subStr', postData)
       // bus.$emit('LOOKDATA', this.lookData)
       // this.$store.dispatch('getUser', '小姐姐真漂亮')
       this.$store.dispatch('getUser', this.lookData)
@@ -241,7 +248,14 @@ export default {
       } else if (this.advData[0].advConent === '') {
         MessageBox.alert('请填写至少一个广告内容')
       } else {
-        let postData = this.$qs.stringify({
+        this.$router.push({
+          path: '/landingPage',
+          query: {
+            type: 2
+          }
+        })
+        //预览页面不进行提交
+        /*let postData = this.$qs.stringify({
           h5_title: this.advConentTitle,
           h5_content: this.advData,
           h5_phone: this.advTel,
@@ -269,7 +283,7 @@ export default {
           })
           .catch((err) => {
             MessageBox.alert('请稍后再试')
-          })
+          })*/
       }
     }
 

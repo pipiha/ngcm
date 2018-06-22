@@ -10,3 +10,6 @@ export const getUser = ({ commit }, data) => {
      */
   commit(types.GET_USER, data)
 }
+export const subStr = ({ commit }, data) => {
+  commit(types.SUB_STR, data)
+}

@@ -22,8 +22,9 @@
     </ul>
     <div class="play_up_wrap" style="width: 97%;box-shadow: 0 0.01rem 0.1rem 0.1rem rgba(234,234,234,0.50);">
         <div class="site_numer_box" style="margin-left: 31%;margin-top: 11%;">
-            <p>播放点位总计</p>
+            <p>互动人数</p>
             <p>{{ s1 }}</p>
+            <p><a href="#">查看详情</a></p>
         </div>
     </div>
     <img class="num_img" src="../play_time//img/times.png" alt="">

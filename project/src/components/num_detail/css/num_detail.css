@@ -215,7 +215,14 @@ html.body{
 .site_bili_ul li{
     width: 100%;
     height: 1.5rem;
-    display: flex;
+    
+  /* 兼容微信弹性盒写法---vue不进行旧版本flex兼容 */
+  display: -webkit-box; 
+  display: -moz-box; 
+  display: -ms-flexbox; 
+  display: -webkit-flex;
+  display: flex;
+  
     justify-content: space-between;
     align-items: center;
 }
