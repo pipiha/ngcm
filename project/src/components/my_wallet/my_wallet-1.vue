@@ -31,8 +31,6 @@
         <li v-for="(item,index) in moneyList" :code="item.f_id">   <!-- 推广费用明细 -->
           <div v-show="item.showHead"  class="month_bill_up">
               <div class="bill_up_left">
-                <!-- 定位到某月 -->
-                <a :name="item.timeAxis.current_time"></a>
                   <div class="check_time" @click="openPicker(item,index)">
                       <p>{{ item.timeAxis.current_time }}</p>
                       <img src="./img/down.png" alt="">
@@ -53,37 +51,13 @@
               </div>
           </div>
           <div style="width:92%;margin:0 auto;height: 2rem;border-bottom: 0.02rem solid #ECECEC;"  @click="consumptionDetails(item.create_time,item.f_io_type)">
-            <div class="wallet_list_left" v-if="item.f_io_type == 1&&item.userType==1">
-                <img  src="./img/wallet_chong.png" alt="">
-                <p>充值金额</p>
+            <div class="wallet_list_left">
+                <img v-if="item.f_io_type == 1" src="./img/wallet_chong.png" alt="">
+                <img v-else src="./img/wallet_xiao.png" alt="">
+                <p  v-if="item.f_io_type == 1">充值金额</p>
+                <p  v-else>消费金额</p>
                 <p>{{ item.create_time.substr(0,10) }}</p>
             </div>
-            <div class="wallet_list_left" v-if="item.f_io_type == 0&&item.userType==1">
-                <img  src="./img/wallet_xiao.png" alt="">
-                <p>广告费用支出</p>
-                <p>{{ item.create_time.substr(0,10) }}</p>
-            </div>
-            <div class="wallet_list_left" v-if="item.f_io_type == 0&&item.userType==2">
-                <img  src="./img/wallet_wechat.png" alt="">
-                <p>红包提现</p>
-                <p>{{ item.create_time.substr(0,10) }}</p>
-            </div>
-            <div class="wallet_list_left" v-if="item.f_io_type == 1&&item.userType==2">
-                <img  src="./img/wallet_redboard.png" alt="">
-                <p>扫码红包</p>
-                <p>{{ item.create_time.substr(0,10) }}</p>
-            </div>
-            <div class="wallet_list_left" v-if="item.f_io_type == 1&&item.userType==3">
-                <img  src="./img/wallet_zu.png" alt="">
-                <p>分佣租金</p>
-                <p>{{ item.create_time.substr(0,10) }}</p>
-            </div>
-            <div class="wallet_list_left" v-if="item.f_io_type == 0&&item.userType==3">
-                <img  src="./img/wallet_zu.png" alt="">
-                <p>分佣提现</p>
-                <p>{{ item.create_time.substr(0,10) }}</p>
-            </div>
-            
             <div class="wallet_list_right">
                 <p  v-if="item.f_io_type == 1" style="color: #F4B779;">+{{ item.money }}</p>
                 <p  v-else>-{{ item.money }}</p>
@@ -113,8 +87,8 @@
       ref="picker"
       :startDate="startDate"
       :endDate="endDate"
-      year-format="{value} 年"
-      month-format="{value} 月">
+      year-format="{value}"
+      month-format="{value}">
     </mt-datetime-picker>
     <div v-show="zheZhao" class="zhe_zhao"></div>
 
@@ -157,8 +131,6 @@ export default {
           textAlign: 'center'
         }
       ],
-      ifo:'',
-      typeuser:3,
       isKong: false,
       shaiXuan: '',
       monthArr: [], // 保存当前展示支出收入头的值
@@ -202,8 +174,8 @@ export default {
                   //   return true
                   // })
                   let a = this.monthArr.indexOf(item.timeAxis.current_time)
-                  if (a === -1) {
                   this.monthArr.push(item.timeAxis.current_time)
+                  if (a === -1) {
                     item.showHead = true
                   } else {
                     item.showHead = false
@@ -227,8 +199,8 @@ export default {
               if (item.timeAxis.length !== 0) {
                 let b = this.monthArr.indexOf(item.timeAxis.current_time)
                 console.log(b)
-                if (b === -1) {
                 this.monthArr.push(item.timeAxis.current_time)
+                if (b === -1) {
                   item.showHead = true
                 } else {
                   item.showHead = false
@@ -244,19 +216,19 @@ export default {
             this.handleBottomChange('loadingEnd')// 数据加载完毕 修改状态码
             this.$refs.loadmore.onBottomLoaded()
           }
+
           if (res.data.code !== 200) {
             MessageBox.alert(res.data.msg)
           }
         })
         .catch(err => { //  请求失败后的函数
-
           this.handleBottomChange('loadingEnd')
           Indicator.close()
           MessageBox.alert('请稍后重试')
         })
     },
     openPicker (item, index) { // 显示选择时间日期
-      console.log(item,index,'----')
+      // console.log(item)
       this.itemItem = item
       this.$refs.picker.open()
     },
@@ -304,7 +276,7 @@ export default {
       // let timeTag = this.pickerValue
       // console.log(this.pickerValue)
       let startTime = this.formatDate(this.pickerValue, 0)
-      // console.log(startTime,'---',this.shaiXuan)
+      console.log(startTime)
       // type:1,io:0 广告费支出
       // type:1,io:1 充值
       // type:4,io:1 提现
@@ -312,52 +284,26 @@ export default {
       // type:5,io:0 分佣
       // type:3,io:false 全部
       if (this.shaiXuan === '') {
-        this.ifo='';
-        this.moneyList=[];
-        this.typeuser=3;
+
       } else if (this.shaiXuan === '全部') {
         this.setzhichu(3, startTime, '', 1)
-        this.monthArr=[];
-        this.moneyList=[];
-        this.ifo='';
-        this.typeuser=3
       } else if (this.shaiXuan === '红包') {
-        this.setzhichu(4, startTime, 1, 1)
-        this.monthArr=[];
-        this.moneyList=[];
-        this.ifo=1;
-        this.typeuser=4
-      } else if (this.shaiXuan === '提现') {
         this.setzhichu(4, startTime, 0, 1)
-        this.monthArr=[];
-        this.moneyList=[];
-        this.ifo=0;
-        this.typeuser=4
+      } else if (this.shaiXuan === '提现') {
+        this.setzhichu(4, startTime, 1, 1)
       } else if (this.shaiXuan === '充值') {
         this.setzhichu(1, startTime, 1, 1)
-        this.monthArr=[];
-        this.moneyList=[];
-        this.ifo=1;
-        this.typeuser=1
       } else if (this.shaiXuan === '分佣') {
         this.setzhichu(5, startTime, 0, 1)
-        this.monthArr=[];
-        this.moneyList=[];
-        this.ifo=0;
-        this.typeuser=5
       } else if (this.shaiXuan === '广告费支出') {
         this.setzhichu(1, startTime, 0, 1)
-        this.monthArr=[];
-        this.moneyList=[];
-        this.ifo=0;
-        this.typeuser=1
       }
     },
-    onValuesChange: function (picker, values) {//筛选
+    onValuesChange: function (picker, values) {
       this.shaiXuan = values[0]
       // console.log(this.shaiXuan)
     },
-    consumptionDetails: function (code, f_io) {//详情
+    consumptionDetails: function (code, f_io) {
       // console.log(f_io)
       // console.log(code.substr(0,10))
       this.$router.push({
@@ -377,9 +323,7 @@ export default {
       this.handleBottomChange('loading')// 上拉时 改变状态码
       this.pageNum += 1
       let startTime = this.formatDate(this.pickerValue, 0)
-      let type=this.typeuser;
-      let io=this.ifo;
-      this.setzhichu(type, startTime, io, this.pageNum)
+      this.setzhichu(3, startTime, '', this.pageNum)
     },
     handleTopChange (status) {
       this.moveTranslate = 1
@@ -391,13 +335,11 @@ export default {
       this.moveTranslate = (1 + translateNum / 80).toFixed(2)
     },
     loadTop () { // 下拉刷新 模拟数据请求这里为了方便使用一次性定时器
-      this.handleTopChange('loading');// 下拉时 改变状态码
-      this.pageNum = 1;
-      this.monthArr=[];
-      this.allLoaded = false;// 下拉刷新时解除上拉加载的禁用
-      let startTime = this.formatDate(this.pickerValue, 0);
-      
-      this.setzhichu(3, startTime, '', 1);
+      this.handleTopChange('loading')// 下拉时 改变状态码
+      this.pageNum = 1
+      this.allLoaded = false// 下拉刷新时解除上拉加载的禁用
+      let startTime = this.formatDate(this.pickerValue, 0)
+      this.setzhichu(3, startTime, '', 1)
     }
 
   },

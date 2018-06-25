@@ -112,14 +112,16 @@ export default {
       translate: 0, //
       moveTranslate: 0,
       itemItem: '', // 保存要选择时间的item数据
-      pickerValue:''
+      pickerValue:'',
+      responsedata:''
     }
   },
   methods: {
     customerList: function (pageNum) {
-      this.$axios.get(this.utils.api + '/wxpub/siter/getUserList.html?page=' + pageNum)
+      this.$axios.get(this.utils.api + '/wxpub/siter/getUserList.html?month=2018-04')
         .then((res) => {
           if (res.data.code === 200) {
+              this.responsedata=res.data
             if (this.pageNum === res.data.data.last_page) {
               this.allLoaded = true// 模拟数据加载完毕 禁用上拉加载
               this.handleBottomChange('loadingEnd')// 数据加载完毕 修改状态码
@@ -143,8 +145,8 @@ export default {
     loadBottom () {
       this.pageConfig.page += 1
       console.log(this.pageConfig.page)
-      this.$axios.get('/api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page)
-        .then((res) => {
+      this.$axios.get('/api/wxpub/siter/getUserList.html?page=' + this.pageConfig.page+'&month= ')
+        .then((res) => {''
           if (res.data.code === 200) {
             // console.log(res.data.data.data)
             this.customerData = res.data.data.data
@@ -186,7 +188,7 @@ export default {
       this.moveTranslate = 1
       this.bottomStatus = status
     },
-    loadBottom () {
+    loadBottomz () {
       this.handleBottomChange('loading')// 上拉时 改变状态码
       this.pageNum += 1
       this.customerList(this.pageNum)
@@ -203,9 +205,11 @@ export default {
     //   console.log(this.translateNum)
     },
     loadTop () { // 下拉刷新 模拟数据请求这里为了方便使用一次性定时器
+    //   this.handleTopChange('pull')// 下拉时 改变状态码
       this.handleTopChange('loading')// 下拉时 改变状态码
       this.pageNum = 1
       this.allLoaded = false// 下拉刷新时解除上拉加载的禁用
+    //   this.$refs.loadmore.onTopLoaded();
       this.customerList(1)
     }
 
@@ -276,18 +280,13 @@ export default {
     margin-top: 10%;
     margin-left: -41%;
 }
-
+.mint-loadmore{
+    width: 100%;
+}
 .money_title{
     width: 100%;
     height: 1rem;
-    
-  /* 兼容微信弹性盒写法---vue不进行旧版本flex兼容 */
-  display: -webkit-box; 
-  display: -moz-box; 
-  display: -ms-flexbox; 
-  display: -webkit-flex;
-  display: flex;
-  
+    display: flex;
     align-items: center;
     justify-content: space-around;
     margin-left: 0.25rem;
